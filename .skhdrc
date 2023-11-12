@@ -22,7 +22,10 @@ ctrl + shift - up : yabai -m window --warp north
 # Rotate layout
 ctrl + alt - b : yabai -m space --rotate 90
 # Balance the layout
-ctrl - b : yabai -m space --balance
+ctrl - b [
+     "iTerm2" ~
+      * : yabai -m space --balance
+]
 
 # Move focus container to display (use "space" instead of display to move to just per space instead)
 ctrl + shift - a : yabai -m window --display 1 --focus # main monitor
@@ -58,8 +61,7 @@ ctrl - f [
       * : yabai -m window --toggle zoom-fullscreen
 ]
 # Disable padding overall
-ctrl - h                 : yabai -m config top_padding 0 ; yabai -m config bottom_padding 0 ; yabai -m config left_padding 0 ; yabai -m config right_padding 0 ; yabai -m config window_gap 0
-ctrl + alt - h           : yabai -m config top_padding 8 ; yabai -m config bottom_padding 8 ; yabai -m config left_padding 8 ; yabai -m config right_padding 8
+ctrl + alt - h           : yabai -m config top_padding 0 ; yabai -m config bottom_padding 0 ; yabai -m config left_padding 0 ; yabai -m config right_padding 0 ; yabai -m config window_gap 0
 ctrl + shift - h         : yabai -m config window_gap 8
 ctrl + shift + alt - h   : yabai -m config top_padding 8 ; yabai -m config bottom_padding 8 ; yabai -m config left_padding 8 ; yabai -m config right_padding 8 ; yabai -m config window_gap 8
 # Toggle floating/bsp
