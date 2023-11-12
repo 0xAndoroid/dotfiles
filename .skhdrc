@@ -1,0 +1,88 @@
+# https://github.com/koekeishiya/yabai/wiki/Commands#focus-display
+# https://github.com/koekeishiya/dotfiles/blob/master/skhd/skhdrc
+
+# Shouldnt need to blacklist anymore as switching everything over to ctrl not alt
+.blacklist [
+     "Counter Strike: Global Offensive"
+     "Civilization VI"
+]
+
+# Navigation
+ctrl + alt - h : yabai -m window --focus west
+ctrl + alt - l : yabai -m window --focus east
+ctrl + alt - k : yabai -m window --focus south
+ctrl + alt - j : yabai -m window --focus north 
+
+# Moving windows
+ctrl + shift - left : yabai -m window --warp west
+ctrl + shift - right : yabai -m window --warp east
+ctrl + shift - down : yabai -m window --warp south
+ctrl + shift - up : yabai -m window --warp north
+
+# Rotate layout
+ctrl - \ : yabai -m space --rotate 90
+# Balance the layout
+ctrl - b : yabai -m space --balance
+
+# Move focus container to display (use "space" instead of display to move to just per space instead)
+ctrl + shift - a : yabai -m window --display 1 --focus # main monitor
+ctrl + shift - o : yabai -m window --display 2 --focus # second monitor
+# ctrl + shift - e : yabai -m window --display 3 --focus # laptop
+
+# Move focus container to space
+cmd + alt - 1 : yabai -m window --space 1 --focus # main
+cmd + alt - 2 : yabai -m window --space 2 --focus # web
+cmd + alt - 3 : yabai -m window --space 3 --focus # chat
+cmd + alt - 4 : yabai -m window --space 4 --focus # music
+cmd + alt - 5 : yabai -m window --space 5 --focus # editors
+cmd + alt - 6 : yabai -m window --space 6 --focus # immersion
+cmd + alt - 7 : yabai -m window --space 7 --focus # anki
+cmd + alt - 8 : yabai -m window --space 8 --focus # terminal
+cmd + alt - 9 : yabai -m window --space 9 --focus # space 9
+cmd + alt - 0 : yabai -m window --space 10 --focus # space 9
+
+
+# Resize windows
+ctrl + alt - left : yabai -m window --resize left:-100:0 ; yabai -m window --resize right:-100:0
+ctrl + alt - down : yabai -m window --resize bottom:0:100 ; yabai -m window --resize top:0:100
+ctrl + alt - up : yabai -m window --resize top:0:-100 ; yabai -m window --resize bottom:0:-100
+ctrl + alt - right : yabai -m window --resize right:100:0 ; yabai -m window --resize left:100:0
+
+
+# Float / Unfloat window
+ctrl - space : yabai -m window --toggle float
+
+# Make fullscreen
+ctrl - f [
+     "iTerm2" ~
+      * : yabai -m window --toggle zoom-fullscreen
+]
+# Disable padding overall
+ctrl - h                 : yabai -m config top_padding 0 \ yabai -m config bottom_padding 0 \ yabai -m config left_padding 0 \ yabai -m config right_padding 0 \ yabai -m config window_gap 0
+ctrl + alt - h           : yabai -m config top_padding 8 \ yabai -m config bottom_padding 8 \ yabai -m config left_padding 8 \ yabai -m config right_padding 8
+ctrl + shift - h         : yabai -m config window_gap 8
+ctrl + shift + alt - h   : yabai -m config top_padding 8 \ yabai -m config bottom_padding 8 \ yabai -m config left_padding 8 \ yabai -m config right_padding 8 \ yabai -m config window_gap 8
+# Toggle floating/bsp
+ctrl - d  [
+     "iTerm2" ~
+      * : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+]
+ctrl - i               : yabai -m config focus_follows_mouse autofocus
+ctrl + alt - i         : yabai -m config focus_follows_mouse off
+
+# Change desktop
+cmd - 1 : yabai -m space --focus 1
+cmd - 2 : yabai -m space --focus 2
+cmd - 3 : yabai -m space --focus 3
+cmd - 4 : yabai -m space --focus 4
+cmd - 5 : yabai -m space --focus 5
+cmd - 6 : yabai -m space --focus 6
+cmd - 7 : yabai -m space --focus 7
+cmd - 8 : yabai -m space --focus 8
+cmd - 9 : yabai -m space --focus 9
+cmd - 0 : yabai -m space --focus 10
+
+# Unused
+# ctrl - 1 : yabai -m display --focus 3
+# ctrl - 2 : yabai -m display --focus 1
+# ctrl - 3 : yabai -m display --focus 2

@@ -1,0 +1,12 @@
+[user]
+	name = Andrew Tretyakov
+	email = 42178850+0xAndoroid@users.noreply.github.com
+	signingkey = /Users/andoroid/.ssh/github_ed25519.pub
+[credential]
+	helper = osxkeychain
+[core]
+	editor = nvim
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
