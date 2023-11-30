@@ -27,7 +27,7 @@ yabai -m rule --add title="^Preview" manage=off
 yabai -m rule --add title="^Preferences" manage=off
 yabai -m rule --add title="^Settings" manage=off
 yabai -m rule --add title="Steam" manage=off
-yabai -m rule --add title="Microsoft Teams" manage=off
+yabai -m rule --add title="Meeting now" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Kawa$" manage=off
 yabai -m rule --add app="^Bitwarden$" manage=off
@@ -44,6 +44,8 @@ yabai -m signal --add app='Brave Browser' event='window_title_changed' \
   action="yabai -m rule --add label=$(uuidgen) app='Brave Browser' title='MetaMask Notification' manage=off"
 yabai -m signal --add app='Brave Browser' event='window_title_changed' \
   action="yabai -m rule --add label=$(uuidgen) app='Brave Browser' title='Phantom' manage=off"
+yabai -m signal --add app='Microsoft Teams' event='window_title_changed' \
+  action="yabai -m rule --add label=$(uuidgen) app='Microsoft Teams' title='Meeting now' manage=off"
 
 
 yabai -m config top_padding    8
