@@ -12,7 +12,6 @@ alias du='dust'
 alias copilot='gh copilot'
 alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
-export PATH="/Applications/Racket v8.10/bin:$PATH"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
