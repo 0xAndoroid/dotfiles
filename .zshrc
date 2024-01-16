@@ -112,3 +112,7 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+
+alias ls='eza --icons'
+alias ll='eza --icons -l'
+alias la='eza --icons -la'
