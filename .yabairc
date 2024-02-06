@@ -21,7 +21,7 @@ yabai -m rule --add app="^Telegram$" space=telegram
 yabai -m rule --add app="^Spotify$" space=music
 
 # Window rules
-yabai -m rule --add app="^(Calculator|System Preferences|System Settings|Archive Utility|Finder)$" manage=off
+yabai -m rule --add app="^(Calculator|System Preferences|System Settings|Archive Utility|Finder)$" manage=off sticky=on
 # Anki card preview
 yabai -m rule --add app="^Preview" manage=off
 yabai -m rule --add title="^Preferences" manage=off
@@ -34,15 +34,18 @@ yabai -m rule --add app="^Kawa$" manage=off
 yabai -m rule --add app="^Bitwarden$" manage=off
 yabai -m rule --add title="Bitwarden" manage=off
 yabai -m rule --add app="^Notes$" manage=off
-yabai -m rule --add app="^Calendar$" manage=off
+yabai -m rule --add app="^DevToys$" manage=off
 yabai -m rule --add app="^Counter-Strike Global Offensive$" manage=off
 yabai -m rule --add app="^Reminders$" manage=off
 yabai -m rule --add app="^QuickTime Player$" manage=off
 yabai -m rule --add app="^Sid Meier's Civilization VI$" manage=off
 yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
-yabai -m rule --add app="^Brave Browser$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
+yabai -m rule --add app="PDF Reader Pro" manage=off
+yabai -m rule --add app="^Telegram$" manage=off
+yabai -m rule --add app="^Telegram$" title="Telegram" manage=on
+yabai -m rule --add app="^Brave Browser$" manage=off
 yabai -m rule --add app="^Brave Browser$" title="Brave" manage=on
 yabai -m rule --add app="zoom" manage=off
 yabai -m rule --add app="Microsoft Teams" manage=off
