@@ -116,3 +116,21 @@ source $ZSH/oh-my-zsh.sh
 alias ls='eza --icons'
 alias ll='eza --icons -l'
 alias la='eza --icons -la'
+alias vim=nvim
+alias vi=nvim
+alias cat=bat
+alias du='dust'
+alias copilot='gh copilot'
+alias gcs='gh copilot suggest'
+alias gce='gh copilot explain'
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+eval "$(zoxide init zsh --cmd cd)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+[ -f ~/.blockchainrc ] && source ~/.blockchainrc
+
+source /Users/andoroid/.docker/init-zsh.sh || true # Added by Docker Desktop
