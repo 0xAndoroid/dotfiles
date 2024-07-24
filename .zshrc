@@ -127,6 +127,7 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 eval "$(zoxide init zsh --cmd cd)"
+eval "$(fzf --zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
