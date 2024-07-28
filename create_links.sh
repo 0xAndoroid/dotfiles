@@ -10,3 +10,4 @@ ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.rustfmt.toml ~/.rustfmt.toml
 ln -s ~/.dotfiles/.skhdrc ~/.skhdrc
 ln -s ~/.dotfiles/.yabairc ~/.yabairc
+ln -s ~/.dotfiles/nvim ~/.config/nvim
