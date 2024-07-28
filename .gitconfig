@@ -1,12 +1,21 @@
 [user]
+	signingkey = /Users/andrew/.ssh/id_ecdsa
 	name = Andrew Tretyakov
-	email = 42178850+0xAndoroid@users.noreply.github.com
-	signingkey = /Users/andoroid/.ssh/github_ed25519.pub
-[credential]
-	helper = osxkeychain
-[core]
-	editor = nvim
+	email = 169074262+0xAndoroid-cube@users.noreply.github.com
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gpg]
 	format = ssh
+[core]
+	editor = nvim
+[pull]
+	rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	tool = neovim
+[merge]
+	tool = nvim

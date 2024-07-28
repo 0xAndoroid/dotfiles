@@ -134,4 +134,7 @@ eval "$(fzf --zsh)"
 
 [ -f ~/.blockchainrc ] && source ~/.blockchainrc
 
-source /Users/andoroid/.docker/init-zsh.sh || true # Added by Docker Desktop
+alias restart='ansible-playbook -i conf/inventory/development.yaml -e @conf/secrets/dev.enc conf/plays/stop.yaml ; ansible-playbook -i conf/inventory/development.yaml -e @conf/secrets/dev.enc conf/plays/start.yaml'
+alias rebuild='cd ~/dev/ ; bash core/build/macos.sh ; ansible-playbook -i conf/inventory/development.yaml -e @conf/secrets/dev.enc conf/plays/stop.yaml ;ansible-playbook -i conf/inventory/development.yaml -e @conf/secrets/dev.enc conf/plays/deploy.yaml ; ansible-playbook -i conf/inventory/development.yaml -e @conf/secrets/dev.enc conf/plays/start.yaml'
+
+# source $HOME/.docker/init-zsh.sh || true # Added by Docker Desktop

@@ -15,6 +15,7 @@ yabai -m space 8 --label calendar
 yabai -m rule --add app="^iTerm2$" space=terminal
 yabai -m rule --add app="^Brave Browser$" space=web
 yabai -m rule --add app="Mail" space=mail
+yabai -m rule --add app="Notion" space=notes
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
 yabai -m rule --add app="^Telegram$" space=telegram
