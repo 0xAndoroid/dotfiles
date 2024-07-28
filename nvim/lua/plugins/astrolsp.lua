@@ -69,7 +69,8 @@ return {
           ["rust-analyzer"] = {
             imports = {
               granularity = {
-                group = "module",
+                enforce = true,
+                group = "one",
               },
               prefix = "crate",
             },
@@ -81,8 +82,8 @@ return {
             },
             check = {
               features = "all",
-              command = "clippy",
-              extraArgs = { "--no-deps" },
+              command = "check",
+              extraArgs = {},
             },
             procMacro = {
               enable = true,
