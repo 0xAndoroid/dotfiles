@@ -71,7 +71,7 @@ return {
               granularity = {
                 group = "module",
               },
-              prefix = "self",
+              prefix = "crate",
             },
             cargo = {
               buildScripts = {
