@@ -62,7 +62,7 @@ ctrl - f [
 ]
 # Disable padding overall
 ctrl + shift - h : yabai -m config top_padding 0 ; yabai -m config bottom_padding 0 ; yabai -m config left_padding 0 ; yabai -m config right_padding 0 ; yabai -m config window_gap 0
-ctrl + shift + alt - h   : yabai -m config top_padding 8 ; yabai -m config bottom_padding 8 ; yabai -m config left_padding 8 ; yabai -m config right_padding 8 ; yabai -m config window_gap 8
+ctrl + shift + alt - h   : yabai -m config top_padding 16 ; yabai -m config bottom_padding 16 ; yabai -m config left_padding 16 ; yabai -m config right_padding 16 ; yabai -m config window_gap 16 
 # Toggle floating/bsp
 ctrl - d  [
      "iTerm2" ~
