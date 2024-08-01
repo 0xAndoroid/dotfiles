@@ -97,7 +97,6 @@ return {
     },
   },
   { import = "astrocommunity.bars-and-lines.lualine-nvim" },
-  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings"},
