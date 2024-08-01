@@ -72,6 +72,12 @@ return {
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
+        ["<C-w>"] = { "<C-\\><C-n><C-w>", desc = "Exit terminal mode" },
+        ["<C-h>"] = { "<Cmd>wincmd h<CR>" },
+        ["<C-j>"] = { "<Cmd>wincmd j<CR>" },
+        ["<C-k>"] = { "<Cmd>wincmd k<CR>" },
+        ["<C-l>"] = { "<Cmd>wincmd l<CR>" },
+        ["<esc>"] = { "<C-\\><C-n>", desc = "Exit terminal mode" },
       },
       v = {
         ["<leader>p"] = { "p", desc = "Paste" },

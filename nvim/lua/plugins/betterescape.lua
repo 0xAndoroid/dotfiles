@@ -20,7 +20,7 @@ return {
         },
         t = {
             j = {
-                k = "<Esc>",
+                k = false,
                 j = false,
             },
         },
