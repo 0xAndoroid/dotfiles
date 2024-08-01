@@ -42,6 +42,13 @@ return {
         },
         {
           filter = {
+            event = "notify",
+            find = "Invalid offset LineCol",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
             event = "msg_show",
             any = {
               { find = "%d+L, %d+B" },
