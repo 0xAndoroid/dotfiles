@@ -77,7 +77,6 @@ return {
         ["<C-j>"] = { "<Cmd>wincmd j<CR>" },
         ["<C-k>"] = { "<Cmd>wincmd k<CR>" },
         ["<C-l>"] = { "<Cmd>wincmd l<CR>" },
-        ["<esc>"] = { "<C-\\><C-n>", desc = "Exit terminal mode" },
       },
       v = {
         ["<leader>p"] = { "p", desc = "Paste" },
