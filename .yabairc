@@ -18,7 +18,7 @@ yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
 yabai -m rule --add app="^Telegram$" space=telegram
-yabai -m rule --add app="^Spotify$" space=music
+yabai -m rule --add app="Spotify" space=music
 yabai -m rule --add app="^Calendar$" space=calendar
 
 # Window rules
