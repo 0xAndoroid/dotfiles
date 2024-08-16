@@ -133,5 +133,3 @@ eval "$(fzf --zsh)"
 
 
 [ -f ~/.blockchainrc ] && source ~/.blockchainrc
-
-source /Users/andoroid/.docker/init-zsh.sh || true # Added by Docker Desktop

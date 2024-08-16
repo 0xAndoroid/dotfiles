@@ -17,8 +17,6 @@ export PATH="$HOME/.solana/bin:$PATH"
 # Setting PATH for Python 3.11
 export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$PATH"
 
-source $HOME/.docker/init-zsh.sh || true # Added by Docker Desktop
-
 . "$HOME/.cargo/env"
 
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
