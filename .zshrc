@@ -123,6 +123,7 @@ alias du='dust'
 alias copilot='gh copilot'
 alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
+alias ':q'='cowsay "you are not in vim anymore"'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
