@@ -104,7 +104,15 @@ return {
     },
   },
   { import = "astrocommunity.bars-and-lines.lualine-nvim" },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        theme = "sonokai",
+      },
+    },
+  },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
-  { import = "astrocommunity.recipes.telescope-lsp-mappings"},
+  { import = "astrocommunity.recipes.telescope-lsp-mappings" },
 }
