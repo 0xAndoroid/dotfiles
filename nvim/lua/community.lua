@@ -15,30 +15,6 @@ return {
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
-  { import = "astrocommunity.completion.copilot-lua" },
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      suggestion = {
-        debounce = 10,
-        keymap = {
-          accept = "<C-t>",
-          accept_word = "<C-l>",
-          accept_line = "<C-j>",
-          next = "<C-q>",
-          prev = "<C-;>",
-          dismiss = "<C-c>",
-        },
-      },
-      panel = {
-        auto_refresh = true,
-        keymap = {
-          jump_next = "]]",
-          jump_prev = "[[",
-        },
-      },
-    },
-  },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
