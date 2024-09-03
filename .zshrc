@@ -132,4 +132,4 @@ eval "$(fzf --zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-[ -f ~/.blockchainrc ] && source ~/.blockchainrc
+[ -f ~/.keysrc ] && source ~/.keysrc
