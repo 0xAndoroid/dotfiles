@@ -18,6 +18,7 @@ yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
 yabai -m rule --add app="^Telegram$" space=telegram
+yabai -m rule --add app="^Slack$" space=telegram
 yabai -m rule --add app="Spotify" space=music
 yabai -m rule --add app="^Calendar$" space=calendar
 
@@ -44,8 +45,6 @@ yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
 yabai -m rule --add app="PDF Reader Pro" manage=off
-yabai -m rule --add app="^Telegram$" manage=off
-yabai -m rule --add app="^Telegram$" title="Telegram" manage=on
 yabai -m rule --add app="^Brave Browser$" manage=off
 yabai -m rule --add app="^Brave Browser$" title="Brave" manage=on
 yabai -m rule --add app="zoom" manage=off
@@ -62,6 +61,10 @@ yabai -m signal --add app='Brave Browser' title="Rabby Wallet Notification" even
 #   action="yabai -m rule --add label=$(uuidgen) app='Brave Browser' title='Phantom' manage=off"
 yabai -m signal --add app='Microsoft Teams' event='window_title_changed' \
   action="yabai -m rule --add label=$(uuidgen) app='Microsoft Teams' title='Meeting now' manage=off"
+yabai -m signal --add event=application_activated app="^zoom.us$" action="yabai -m config focus_follows_mouse off"
+yabai -m signal --add event=application_deactivated app="^zoom.us$" action="yabai -m config focus_follows_mouse autofocus"
+yabai -m signal --add event=application_activated app="^Telegram$" action="yabai -m config focus_follows_mouse off"
+yabai -m signal --add event=application_deactivated app="^Telegram$" action="yabai -m config focus_follows_mouse autofocus"
 
 
 yabai -m config top_padding    0
