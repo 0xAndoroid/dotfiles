@@ -5,7 +5,11 @@ return {
     event = "VeryLazy",
     lazy = false,
     opts = {
-      -- add any opts here
+      highlights = {
+        diff = {
+          current = "DiffChange",
+        },
+      },
     },
     build = ":AvanteBuild source=false",
     dependencies = {
@@ -33,12 +37,12 @@ return {
       },
       {
         -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
+        "MeanderingProgrammer/render-markdown.nvim",
         opts = {
-          file_types = { "markdown", "Avante" }
+          file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
       },
     },
-  }
+  },
 }
