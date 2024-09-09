@@ -20,3 +20,5 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$PATH"
 . "$HOME/.cargo/env"
 
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+export GOPRIVATE='github.com/zircuit-labs/*'
