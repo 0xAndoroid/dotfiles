@@ -77,11 +77,11 @@ return {
               buildScripts = {
                 enable = true,
               },
+              extraArgs = { "-Z", "unstable-options" },
             },
             check = {
               command = "clippy",
               extraArgs = { "--no-deps" },
-              features = { "debug", "test" },
             },
             procMacro = {
               enable = true,
