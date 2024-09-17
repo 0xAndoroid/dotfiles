@@ -33,8 +33,6 @@ yabai -m rule --add title="Meeting now" manage=off
 yabai -m rule --add app="^qBittorrent$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Kawa$" manage=off
-yabai -m rule --add app="^Bitwarden$" manage=off
-yabai -m rule --add title="Bitwarden" manage=off
 yabai -m rule --add app="^Notes$" manage=off
 yabai -m rule --add app="^DevToys$" manage=off
 yabai -m rule --add app="^Counter-Strike Global Offensive$" manage=off
@@ -47,7 +45,6 @@ yabai -m rule --add app="Sideloadly" manage=off
 yabai -m rule --add app="PDF Reader Pro" manage=off
 yabai -m rule --add app="^Brave Browser$" manage=off
 yabai -m rule --add app="^Brave Browser$" title="Brave" manage=on
-yabai -m rule --add app="zoom" manage=off
 yabai -m rule --add app="Microsoft Teams" manage=off
 yabai -m signal --add app='Brave Browser' title="Rabby Wallet Notification" event='window_created' \
   action="yabai -m config focus_follows_mouse off"
