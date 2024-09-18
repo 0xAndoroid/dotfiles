@@ -58,8 +58,9 @@ yabai -m signal --add app='^Brave Browser$' title="^Rabby Wallet Notification$" 
 
 # Hack for orion Bitwarden and Rabby popups to be not floating
 yabai -m rule --add app="^Orion$" manage=off
-yabai -m signal --add app='^Orion$' title!="^(Rabby Wallet Notification)|(Bitwarden)|(index\.html)|(General)|(Appearance)|(Tabs)|(Browsing)|(Sync)|(Passwords)|(Privacy)|(Search)|(Websites)|(Advanced)|(Plus)|(History)|(Bookmarks)|(Reading List)|(Extensions)|(Profiles.*)$" event='window_title_changed' \
-  action='if [[ "$(yabai -m query --windows --window | jq -r ".[\"is-floating\"]")" == "true" ]]; then yabai -m window --toggle float; fi'
+yabai -m rule --add app="^Orion$" title!="^(notification\.html)|(index\.html)|(General)|(Appearance)|(Tabs)|(Browsing)|(Sync)|(Passwords)|(Privacy)|(Search)|(Websites)|(Advanced)|(Plus)|(History)|(Bookmarks)|(Reading List)|(Extensions)|(Profiles.*)$" manage=on
+# yabai -m signal --add app='^Orion$' title!="^(notification\.html)|(index\.html)|(Orion - (General)|(Appearance)|(Tabs)|(Browsing)|(Sync)|(Passwords)|(Privacy)|(Search)|(Websites)|(Advanced)|(Plus)|(History)|(Bookmarks)|(Reading List)|(Extensions)|(Profiles.*))$" event='window_created' \
+#   action='if [[ "$(yabai -m query --windows --window | jq -r ".[\"is-floating\"]")" == "true" ]]; then yabai -m window --toggle float; fi'
 # Hack for Rabby windows in Orion
 yabai -m signal --add app='^Orion$' title="^Rabby Wallet Notification$" event='window_created' \
   action="yabai -m config focus_follows_mouse off"
