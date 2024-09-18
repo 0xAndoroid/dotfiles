@@ -14,6 +14,7 @@ yabai -m space 8 --label calendar
 
 yabai -m rule --add app="^iTerm2$" space=terminal
 yabai -m rule --add app="^Brave Browser$" space=web
+yabai -m rule --add app="^Orion$" space=web
 yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
@@ -43,21 +44,31 @@ yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
 yabai -m rule --add app="PDF Reader Pro" manage=off
+
+# Hack for Brave windows
 yabai -m rule --add app="^Brave Browser$" manage=off
 yabai -m rule --add app="^Brave Browser$" title="Brave" manage=on
-yabai -m rule --add app="Microsoft Teams" manage=off
-yabai -m signal --add app='Brave Browser' title="Rabby Wallet Notification" event='window_created' \
+# Hack for Rabby windows in Brave
+yabai -m signal --add app='^Brave Browser$' title="^Rabby Wallet Notification$" event='window_created' \
   action="yabai -m config focus_follows_mouse off"
-yabai -m signal --add app='Brave Browser' title="Rabby Wallet Notification" event='window_title_changed' \
+yabai -m signal --add app='^Brave Browser$' title="^Rabby Wallet Notification$" event='window_title_changed' \
   action="yabai -m config focus_follows_mouse off"
-yabai -m signal --add app='Brave Browser' title="Rabby Wallet Notification" event='window_destroyed' \
+yabai -m signal --add app='^Brave Browser$' title="^Rabby Wallet Notification$" event='window_destroyed' \
   action="yabai -m config focus_follows_mouse autofocus"
-# yabai -m signal --add app='Brave Browser' event='window_title_changed' \
-#   action="yabai -m rule --add label=$(uuidgen) app='Brave Browser' title='Rabby Wallet Notification' manage=off"
-# yabai -m signal --add app='Brave Browser' event='window_title_changed' \
-#   action="yabai -m rule --add label=$(uuidgen) app='Brave Browser' title='Phantom' manage=off"
-yabai -m signal --add app='Microsoft Teams' event='window_title_changed' \
-  action="yabai -m rule --add label=$(uuidgen) app='Microsoft Teams' title='Meeting now' manage=off"
+
+# Hack for orion Bitwarden and Rabby popups to be not floating
+yabai -m rule --add app="^Orion$" manage=off
+yabai -m signal --add app='^Orion$' title!="^(Rabby Wallet Notification)|(Bitwarden)|(index\.html)$" event='window_title_changed' \
+  action='if [[ "$(yabai -m query --windows --window | jq -r ".[\"is-floating\"]")" == "true" ]]; then yabai -m window --toggle float; fi'
+# Hack for Rabby windows in Orion
+yabai -m signal --add app='^Orion$' title="^Rabby Wallet Notification$" event='window_created' \
+  action="yabai -m config focus_follows_mouse off"
+yabai -m signal --add app='^Orion$' title="^Rabby Wallet Notification$" event='window_title_changed' \
+  action="yabai -m config focus_follows_mouse off"
+yabai -m signal --add app='^Orion$' title="^Rabby Wallet Notification$" event='window_destroyed' \
+  action="yabai -m config focus_follows_mouse autofocus"
+
+# Hack for Zoom and Telegram since they spawn context menus as windows (WTF)
 yabai -m signal --add event=application_activated app="^zoom.us$" action="yabai -m config focus_follows_mouse off"
 yabai -m signal --add event=application_deactivated app="^zoom.us$" action="yabai -m config focus_follows_mouse autofocus"
 yabai -m signal --add event=application_activated app="^Telegram$" action="yabai -m config focus_follows_mouse off"
