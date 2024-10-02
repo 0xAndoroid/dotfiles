@@ -16,6 +16,10 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.completion.codeium-nvim" },
+  {
+    "Exafunction/codeium.nvim",
+    commit = "937667b2cadc7905e6b9ba18ecf84694cf227567",
+  },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
