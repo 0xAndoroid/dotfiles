@@ -77,7 +77,6 @@ return {
               buildScripts = {
                 enable = true,
               },
-              extraArgs = { "-Z", "unstable-options" },
             },
             check = {
               command = "clippy",
