@@ -100,16 +100,6 @@ return {
     lazy = false,
     config = function() require("leap").add_default_mappings() end,
   },
-  {
-    "chomosuke/typst-preview.nvim",
-    ft = "typst",
-    version = "0.1.*",
-    build = function() require("typst-preview").update() end,
-  },
-  {
-    "kaarmu/typst.vim",
-    ft = { "typst" },
-  },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
