@@ -4,8 +4,6 @@
 	signingkey = /Users/andoroid/.ssh_alt/github_ed25519.pub
 [credential]
 	helper = osxkeychain
-[core]
-	editor = nvim
 [commit]
 	gpgsign = true
 [gpg]
