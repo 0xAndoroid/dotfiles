@@ -16,6 +16,25 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.completion.codeium-nvim" },
+  {
+    "Exafunction/codeium.nvim",
+    opts = {
+      -- Optionally disable cmp source if using virtual text only
+      enable_cmp_source = false,
+      virtual_text = {
+        enabled = true,
+        -- Key bindings for managing completions in virtual text mode.
+        key_bindings = {
+          -- Accept the current completion.
+          accept = "<C-t>",
+          -- Cycle to the next completion.
+          next = "<M-]>",
+          -- Cycle to the previous completion.
+          prev = "<M-[>",
+        },
+      },
+    },
+  },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
