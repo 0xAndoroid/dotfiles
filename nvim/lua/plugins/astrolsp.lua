@@ -38,7 +38,6 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
-      "typst_lsp",
       "circom_lsp",
     },
     -- customize language server configuration options passed to `lspconfig`
@@ -48,15 +47,6 @@ return {
         cmd = { "circom-lsp" },
         filetypes = { "circom" },
         root_dir = require("lspconfig.util").root_pattern "package.json",
-      },
-      typst_lsp = {
-        cmd = { "typst-lsp" },
-        filetypes = { "typst" },
-        root_dir = require("lspconfig.util").root_pattern "*.typ",
-        single_file_support = true,
-        settings = {
-          exportPdf = "never",
-        },
       },
       clangd = {
         filetypes = { "c", "cpp", "objc", "objcpp" },
