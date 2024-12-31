@@ -14,8 +14,6 @@ yabai -m space 8 --label calendar
 
 yabai -m rule --add app="^iTerm2$" space=terminal
 yabai -m rule --add app="^Brave Browser$" space=web
-yabai -m rule --add app="^Orion$" space=web
-yabai -m rule --add app="^Arc$" space=web
 yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
@@ -45,6 +43,7 @@ yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
 yabai -m rule --add app="PDF Reader Pro" manage=off
+yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" manage=off
 
 # Hack for Brave windows
 yabai -m rule --add app="^Brave Browser$" manage=off
@@ -58,11 +57,21 @@ yabai -m signal --add app='^Brave Browser$' title="^Rabby Wallet Notification$" 
   action="yabai -m config focus_follows_mouse autofocus"
 
 # Arc Rabby fix
+# Don't manage popups
 yabai -m rule --add app="^Arc$" title="^(chrome-extension.*)|(Rabby Wallet Notification)|(Andrew)|(General)|(Profiles)|(Max)|(Links)|(Shortcuts)|(Icon)|(Advanced)|(Bitwarden)$" manage=off
-yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" event='window_created' \
-  action="yabai -m config focus_follows_mouse off"
-yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" event='window_title_changed' \
-  action="yabai -m config focus_follows_mouse off"
+# Fix for mouse follow
+yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" \
+    event='window_created' \
+    action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
+            if [ "$subrole" != "AXSystemDialog" ]; then \
+                yabai -m config focus_follows_mouse off; \
+            fi'
+yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" \
+    event='window_title_changed' \
+    action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
+            if [ "$subrole" != "AXSystemDialog" ]; then \
+                yabai -m config focus_follows_mouse off; \
+            fi'
 yabai -m signal --add app='^Arc$' event='window_destroyed' \
   action="yabai -m config focus_follows_mouse autofocus"
 
