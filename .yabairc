@@ -41,8 +41,9 @@ yabai -m rule --add app="^Sid Meier's Civilization VI$" manage=off
 yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
-yabai -m rule --add app="PDF Reader Pro" manage=off
-yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" manage=off
+yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" manage=on
+# Arc PiP window
+yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" title="^()$" manage=off
 
 # Arc Rabby fix
 # Don't manage popups
@@ -53,12 +54,16 @@ yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
             if [ "$subrole" != "AXSystemDialog" ]; then \
                 yabai -m config focus_follows_mouse off; \
+                sleep 0.5; \
+                yabai -m config focus_follows_mouse autofocus; \
             fi'
 yabai -m signal --add app='^Arc$' title="^()|(Rabby Wallet Notification)$" \
     event='window_title_changed' \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
             if [ "$subrole" != "AXSystemDialog" ]; then \
                 yabai -m config focus_follows_mouse off; \
+                sleep 0.5; \
+                yabai -m config focus_follows_mouse autofocus; \
             fi'
 yabai -m signal --add app='^Arc$' event='window_destroyed' \
   action="yabai -m config focus_follows_mouse autofocus"
