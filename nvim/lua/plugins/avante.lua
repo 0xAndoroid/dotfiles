@@ -5,6 +5,19 @@ return {
     event = "VeryLazy",
     lazy = false,
     opts = {
+      provider = "claude",
+      auto_suggestions_provider = "ollama",
+      behaviour = {
+        auto_suggestions = false,
+      },
+      vendors = {
+        ollama = {
+          __inherited_from = "openai",
+          api_key_name = "",
+          endpoint = "http://127.0.0.1:11434/v1",
+          model = "deepseek-r1:1.5b",
+        },
+      },
       highlights = {
         diff = {
           current = "DiffChange",
