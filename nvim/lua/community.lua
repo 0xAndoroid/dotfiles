@@ -15,23 +15,17 @@ return {
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
-  { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.completion.codeium-nvim" },
   {
     "Exafunction/codeium.nvim",
     opts = {
-      -- Optionally disable cmp source if using virtual text only
       enable_cmp_source = false,
       virtual_text = {
         enabled = true,
-        -- Key bindings for managing completions in virtual text mode.
         key_bindings = {
-          -- Accept the current completion.
           accept = "<C-t>",
-          -- Cycle to the next completion.
           next = "<M-]>",
-          -- Cycle to the previous completion.
           prev = "<M-[>",
         },
       },
