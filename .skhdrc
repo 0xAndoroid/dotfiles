@@ -1,8 +1,5 @@
-# https://github.com/koekeishiya/yabai/wiki/Commands#focus-display
-# https://github.com/koekeishiya/dotfiles/blob/master/skhd/skhdrc
-
-# Shouldnt need to blacklist anymore as switching everything over to ctrl not alt
 .blacklist [
+     # this stays here from pre-CS2 times
      "Counter Strike: Global Offensive"
      "Civilization VI"
 ]
@@ -33,16 +30,16 @@ ctrl + shift - o : yabai -m window --display 2 --focus # second monitor
 # ctrl + shift - e : yabai -m window --display 3 --focus # laptop
 
 # Move focus container to space
-cmd + alt - 1 : yabai -m window --space 1 --focus # main
+cmd + alt - 1 : yabai -m window --space 1 --focus # iterm
 cmd + alt - 2 : yabai -m window --space 2 --focus # web
-cmd + alt - 3 : yabai -m window --space 3 --focus # chat
-cmd + alt - 4 : yabai -m window --space 4 --focus # music
-cmd + alt - 5 : yabai -m window --space 5 --focus # editors
-cmd + alt - 6 : yabai -m window --space 6 --focus # immersion
-cmd + alt - 7 : yabai -m window --space 7 --focus # anki
-cmd + alt - 8 : yabai -m window --space 8 --focus # terminal
-cmd + alt - 9 : yabai -m window --space 9 --focus # space 9
-cmd + alt - 0 : yabai -m window --space 10 --focus # space 9
+cmd + alt - 3 : yabai -m window --space 3 --focus #
+cmd + alt - 4 : yabai -m window --space 4 --focus # mail
+cmd + alt - 5 : yabai -m window --space 5 --focus # telegram
+cmd + alt - 6 : yabai -m window --space 6 --focus # discord
+cmd + alt - 7 : yabai -m window --space 7 --focus # spotify
+cmd + alt - 8 : yabai -m window --space 8 --focus # calendar
+cmd + alt - 9 : yabai -m window --space 9 --focus # 
+cmd + alt - 0 : yabai -m window --space 10 --focus # 
 
 
 # Resize windows
@@ -60,6 +57,7 @@ ctrl - f [
      "iTerm2" ~
       * : yabai -m window --toggle zoom-fullscreen
 ]
+
 # Disable padding overall
 ctrl + shift - h : yabai -m config top_padding 0 ; yabai -m config bottom_padding 0 ; yabai -m config left_padding 0 ; yabai -m config right_padding 0 ; yabai -m config window_gap 0
 ctrl + shift + alt - h   : yabai -m config top_padding 16 ; yabai -m config bottom_padding 16 ; yabai -m config left_padding 16 ; yabai -m config right_padding 16 ; yabai -m config window_gap 24 
@@ -83,7 +81,7 @@ cmd - 8 : yabai -m space --focus 8
 cmd - 9 : yabai -m space --focus 9
 cmd - 0 : yabai -m space --focus 10
 
-# Unused
+# Focus of displays, currently not used in favour of above
 # ctrl - 1 : yabai -m display --focus 3
 # ctrl - 2 : yabai -m display --focus 1
 # ctrl - 3 : yabai -m display --focus 2
