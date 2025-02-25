@@ -57,11 +57,9 @@ return {
         ["<Leader>xp"] = { ":TypstPreview<cr>", desc = "Typst preview start" },
         ["<Leader>xs"] = { ":TypstPreviewStop<cr>", desc = "Typst preview stop" },
         ["<Leader>xf"] = { ":TypstPreviewFollowCursorToggle<cr>", desc = "Typst follow cursor toggle" },
-        -- ["<Leader>h"] = { name = "󱡁 Harpoon", desc = "󱡁 Harpoon" },
-        -- ["<Leader>hm"] = { require("harpoon.ui").toggle_quick_menu, desc = "Harpoon menu" },
-        -- ["<Leader>ha"] = { require("harpoon.mark").add_file, desc = "Add file to harpoon" },
-        -- ["<Leader>hl"] = { function() require("harpoon.ui").nav_next() end, desc = "Harpoon next" },
-        -- ["<Leader>hh"] = { function() require("harpoon.ui").nav_prev() end, desc = "Harpoon previous" },
+        ["<Leader>aa"] = { ":CodeCompanionChat<cr>", desc = "Code companion chat" },
+        ["<Leader>ac"] = { ":CodeCompanionAction<cr>", desc = "Code companion actions" },
+        ["<Leader>a"] = { desc = "Code companion" },
       },
       t = {
         -- setting a mapping to false will disable it
