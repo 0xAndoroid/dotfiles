@@ -9,8 +9,10 @@ return {
       claude = {
         endpoint = "https://api.anthropic.com",
         model = "claude-3-7-sonnet-20250219",
+        timeout = 30000,
         temperature = 0,
         max_tokens = 4096,
+        reasoning_effort = "high",
       },
       auto_suggestions_provider = "ollama",
       behaviour = {
@@ -23,6 +25,9 @@ return {
           endpoint = "http://127.0.0.1:11434/v1",
           model = "deepseek-r1:1.5b",
         },
+      },
+      windows = {
+        width = 35,
       },
       highlights = {
         diff = {
