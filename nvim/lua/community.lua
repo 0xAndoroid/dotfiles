@@ -12,11 +12,9 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.markdown" },
-  { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
-  { import = "astrocommunity.pack.swift" },
   { import = "astrocommunity.completion.codeium-nvim" },
   {
     "Exafunction/codeium.nvim",
