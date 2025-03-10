@@ -141,25 +141,72 @@ return {
     opts = {
       pickers = {
         live_grep = {
-          file_ignore_patterns = { "node_modules", ".git", ".venv", "target", "dist", "build", "*lock.yml", ".next/", ".cache", "*lock.yaml", "*.lock", "public" },
+          file_ignore_patterns = {
+            "node_modules",
+            ".git",
+            ".venv",
+            "target",
+            "dist",
+            "build",
+            "*lock.yml",
+            ".next/",
+            ".cache",
+            "*lock.yaml",
+            "*.lock",
+            "public",
+          },
           additional_args = function(_) return { "--hidden" } end,
         },
         find_files = {
-          file_ignore_patterns = { "node_modules", ".git", ".venv", "target", "dist", "build", ".next/", ".cache", "public" },
+          file_ignore_patterns = {
+            "node_modules",
+            ".git",
+            ".venv",
+            "target",
+            "dist",
+            "build",
+            ".next/",
+            ".cache",
+            "public",
+          },
           hidden = true,
         },
       },
     },
   },
   {
-    'akinsho/git-conflict.nvim',
+    "akinsho/git-conflict.nvim",
     version = "*",
     config = true,
     opts = {
       disable_diagnostics = true,
       highlights = {
-        current = "DiffChange"
-      }
-    }
+        current = "DiffChange",
+      },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      explorer = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      image = { enabled = false },
+      picker = { enabled = true },
+      notifier = { enabled = false },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+    },
   },
 }
