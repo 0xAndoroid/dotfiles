@@ -3,19 +3,6 @@
 
 ---@type LazySpec
 return {
-
-  -- == Examples of Adding Plugins ==
-
-  -- "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function() require("lsp_signature").setup() end,
-  -- },
-
-  -- == Examples of Overriding Plugins ==
-
-  -- customize alpha options
   {
     "goolord/alpha-nvim",
     opts = function(_, opts)
@@ -81,30 +68,11 @@ return {
     end,
     ft = { "markdown" },
   },
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   name = "harpoon",
-  --   lazy = false,
-  -- },
-  -- },
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   lazy = false,
-  --   opts = {
-  --     max_count = 5,
-  --     max_time = 500,
-  --   }
-  -- },
   {
     "ggandor/leap.nvim",
     lazy = false,
     config = function() require("leap").add_default_mappings() end,
   },
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
-  -- },
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -189,11 +157,7 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
       bigfile = { enabled = true },
       dashboard = { enabled = true },
       explorer = { enabled = true },

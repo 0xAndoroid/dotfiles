@@ -7,34 +7,34 @@ return {
       default_mappings = true,
       mappings = {
         i = {
-            j = {
-                k = "<Esc>",
-                j = false,
-            },
+          j = {
+            k = "<Esc>",
+            j = false,
+          },
         },
         c = {
-            j = {
-                k = "<Esc>",
-                j = false,
-            },
+          j = {
+            k = "<Esc>",
+            j = false,
+          },
         },
         t = {
-            j = {
-                k = false,
-                j = false,
-            },
+          j = {
+            k = false,
+            j = false,
+          },
         },
         v = {
-            j = {
-                k = false,
-            },
+          j = {
+            k = false,
+          },
         },
         s = {
-            j = {
-                k = false,
-            },
+          j = {
+            k = false,
+          },
         },
-    },
+      },
     },
   },
 }
