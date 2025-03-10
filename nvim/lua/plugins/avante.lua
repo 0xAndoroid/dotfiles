@@ -5,6 +5,7 @@ return {
     event = "VeryLazy",
     lazy = false,
     opts = {
+      disabled_tools = { "python" },
       provider = "claude",
       claude = {
         endpoint = "https://api.anthropic.com",
@@ -12,7 +13,6 @@ return {
         timeout = 30000,
         temperature = 1,
         max_tokens = 8096,
-        disabled_tools = { "python" },
       },
       ollama = {
         endpoint = "http://127.0.0.1:11434/v1",
