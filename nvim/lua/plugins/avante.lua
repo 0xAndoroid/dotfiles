@@ -10,21 +10,17 @@ return {
         endpoint = "https://api.anthropic.com",
         model = "claude-3-7-sonnet-20250219",
         timeout = 30000,
-        temperature = 0,
-        max_tokens = 4096,
-        reasoning_effort = "high",
+        temperature = 1,
+        max_tokens = 8096,
+        disabled_tools = { "python" },
+      },
+      ollama = {
+        endpoint = "http://127.0.0.1:11434/v1",
+        model = "deepseek-r1:1.5b",
       },
       auto_suggestions_provider = "ollama",
       behaviour = {
         auto_suggestions = false,
-      },
-      vendors = {
-        ollama = {
-          __inherited_from = "openai",
-          api_key_name = "",
-          endpoint = "http://127.0.0.1:11434/v1",
-          model = "deepseek-r1:1.5b",
-        },
       },
       windows = {
         width = 35,
