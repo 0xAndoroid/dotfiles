@@ -1,6 +1,3 @@
-
-export PATH="$PATH:$HOME/.foundry/bin"
-
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
@@ -23,3 +20,5 @@ export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
 # For Lazygit path
 export XDG_CONFIG_HOME="$HOME/.config"
+
+export PATH="$PATH:/Users/andoroid/.config/.foundry/bin"
