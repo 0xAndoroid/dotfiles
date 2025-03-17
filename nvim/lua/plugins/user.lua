@@ -173,4 +173,23 @@ return {
       words = { enabled = true },
     },
   },
+  {
+    "echasnovski/mini.surround",
+    version = "*",
+    -- No need to copy this inside `setup()`. Will be used automatically.
+    opts = {
+      mappings = {
+        add = "oa", -- Add surrounding in Normal and Visual modes
+        delete = "od", -- Delete surrounding
+        find = "of", -- Find surrounding (to the right)
+        find_left = "oF", -- Find surrounding (to the left)
+        highlight = "oh", -- Highlight surrounding
+        replace = "or", -- Replace surrounding
+        update_n_lines = "on", -- Update `n_lines`
+
+        suffix_last = "l", -- Suffix to search with "prev" method
+        suffix_next = "n", -- Suffix to search with "next" method
+      },
+    },
+  },
 }
