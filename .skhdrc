@@ -82,6 +82,6 @@ cmd - 9 : yabai -m space --focus 9
 cmd - 0 : yabai -m space --focus 10
 
 # Focus of displays, currently not used in favour of above
-# ctrl - 1 : yabai -m display --focus 3
-# ctrl - 2 : yabai -m display --focus 1
+ctrl + alt - a : yabai -m display --focus 1
+ctrl + alt - o : yabai -m display --focus 2
 # ctrl - 3 : yabai -m display --focus 2
