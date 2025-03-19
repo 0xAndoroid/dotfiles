@@ -47,7 +47,7 @@ yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" title="^$" manage=off
 
 # Arc Rabby fix
 # Don't manage popups
-yabai -m rule --add app="^Arc$" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Andrew$|^General$|^Profiles$|^Max$|^Links$|^Shortcuts$|^Icon$|^Advanced$|^Bitwarden$" manage=off
+yabai -m rule --add app="^Arc$" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Andrew$|^General$|^Profiles$|^Max$|^Links$|^Shortcuts$|^Icon$|^Advanced$|^Bitwarden$|^$" manage=off
 # Fix for mouse follow
 yabai -m signal --add app='^Arc$' \
     title='^$|^Rabby Wallet Notification$' \
