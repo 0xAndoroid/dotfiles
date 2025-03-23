@@ -1,7 +1,7 @@
 # SketchyBar Configuration Guidelines
 
 ## Commands
-- Apply changes: `sketchybar --update`
+- Apply changes: `sketchybar --reload`
 - Restart sketchybar: `brew services restart sketchybar`
 - Check errors: `tail -f /tmp/sketchybar_log`
 
