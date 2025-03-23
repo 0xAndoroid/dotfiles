@@ -2,26 +2,21 @@
 
 if [ "$SENDER" = "space_windows_change" ]; then
   space="$(echo "$INFO" | jq -r '.space')"
-  apps="$(echo "$INFO" | jq -r '.apps | keys[]')"
-
-  # Get all apps in the current space using yabai
+  
+  # Get all apps in the current space using yabai, filtering out sticky windows
   current_space_windows=$(/usr/local/bin/yabai -m query --windows --space "$space")
-
-  # Check if the only Arc window in this space is AXSystemDialog
-  arc_windows=$(echo "$current_space_windows" | jq '[.[] | select(.app=="Arc")]')
-  arc_system_dialogs=$(echo "$arc_windows" | jq '[.[] | select(.subrole=="AXSystemDialog")]')
-
-  # If all Arc windows are AXSystemDialogs, remove Arc from the apps list
-  if [ "$(echo "$arc_windows" | jq 'length')" -gt 0 ] && [ "$(echo "$arc_windows" | jq 'length')" = "$(echo "$arc_system_dialogs" | jq 'length')" ]; then
-    # Filter out Arc from the apps list
-    apps=$(echo "$apps" | grep -v "^Arc$")
-  fi
+  non_sticky_windows=$(echo "$current_space_windows" | jq '[.[] | select(."is-sticky"==false)]')
+  
+  # Extract unique app names from non-sticky windows
+  apps=$(echo "$non_sticky_windows" | jq -r '.[].app' | sort | uniq)
 
   icon_strip=" "
-  if [ "${apps}" != "" ]; then
+  if [ -n "$apps" ]; then
     while read -r app; do
-      icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
-    done <<<"${apps}"
+      if [ -n "$app" ]; then
+        icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
+      fi
+    done <<<"$apps"
   else
     icon_strip=" —"
   fi
