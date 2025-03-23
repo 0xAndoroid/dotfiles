@@ -8,6 +8,7 @@ return {
       vim.g.sonokai_diagnostic_text_highlight = 1
       vim.g.sonokai_dim_inactive_windows = 1
       vim.g.sonokai_diagnostic_virtual_text = "colored"
+      vim.g.sonokai_transparent_background = 1
     end,
     lazy = false,
     priority = 1000,
