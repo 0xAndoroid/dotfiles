@@ -69,8 +69,8 @@ ctrl - d  [
 ctrl - i               : yabai -m config focus_follows_mouse autofocus
 ctrl + alt - i         : yabai -m config focus_follows_mouse off
 
-ctrl - t               : yabai -m config mouse_follows_focus on
-ctrl + alt - t         : yabai -m config mouse_follows_focus off
+ctrl + shift - i               : yabai -m config mouse_follows_focus on
+ctrl + shift + alt - i         : yabai -m config mouse_follows_focus off
 
 # Change desktop
 cmd - 1 : yabai -m space --focus 1
