@@ -51,7 +51,6 @@ return {
       },
     },
   },
-  { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
 }
