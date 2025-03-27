@@ -52,6 +52,6 @@ return {
     },
   },
   { import = "astrocommunity.completion.cmp-cmdline" },
-  { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.motion.mini-surround" },
+  { import = "astrocommunity.recipes.picker-lsp-mappings" },
 }
