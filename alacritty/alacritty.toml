@@ -1,0 +1,44 @@
+[ env ]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 10
+decorations = "Buttonless"
+blur = true
+opacity = 0.9
+
+[font]
+normal.family = "IosevkaCustomSemi Nerd Font"
+size = 14 
+
+# [colors.cursor]
+# text = "#BB97EE"
+# curosr
+
+# Default colors
+[colors.primary]
+background = '#2B2D3A'  # bg0
+foreground = '#E1E3E4'  # fg
+
+# Normal colors
+[colors.normal]
+black   = '#181A1C'  # black
+red     = '#FB617E'  # red
+green   = '#9ED06C'  # green
+yellow  = '#EDC763'  # yellow
+blue    = '#6DCAE8'  # blue
+magenta = '#BB97EE'  # purple
+cyan    = '#77D5F0'  # bg_blue
+white   = '#E1E3E4'  # fg
+
+# Bright colors
+[colors.bright]
+black   = '#7e8294'  # bg_dim
+red     = '#FF6188'  # bg_red
+green   = '#A9DC76'  # bg_green
+yellow  = '#EDC763'  # yellow
+blue    = '#77D5F0'  # bg_blue
+magenta = '#BB97EE'  # purple
+cyan    = '#6DCAE8'  # blue
+white   = '#5A5E7A'  # gray_dim
