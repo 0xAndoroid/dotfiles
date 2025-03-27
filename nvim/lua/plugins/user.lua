@@ -9,7 +9,6 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
-
   {
     "folke/snacks.nvim",
     opts = {
@@ -77,7 +76,6 @@ return {
     },
     event = "BufRead",
   },
-
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -89,7 +87,6 @@ return {
     end,
     ft = { "markdown" },
   },
-
   {
     "ggandor/leap.nvim",
     lazy = false,
@@ -114,18 +111,6 @@ return {
   {
     "iden3/vim-circom-syntax",
   },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   opts = {
-  --     formatting = {
-  --       format = function(entry, vim_item)
-  --         vim_item.kind = require("lspkind").presets.default[vim_item.kind]
-  --         vim_item.menu = entry:get_completion_item().detail
-  --         return vim_item
-  --       end,
-  --     },
-  --   },
-  -- },
   {
     "akinsho/git-conflict.nvim",
     version = "*",
