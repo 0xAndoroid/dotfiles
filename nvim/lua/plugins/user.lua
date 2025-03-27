@@ -137,23 +137,4 @@ return {
       },
     },
   },
-  {
-    "echasnovski/mini.surround",
-    version = "*",
-    -- No need to copy this inside `setup()`. Will be used automatically.
-    opts = {
-      mappings = {
-        add = "<C-o>a", -- Add surrounding in Normal and Visual modes
-        delete = "<C-o>od", -- Delete surrounding
-        find = "<C-o>f", -- Find surrounding (to the right)
-        find_left = "<C-o>F", -- Find surrounding (to the left)
-        highlight = "<C-o>h", -- Highlight surrounding
-        replace = "<C-o>r", -- Replace surrounding
-        update_n_lines = "<C-o>n", -- Update `n_lines`
-
-        suffix_last = "l", -- Suffix to search with "prev" method
-        suffix_next = "n", -- Suffix to search with "next" method
-      },
-    },
-  },
 }
