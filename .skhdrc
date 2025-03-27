@@ -21,6 +21,7 @@ ctrl + alt - b : yabai -m space --rotate 90
 # Balance the layout
 ctrl - b [
      "iTerm2" ~
+     "Alacritty" ~
       * : yabai -m space --balance
 ]
 
@@ -55,6 +56,7 @@ ctrl - space : yabai -m window --toggle float
 # Make fullscreen
 ctrl - f [
      "iTerm2" ~
+     "Alacritty" ~
       * : yabai -m window --toggle zoom-fullscreen
 ]
 
@@ -64,6 +66,7 @@ ctrl + shift + alt - h   : yabai -m config top_padding 16 ; yabai -m config bott
 # Toggle floating/bsp
 ctrl - d  [
      "iTerm2" ~
+     "Alacritty" ~
       * : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
 ]
 ctrl - i               : yabai -m config focus_follows_mouse autofocus

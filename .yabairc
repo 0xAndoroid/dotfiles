@@ -13,6 +13,7 @@ yabai -m space 7 --label music
 yabai -m space 8 --label calendar
 
 yabai -m rule --add app="^iTerm2$" space=terminal
+yabai -m rule --add app="^Alacritty$" space=terminal
 yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
