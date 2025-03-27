@@ -41,9 +41,6 @@ return {
         ["<Leader>xp"] = { ":TypstPreview<cr>", desc = "Typst preview start" },
         ["<Leader>xs"] = { ":TypstPreviewStop<cr>", desc = "Typst preview stop" },
         ["<Leader>xf"] = { ":TypstPreviewFollowCursorToggle<cr>", desc = "Typst follow cursor toggle" },
-        ["<Leader>aa"] = { ":CodeCompanionChat<cr>", desc = "Code companion chat" },
-        ["<Leader>ac"] = { ":CodeCompanionAction<cr>", desc = "Code companion actions" },
-        ["<Leader>a"] = { desc = "Code companion" },
       },
       t = {
         -- setting a mapping to false will disable it
