@@ -8,28 +8,28 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.docker" },
-  { import = "astrocommunity.pack.tailwindcss" },
+  -- { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
-  { import = "astrocommunity.completion.codeium-nvim" },
-  {
-    "Exafunction/codeium.nvim",
-    opts = {
-      enable_cmp_source = false,
-      virtual_text = {
-        enabled = true,
-        key_bindings = {
-          accept = "<C-t>",
-          next = "<M-]>",
-          prev = "<M-[>",
-        },
-      },
-    },
-  },
+  -- { import = "astrocommunity.completion.codeium-nvim" },
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   opts = {
+  --     enable_cmp_source = false,
+  --     virtual_text = {
+  --       enabled = true,
+  --       key_bindings = {
+  --         accept = "<C-t>",
+  --         next = "<M-]>",
+  --         prev = "<M-[>",
+  --       },
+  --     },
+  --   },
+  -- },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },

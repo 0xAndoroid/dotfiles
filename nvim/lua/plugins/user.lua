@@ -1,50 +1,74 @@
 -- You can also add or configure plugins by creating files in this `plugins/` folder
+-- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
 -- Here are some examples:
 
 ---@type LazySpec
 return {
   {
-    "goolord/alpha-nvim",
-    opts = function(_, opts)
-      -- customize the dashboard header
-      opts.section.header.val = {
-        "    ███    ██ ██    ██ ██ ███    ███",
-        "    ████   ██ ██    ██ ██ ████  ████",
-        "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
-        "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
-        "    ██   ████   ████   ██ ██      ██",
-      }
-      return opts
-    end,
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function() require("lsp_signature").setup() end,
   },
+
   {
-    "windwp/nvim-autopairs",
-    config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
-      -- add more custom autopairs configuration such as custom rules
-      local npairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
-      local cond = require "nvim-autopairs.conds"
-      npairs.add_rules(
-        {
-          Rule("$", "$", { "tex", "latex" })
-            -- don't add a pair if the next character is %
-            :with_pair(cond.not_after_regex "%%")
-            -- don't add a pair if  the previous character is xxx
-            :with_pair(
-              cond.not_before_regex("xxx", 3)
-            )
-            -- don't move right when repeat character
-            :with_move(cond.none())
-            -- don't delete if the next character is xx
-            :with_del(cond.not_after_regex "xx")
-            -- disable adding a newline when you press <cr>
-            :with_cr(cond.none()),
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        sources = {
+          ["files"] = {
+            exclude = {
+              "node_modules",
+              ".git",
+              ".venv",
+              "target",
+              "dist",
+              "build",
+              ".next/",
+              ".cache",
+              "public",
+            },
+          },
+          ["grep"] = {
+            exclude = {
+              "node_modules",
+              ".git",
+              ".venv",
+              "target",
+              "dist",
+              "build",
+              "*lock.yml",
+              ".next/",
+              ".cache",
+              "*lock.yaml",
+              "*.lock",
+              "public",
+            },
+          },
         },
-        -- disable for .vim files, but it work for another filetypes
-        Rule("a", "a", "-vim")
-      )
-    end,
+      },
+      dashboard = {
+        preset = {
+          header = table.concat({
+            "███    ██ ██    ██ ██ ███    ███",
+            "████   ██ ██    ██ ██ ████  ████",
+            "██ ██  ██ ██    ██ ██ ██ ████ ██",
+            "██  ██ ██  ██  ██  ██ ██  ██  ██",
+            "██   ████   ████   ██ ██      ██",
+          }, "\n"),
+        },
+      },
+      bigfile = { enabled = true },
+      explorer = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      image = { enabled = false },
+      notifier = { enabled = false },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+    },
   },
   {
     "pocco81/auto-save.nvim",
@@ -53,10 +77,7 @@ return {
     },
     event = "BufRead",
   },
-  {
-    "MunifTanjim/eslint.nvim",
-    event = "BufRead",
-  },
+
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -68,6 +89,7 @@ return {
     end,
     ft = { "markdown" },
   },
+
   {
     "ggandor/leap.nvim",
     lazy = false,
@@ -92,56 +114,18 @@ return {
   {
     "iden3/vim-circom-syntax",
   },
-  {
-    "hrsh7th/nvim-cmp",
-    opts = {
-      formatting = {
-        format = function(entry, vim_item)
-          vim_item.kind = require("lspkind").presets.default[vim_item.kind]
-          vim_item.menu = entry:get_completion_item().detail
-          return vim_item
-        end,
-      },
-    },
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      pickers = {
-        live_grep = {
-          file_ignore_patterns = {
-            "node_modules",
-            ".git",
-            ".venv",
-            "target",
-            "dist",
-            "build",
-            "*lock.yml",
-            ".next/",
-            ".cache",
-            "*lock.yaml",
-            "*.lock",
-            "public",
-          },
-          additional_args = function(_) return { "--hidden" } end,
-        },
-        find_files = {
-          file_ignore_patterns = {
-            "node_modules",
-            ".git",
-            ".venv",
-            "target",
-            "dist",
-            "build",
-            ".next/",
-            ".cache",
-            "public",
-          },
-          hidden = true,
-        },
-      },
-    },
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   opts = {
+  --     formatting = {
+  --       format = function(entry, vim_item)
+  --         vim_item.kind = require("lspkind").presets.default[vim_item.kind]
+  --         vim_item.menu = entry:get_completion_item().detail
+  --         return vim_item
+  --       end,
+  --     },
+  --   },
+  -- },
   {
     "akinsho/git-conflict.nvim",
     version = "*",
@@ -154,38 +138,18 @@ return {
     },
   },
   {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    opts = {
-      bigfile = { enabled = true },
-      dashboard = { enabled = true },
-      explorer = { enabled = true },
-      indent = { enabled = true },
-      input = { enabled = true },
-      image = { enabled = false },
-      picker = { enabled = true },
-      notifier = { enabled = false },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-      scroll = { enabled = false },
-      statuscolumn = { enabled = true },
-      words = { enabled = true },
-    },
-  },
-  {
     "echasnovski/mini.surround",
     version = "*",
     -- No need to copy this inside `setup()`. Will be used automatically.
     opts = {
       mappings = {
-        add = "oa", -- Add surrounding in Normal and Visual modes
-        delete = "od", -- Delete surrounding
-        find = "of", -- Find surrounding (to the right)
-        find_left = "oF", -- Find surrounding (to the left)
-        highlight = "oh", -- Highlight surrounding
-        replace = "or", -- Replace surrounding
-        update_n_lines = "on", -- Update `n_lines`
+        add = "<C-o>a", -- Add surrounding in Normal and Visual modes
+        delete = "<C-o>od", -- Delete surrounding
+        find = "<C-o>f", -- Find surrounding (to the right)
+        find_left = "<C-o>F", -- Find surrounding (to the left)
+        highlight = "<C-o>h", -- Highlight surrounding
+        replace = "<C-o>r", -- Replace surrounding
+        update_n_lines = "<C-o>n", -- Update `n_lines`
 
         suffix_last = "l", -- Suffix to search with "prev" method
         suffix_next = "n", -- Suffix to search with "next" method

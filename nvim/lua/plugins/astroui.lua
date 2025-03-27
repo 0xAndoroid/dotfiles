@@ -14,10 +14,9 @@ return {
     highlights = {
       init = { -- this table overrides highlights in all themes
         CodeiumSuggestion = { fg = "#7f8490" },
-        -- winbar = { bg = "#333648" },
         -- Normal = { bg = "#000000" },
       },
-      astrotheme = { -- a table of overrides/changes when applying the astrotheme theme
+      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
         -- Normal = { bg = "#000000" },
       },
     },
