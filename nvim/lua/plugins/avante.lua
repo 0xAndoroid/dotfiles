@@ -1,3 +1,4 @@
+local prefix = "<Leader>a"
 ---@type LazySpec
 return {
   {
@@ -28,6 +29,26 @@ return {
       highlights = {
         diff = {
           current = "DiffChange",
+        },
+      },
+      mappings = {
+        ask = prefix .. "a",
+        edit = prefix .. "e",
+        refresh = prefix .. "r",
+        focus = prefix .. "f",
+        toggle = {
+          default = prefix .. "t",
+          debug = prefix .. "d",
+          hint = prefix .. "h",
+          suggestion = prefix .. "s",
+          repomap = prefix .. "R",
+        },
+        diff = {
+          next = "]c",
+          prev = "[c",
+        },
+        files = {
+          add_current = prefix .. ".",
         },
       },
     },
