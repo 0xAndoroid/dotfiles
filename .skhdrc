@@ -64,7 +64,7 @@ ctrl + shift + alt - h   : yabai -m config top_padding 16 ; yabai -m config bott
 # Toggle floating/bsp
 ctrl - d  [
      "iTerm2" ~
-     "Alacritty" ~
+     "Ghostty" ~
       * : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
 ]
 ctrl - i               : yabai -m config focus_follows_mouse autofocus
