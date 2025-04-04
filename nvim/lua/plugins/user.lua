@@ -60,7 +60,16 @@ return {
       explorer = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
-      image = { enabled = false },
+      image = {
+        enabled = true,
+        math = {
+          enabled = true,
+        },
+        doc = {
+          enabled = true,
+          inline = false,
+        },
+      },
       notifier = { enabled = false },
       quickfile = { enabled = true },
       scope = { enabled = true },

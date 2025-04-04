@@ -15,7 +15,6 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.completion.avante-nvim" },
-  { import = "astrocommunity.completion.codeium-nvim" },
   {
     "Exafunction/codeium.nvim",
     opts = {
