@@ -15,20 +15,6 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.completion.avante-nvim" },
-  {
-    "Exafunction/codeium.nvim",
-    opts = {
-      enable_cmp_source = false,
-      virtual_text = {
-        enabled = true,
-        key_bindings = {
-          accept = "<C-t>",
-          next = "<M-]>",
-          prev = "<M-[>",
-        },
-      },
-    },
-  },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },

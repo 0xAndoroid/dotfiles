@@ -1,7 +1,7 @@
 return {
-  "Exafunction/codeium.nvim",
+  "Exafunction/windsurf.nvim",
   event = "User AstroFile",
-  cmd = "Codeium",
+  config = function() require("codeium").setup {} end,
   opts = {
     enable_chat = false,
     enable_cmp_source = false,
