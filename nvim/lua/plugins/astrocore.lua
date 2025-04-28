@@ -1,3 +1,14 @@
+local function smart_navigation(direction, yabai_direction)
+  local current_win = vim.api.nvim_get_current_win()
+  local success = pcall(function() vim.cmd("wincmd " .. direction) end)
+  local new_win = vim.api.nvim_get_current_win()
+  if not success or current_win == new_win then
+    vim.system({ "touch", "/tmp/nvim_edge_move_lock" }, { detach = true })
+    vim.defer_fn(function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end, 50)
+    vim.system({ "yabai", "-m", "window", "--focus", yabai_direction }, { detach = true })
+  end
+end
+
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -41,15 +52,43 @@ return {
         ["<Leader>xp"] = { ":TypstPreview<cr>", desc = "Typst preview start" },
         ["<Leader>xs"] = { ":TypstPreviewStop<cr>", desc = "Typst preview stop" },
         ["<Leader>xf"] = { ":TypstPreviewFollowCursorToggle<cr>", desc = "Typst follow cursor toggle" },
+        ["<C-h>"] = {
+          function() smart_navigation("h", "west") end,
+          desc = "Move to left window or yabai west",
+        },
+        ["<C-j>"] = {
+          function() smart_navigation("j", "south") end,
+          desc = "Move to bottom window or yabai south",
+        },
+        ["<C-k>"] = {
+          function() smart_navigation("k", "north") end,
+          desc = "Move to top window or yabai north",
+        },
+        ["<C-l>"] = {
+          function() smart_navigation("l", "east") end,
+          desc = "Move to right window or yabai east",
+        },
       },
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
         ["<C-w>"] = { "<C-\\><C-n><C-w>", desc = "Exit terminal mode" },
-        ["<C-h>"] = { "<Cmd>wincmd h<CR>" },
-        ["<C-j>"] = { "<Cmd>wincmd j<CR>" },
-        ["<C-k>"] = { "<Cmd>wincmd k<CR>" },
-        ["<C-l>"] = { "<Cmd>wincmd l<CR>" },
+        ["<C-h>"] = {
+          function() smart_navigation("h", "west") end,
+          desc = "Move to left window or yabai west",
+        },
+        ["<C-j>"] = {
+          function() smart_navigation("j", "south") end,
+          desc = "Move to bottom window or yabai south",
+        },
+        ["<C-k>"] = {
+          function() smart_navigation("k", "north") end,
+          desc = "Move to top window or yabai north",
+        },
+        ["<C-l>"] = {
+          function() smart_navigation("l", "east") end,
+          desc = "Move to right window or yabai east",
+        },
       },
       v = {
         ["<leader>p"] = { "p", desc = "Paste" },

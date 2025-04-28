@@ -5,10 +5,10 @@
 ]
 
 # Navigation
-ctrl + alt - h : yabai -m window --focus west
-ctrl + alt - l : yabai -m window --focus east
-ctrl + alt - j : yabai -m window --focus south
-ctrl + alt - k : yabai -m window --focus north 
+ctrl - h -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus west
+ctrl - j -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus south
+ctrl - k -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus north
+ctrl - l -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus east
 
 # Moving windows
 ctrl + shift - left : yabai -m window --warp west
