@@ -4,7 +4,7 @@ window-padding-x = 10
 window-padding-y = 10
 window-decoration = false
 background-blur = true
-background-opacity = 0.9
+background-opacity = 0.94
 
 font-family = "IosevkaCustomSemi Nerd Font"
 font-size = 14
