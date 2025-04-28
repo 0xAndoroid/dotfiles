@@ -1,8 +1,3 @@
--- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
--- Configuration documentation can be found with `:h astrolsp`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
-
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -67,12 +62,24 @@ return {
               buildScripts = {
                 enable = true,
               },
-              features = "all",
+              -- features = "all",
             },
             check = {
-              features = "all",
               command = "clippy",
-              extraArgs = { "--no-deps" },
+              extraArgs = {
+                "--no-deps",
+                "--",
+                "-A",
+                "clippy::uninlined_format_args",
+                "-A",
+                "clippy::ptr_arg",
+                "-A",
+                "clippy::needless_range_loop",
+                "-A",
+                "clippy::extra_unused_type_parameters",
+                "-A",
+                "clippy::type_complexity",
+              },
             },
             procMacro = {
               enable = true,
