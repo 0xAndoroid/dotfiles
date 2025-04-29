@@ -133,3 +133,5 @@ source <(fzf --zsh)
 
 
 [ -f ~/.keysrc ] && source ~/.keysrc
+
+bindkey -r '^H' '^J' '^K' '^L'
