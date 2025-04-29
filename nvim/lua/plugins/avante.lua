@@ -6,7 +6,7 @@ return {
     event = "VeryLazy",
     lazy = false,
     opts = {
-      disabled_tools = { "python" },
+      disabled_tools = { "python", "git_diff", "git_commit", "bash", "web_search", "fetch" },
       provider = "claude",
       claude = {
         endpoint = "https://api.anthropic.com",
@@ -22,6 +22,7 @@ return {
       auto_suggestions_provider = "ollama",
       behaviour = {
         auto_suggestions = false,
+        enable_claude_text_editor_tool_mode = true,
       },
       windows = {
         width = 35,
