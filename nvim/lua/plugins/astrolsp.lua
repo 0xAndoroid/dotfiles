@@ -68,17 +68,6 @@ return {
               command = "clippy",
               extraArgs = {
                 "--no-deps",
-                "--",
-                "-A",
-                "clippy::uninlined_format_args",
-                "-A",
-                "clippy::ptr_arg",
-                "-A",
-                "clippy::needless_range_loop",
-                "-A",
-                "clippy::extra_unused_type_parameters",
-                "-A",
-                "clippy::type_complexity",
               },
             },
             procMacro = {
