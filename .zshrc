@@ -77,7 +77,8 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
+ZVM_VI_ESCAPE_BINDKEY=jk
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,4 +135,4 @@ source <(fzf --zsh)
 
 [ -f ~/.keysrc ] && source ~/.keysrc
 
-bindkey -r '^H' '^J' '^K' '^L'
+bindkey -r '^h' '^j' '^k' '^l'
