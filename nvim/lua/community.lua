@@ -14,7 +14,6 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
-  { import = "astrocommunity.completion.avante-nvim" },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
