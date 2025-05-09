@@ -1,8 +1,7 @@
 return {
   "Exafunction/windsurf.nvim",
   event = "User AstroFile",
-  config = function() require("codeium").setup {} end,
-  opts = {
+  config = function() require("codeium").setup {
     enable_chat = false,
     enable_cmp_source = false,
     virtual_text = {
@@ -13,7 +12,7 @@ return {
         prev = "<M-[>",
       },
     },
-  },
+  } end,
   dependencies = {
     {
       "AstroNvim/astroui",
