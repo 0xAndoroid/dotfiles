@@ -34,6 +34,7 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       "circom_lsp",
+      "rust_analyzer",
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
@@ -68,6 +69,13 @@ return {
               command = "clippy",
               extraArgs = {
                 "--no-deps",
+                "--jobs",
+                "5",
+                "--",
+                "-A",
+                "clippy::unnecessary_cast",
+                "-A",
+                "clippy::uninlined_format_args",
               },
             },
             procMacro = {
@@ -75,6 +83,7 @@ return {
             },
             diagnostics = {
               enable = true,
+              disabled = { "clippy::unnecessary_cast", "clippy::uninlined_format_args" },
             },
             rustfmt = {
               rangeFormatting = {
