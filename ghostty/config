@@ -7,7 +7,7 @@ background-blur = true
 background-opacity = 0.94
 
 font-family = "IosevkaCustomSemi Nerd Font"
-font-size = 14
+font-size = 16 
 font-feature = liga
 font-feature = calt
 font-feature = dlig
