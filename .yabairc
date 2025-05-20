@@ -33,7 +33,7 @@ yabai -m rule --add title="Meeting now" manage=off
 yabai -m rule --add app="^qBittorrent$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Kawa$" manage=off
-yabai -m rule --add app="^Notes$" manage=off
+# yabai -m rule --add app="^Notes$" manage=off
 yabai -m rule --add app="^DevToys$" manage=off
 yabai -m rule --add app="^Counter-Strike Global Offensive$" manage=off
 yabai -m rule --add app="^Reminders$" manage=off
