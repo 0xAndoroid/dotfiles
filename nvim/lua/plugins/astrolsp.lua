@@ -70,7 +70,7 @@ return {
               extraArgs = {
                 "--no-deps",
                 "--jobs",
-                "5",
+                "3",
                 "--",
                 "-A",
                 "clippy::unnecessary_cast",
