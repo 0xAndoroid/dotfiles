@@ -68,5 +68,6 @@
   "typst.vim": { "branch": "main", "commit": "323539709e29a537ff39dfce6c05f175a8921504" },
   "vim-circom-syntax": { "branch": "master", "commit": "da7bb12643086c6907c334c5d049dad58a230ae2" },
   "vim-illuminate": { "branch": "master", "commit": "fbc16dee336d8cc0d3d2382ea4a53f4a29725abf" },
-  "which-key.nvim": { "branch": "main", "commit": "fcbf4eea17cb299c02557d576f0d568878e354a4" }
+  "which-key.nvim": { "branch": "main", "commit": "fcbf4eea17cb299c02557d576f0d568878e354a4" },
+  "windsurf.nvim": { "branch": "main", "commit": "821b570b526dbb05b57aa4ded578b709a704a38a" }
 }
