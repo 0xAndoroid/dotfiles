@@ -29,14 +29,16 @@ return {
       },
     },
     opts = {
-      disabled_tools = { "python", "git_diff", "git_commit", "bash", "web_search", "fetch" },
+      -- disabled_tools = { "python", "git_diff", "git_commit", "bash", "web_search", "fetch", "list_files",
+      -- "read_file", "create_file", },
       provider = "claude",
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-3-7-sonnet-20250219",
+        model = "claude-4-sonnet-20250219",
         timeout = 30000,
-        temperature = 1,
-        max_tokens = 8096,
+        -- temperature = 0,
+        max_tokens = 4096,
+        disable_tools = true,
       },
       ollama = {
         endpoint = "http://127.0.0.1:11434/v1",
