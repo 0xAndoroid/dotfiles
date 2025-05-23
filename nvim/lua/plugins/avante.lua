@@ -34,7 +34,7 @@ return {
       provider = "claude",
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-4-sonnet-20250219",
+        model = "claude-sonnet-4-20250514",
         timeout = 30000,
         -- temperature = 0,
         max_tokens = 4096,
