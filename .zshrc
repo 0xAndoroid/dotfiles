@@ -127,7 +127,9 @@ alias gce='gh copilot explain'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-eval "$(zoxide init zsh --cmd cd)"
+if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 function my_init() {
   source <(fzf --zsh)

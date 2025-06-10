@@ -33,6 +33,8 @@ create_link ~/.dotfiles/.gitconfig ~/.gitconfig
 create_link ~/.dotfiles/.rustfmt.toml ~/.rustfmt.toml
 create_link ~/.dotfiles/.skhdrc ~/.skhdrc
 create_link ~/.dotfiles/.yabairc ~/.yabairc
+create_link ~/.dotfiles/claude/settings.json ~/.claude/settings.json
+create_link ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim
@@ -40,3 +42,4 @@ create_link ~/.dotfiles/lazygit ~/.config/lazygit
 create_link ~/.dotfiles/sketchybar ~/.config/sketchybar
 create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
+create_link ~/.dotfiles/claude/commands ~/.claude/commands

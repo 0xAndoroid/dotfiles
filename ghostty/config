@@ -43,3 +43,4 @@ palette = 14=#6DCAE8
 palette = 15=#5A5E7A
 
 # cursor-color = "#BB97EE"
+keybind = shift+enter=text:\n
