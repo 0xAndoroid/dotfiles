@@ -2,35 +2,35 @@ disableStartupPopups: true
 promptToReturnFromSubprocess: false
 notARepository: 'skip'
 gui:
-    scrollHeight: 4 # how many lines you scroll by
-    scrollPastBottom: false # enable scrolling past the bottom
-    commitLength:
-        show: true
-    mouseEvents: false
-    skipDiscardChangeWarning: true
-    showFileTree: true
+  scrollHeight: 4 # how many lines you scroll by
+  scrollPastBottom: false # enable scrolling past the bottom
+  commitLength:
+    show: true
+  mouseEvents: false
+  skipDiscardChangeWarning: true
+  showFileTree: true
 refresher:
-    refreshInterval: 60
+  refreshInterval: 60
 git:
-    autoFetch: true
-    commit:
-        signOff: true
-    paging:
-        colorArg: always
-        # pager: cat
-        # pager: delta --paging=never
+  autoFetch: true
+  commit:
+    signOff: true
+  paging:
+    colorArg: always
+    # pager: cat
+    # pager: delta --paging=never
 update:
-    method: never
+  method: never
 quitOnTopLevelReturn: false
 customCommands:
-    - key: 'C'
-      command: "git cleanup"
-      context: 'localBranches'
-      subprocess: true
-    - key: 'O'
-      command: "gh pr create"
-      context: 'localBranches'
-      subprocess: true
-    - key: 'G'
-      command: "gh pr view --web"
-      context: 'localBranches'
+  - key: 'C'
+    command: "git cleanup"
+    context: 'localBranches'
+    output: terminal
+  - key: 'O'
+    command: "gh pr create"
+    context: 'localBranches'
+    output: terminal
+  - key: 'G'
+    command: "gh pr view --web"
+    context: 'localBranches'
