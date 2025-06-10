@@ -3,8 +3,6 @@ local function smart_navigation(direction, yabai_direction)
   local success = pcall(function() vim.cmd("wincmd " .. direction) end)
   local new_win = vim.api.nvim_get_current_win()
   if not success or current_win == new_win then
-    vim.system({ "touch", "/tmp/nvim_edge_move_lock" }, { detach = true })
-    vim.defer_fn(function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end, 50)
     vim.system({ "yabai", "-m", "window", "--focus", yabai_direction }, { detach = true })
   end
 end
@@ -42,6 +40,24 @@ return {
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+      },
+    },
+    autocmds = {
+      focus_tracker = {
+        {
+          event = { "VimEnter", "FocusGained" },
+          callback = function() vim.system({ "touch", "/tmp/nvim_edge_move_lock" }, { detach = true }) end,
+        },
+        {
+          event = { "FocusLost" },
+          callback = function()
+            vim.defer_fn(function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end, 100)
+          end,
+        },
+        {
+          event = { "VimLeavePre" },
+          callback = function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end,
+        },
       },
     },
     -- Mappings can be configured through AstroCore as well.
