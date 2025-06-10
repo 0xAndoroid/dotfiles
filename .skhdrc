@@ -11,10 +11,10 @@ ctrl - k -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus north
 ctrl - l -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus east
 
 # Moving windows
-ctrl + shift - left : yabai -m window --warp west
-ctrl + shift - right : yabai -m window --warp east
-ctrl + shift - down : yabai -m window --warp south
-ctrl + shift - up : yabai -m window --warp north
+ctrl + alt - h : yabai -m window --warp west
+ctrl + alt - l : yabai -m window --warp east
+ctrl + alt - j : yabai -m window --warp south
+ctrl + alt - k : yabai -m window --warp north
 
 # Rotate layout
 ctrl + alt - b : yabai -m space --rotate 90
