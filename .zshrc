@@ -128,7 +128,6 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 eval "$(zoxide init zsh --cmd cd)"
-eval "$(zoxide init bash --cmd cd)"
 source <(fzf --zsh)
 
 function my_init() {
