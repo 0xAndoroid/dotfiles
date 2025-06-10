@@ -128,11 +128,13 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 eval "$(zoxide init zsh --cmd cd)"
-source <(fzf --zsh)
 
 function my_init() {
+  source <(fzf --zsh)
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-  bindkey -r '^H' '^J' '^K' '^L'
+  bindkey -M viins -r '^H' '^J' '^K' '^L'
+  bindkey -M visual -r '^H' '^J' '^K' '^L'
+  bindkey -M vicmd -r '^H' '^J' '^K' '^L'
 }
 zvm_after_init_commands+=(my_init)
 
