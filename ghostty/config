@@ -5,6 +5,7 @@ window-padding-y = 10
 window-decoration = false
 background-blur = true
 background-opacity = 0.94
+window-save-state = always
 
 font-family = "IosevkaCustomSemi Nerd Font"
 font-size = 14
