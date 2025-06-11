@@ -26,28 +26,28 @@ CLIPPY_ARGS="-- -D warnings"
 
 # Function to parse TOML config using tq
 parse_config() {
-    if [ -f "$CONFIG_FILE" ] && command -v tq &>/dev/null; then
+    if [ -f "$CONFIG_FILE" ] && command -v tq &> /dev/null; then
         # Parse rust section
-        ENABLE_FMT=$(tq -r '.rust.enable_fmt // true' "$CONFIG_FILE")
-        ENABLE_TYPOS=$(tq -r '.rust.enable_typos // true' "$CONFIG_FILE")
-        ENABLE_CLIPPY=$(tq -r '.rust.enable_clippy // false' "$CONFIG_FILE")
-        ENABLE_TEST=$(tq -r '.rust.enable_test // false' "$CONFIG_FILE")
-
+        ENABLE_FMT=$(tq -f "$CONFIG_FILE" -r '.rust.enable_fmt' 2>/dev/null || echo "true")
+        ENABLE_TYPOS=$(tq -f "$CONFIG_FILE" -r '.rust.enable_typos' 2>/dev/null || echo "true")
+        ENABLE_CLIPPY=$(tq -f "$CONFIG_FILE" -r '.rust.enable_clippy' 2>/dev/null || echo "false")
+        ENABLE_TEST=$(tq -f "$CONFIG_FILE" -r '.rust.enable_test' 2>/dev/null || echo "false")
+        
         # Parse arguments (join array elements)
-        local fmt_args_array=$(tq -r '.rust.fmt_args // ["--", "--check"] | join(" ")' "$CONFIG_FILE")
-        [ "$fmt_args_array" != "null" ] && FMT_ARGS="$fmt_args_array"
-
-        local typos_args_array=$(tq -r '.rust.typos_args // ["--diff"] | join(" ")' "$CONFIG_FILE")
-        [ "$typos_args_array" != "null" ] && TYPOS_ARGS="$typos_args_array"
-
-        local clippy_args_array=$(tq -r '.rust.clippy_args // ["--", "-D", "warnings"] | join(" ")' "$CONFIG_FILE")
-        [ "$clippy_args_array" != "null" ] && CLIPPY_ARGS="$clippy_args_array"
-
+        local fmt_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.fmt_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "-- --check")
+        FMT_ARGS="$fmt_args_array"
+        
+        local typos_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.typos_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "--diff")
+        TYPOS_ARGS="$typos_args_array"
+        
+        local clippy_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.clippy_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "-- -D warnings")
+        CLIPPY_ARGS="$clippy_args_array"
+        
         # Parse general section
-        VERBOSE=$(tq -r '.general.verbose // true' "$CONFIG_FILE")
-        FAIL_FAST=$(tq -r '.general.fail_fast // true' "$CONFIG_FILE")
-        ALLOW_MISSING_TOOLS=$(tq -r '.general.allow_missing_tools // true' "$CONFIG_FILE")
-    elif [ -f "$CONFIG_FILE" ] && ! command -v tq &>/dev/null; then
+        VERBOSE=$(tq -f "$CONFIG_FILE" -r '.general.verbose' 2>/dev/null || echo "true")
+        FAIL_FAST=$(tq -f "$CONFIG_FILE" -r '.general.fail_fast' 2>/dev/null || echo "true")
+        ALLOW_MISSING_TOOLS=$(tq -f "$CONFIG_FILE" -r '.general.allow_missing_tools' 2>/dev/null || echo "true")
+    elif [ -f "$CONFIG_FILE" ] && ! command -v tq &> /dev/null; then
         echo -e "${YELLOW}⚠️  tq not found, using default settings${NC}"
         echo -e "${YELLOW}   Install with: cargo install tomlq${NC}"
     fi
@@ -68,13 +68,13 @@ is_rust_project() {
 # Function to check if path should be ignored
 should_ignore() {
     local file="$1"
-    if [ -f "$CONFIG_FILE" ] && command -v tq &>/dev/null; then
-        local ignore_paths=$(tq -r '.rust.ignore_paths[]?' "$CONFIG_FILE" 2>/dev/null)
+    if [ -f "$CONFIG_FILE" ] && command -v tq &> /dev/null; then
+        local ignore_paths=$(tq -f "$CONFIG_FILE" -r '.rust.ignore_paths' -o json 2>/dev/null | jq -r '.[]' 2>/dev/null)
         while IFS= read -r pattern; do
             if [[ "$file" == *"$pattern"* ]]; then
                 return 0
             fi
-        done <<<"$ignore_paths"
+        done <<< "$ignore_paths"
     fi
     return 1
 }
@@ -94,9 +94,9 @@ run_check() {
     local check_command="$2"
     local fix_command="$3"
     local required="$4"
-
+    
     log "${YELLOW}Running $check_name...${NC}"
-
+    
     if eval "$check_command"; then
         log "${GREEN}✓ $check_name passed${NC}"
         return 0
@@ -105,7 +105,7 @@ run_check() {
         if [ -n "$fix_command" ]; then
             echo -e "${RED}Run '$fix_command' to fix${NC}"
         fi
-
+        
         if [ "$FAIL_FAST" = "true" ] || [ "$required" = "true" ]; then
             exit 1
         fi
@@ -117,25 +117,25 @@ run_check() {
 main() {
     # Parse configuration
     parse_config
-
+    
     # Exit early if not a Rust project
     if ! is_rust_project; then
         exit 0
     fi
-
+    
     log "${BLUE}🦀 Running Rust pre-commit checks...${NC}"
     if [ -f "$CONFIG_FILE" ]; then
         log "${BLUE}📋 Using config from: $CONFIG_FILE${NC}"
     else
         log "${YELLOW}⚠️  No config file found at: $CONFIG_FILE (using defaults)${NC}"
     fi
-
+    
     # Check if cargo is installed
-    if ! command -v cargo &>/dev/null; then
+    if ! command -v cargo &> /dev/null; then
         echo -e "${RED}Error: cargo is not installed${NC}"
         exit 1
     fi
-
+    
     # Get staged files for info
     local staged_files=$(get_staged_rust_files)
     if [ -z "$staged_files" ]; then
@@ -146,9 +146,9 @@ main() {
             log "  • $file"
         done
     fi
-
+    
     local failed=false
-
+    
     # Run cargo fmt check
     if [ "$ENABLE_FMT" = "true" ]; then
         if ! run_check "cargo fmt" "cargo fmt $FMT_ARGS" "cargo fmt" true; then
@@ -157,10 +157,10 @@ main() {
     else
         log "${YELLOW}⏩ Skipping cargo fmt (disabled in config)${NC}"
     fi
-
+    
     # Run typos check
     if [ "$ENABLE_TYPOS" = "true" ]; then
-        if command -v typos &>/dev/null; then
+        if command -v typos &> /dev/null; then
             if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" false; then
                 failed=true
             fi
@@ -176,7 +176,7 @@ main() {
     else
         log "${YELLOW}⏩ Skipping typos check (disabled in config)${NC}"
     fi
-
+    
     # Run cargo clippy
     if [ "$ENABLE_CLIPPY" = "true" ]; then
         if ! run_check "cargo clippy" "cargo clippy $CLIPPY_ARGS" "cargo clippy --fix" false; then
@@ -185,7 +185,7 @@ main() {
     else
         log "${YELLOW}⏩ Skipping cargo clippy (disabled in config)${NC}"
     fi
-
+    
     # Run cargo test
     if [ "$ENABLE_TEST" = "true" ]; then
         if ! run_check "cargo test" "cargo test --quiet" "" false; then
@@ -194,7 +194,7 @@ main() {
     else
         log "${YELLOW}⏩ Skipping cargo test (disabled in config)${NC}"
     fi
-
+    
     # Final result
     if [ "$failed" = "true" ]; then
         echo -e "${RED}❌ Pre-commit checks failed!${NC}"
