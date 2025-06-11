@@ -65,6 +65,7 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(npm list:*)",
+      "Bash(mkdir:*)",
       "Bash(yarn lint:*)",
       "Bash(yarn test:*)",
       "Bash(yarn build:*)",
