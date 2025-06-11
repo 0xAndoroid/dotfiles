@@ -71,11 +71,6 @@ return {
                 "--no-deps",
                 "--jobs",
                 "5",
-                "--",
-                "-A",
-                "clippy::unnecessary_cast",
-                "-A",
-                "clippy::uninlined_format_args",
               },
             },
             procMacro = {
