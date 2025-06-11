@@ -1,4 +1,4 @@
-# Parallel Task Version Execution
+# Parallel Task Version Execution [PLAN_TO_EXECUTE_FILE] [NUMBER_OF_PARALLEL_WORKTREES]
 
 ## Variables
 PLAN_TO_EXECUTE: $ARGUMENTS

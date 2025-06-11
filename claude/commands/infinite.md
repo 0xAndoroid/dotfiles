@@ -1,4 +1,4 @@
-**INFINITE AGENTIC LOOP COMMAND**
+# INFINITE AGENTIC LOOP COMMAND [spec_file] [output_dir] [count]
 
 Think deeply about this infinite generation task. You are about to embark on a sophisticated iterative creation process.
 

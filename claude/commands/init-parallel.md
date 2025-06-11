@@ -1,4 +1,4 @@
-# Initialize parallel git worktree directories
+# Initialize parallel git worktree directories [FEATURE_NAME] [NUMBER_OF_PARALLEL_WORKTREES]
 
 ## Variables
 FEATURE_NAME: $ARGUMENTS

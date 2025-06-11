@@ -1,5 +1,5 @@
 {
-  "model": "claude-opus-4-20250514",
+  "cleanupPeriodDays": 30,
   "env": {
     "ANTHROPIC_MODEL": "claude-opus-4-20250514",
     "ANTHROPIC_SMALL_FAST_MODEL": "claude-3-5-haiku-20241022",
@@ -13,6 +13,7 @@
     "MCP_TIMEOUT": "30000",
     "MCP_TOOL_TIMEOUT": "60000"
   },
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Read(**)",
@@ -201,6 +202,5 @@
       "Read(**/credentials/**)"
     ]
   },
-  "cleanupPeriodDays": 30,
-  "includeCoAuthoredBy": false
+  "model": "opus"
 }
