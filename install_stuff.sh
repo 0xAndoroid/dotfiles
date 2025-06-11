@@ -167,5 +167,6 @@ install_cargo_tool trunk
 install_cargo_tool typstyle
 install_cargo_tool wasm-bindgen-cli
 install_cargo_tool typos-cli
+install_cargo_tool tomlq
 
 echo -e "${GREEN}All installations complete!${NC}"
