@@ -29,6 +29,7 @@
       "Bash(cargo fmt:*)",
       "Bash(cargo doc:*)",
       "Bash(cargo clean)",
+      "Bash(typos)",
       "Bash(rustc --version)",
       "Bash(rustup:*)",
       "Bash(gh pr view:*)",

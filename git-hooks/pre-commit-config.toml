@@ -1,0 +1,31 @@
+# ~/.git-hooks/pre-commit-config.toml
+# Configuration for the universal pre-commit hook
+
+[rust]
+# Enable/disable specific checks
+enable_fmt = true
+enable_typos = true
+enable_clippy = false
+enable_test = false
+
+# Additional cargo fmt arguments
+fmt_args = ["--", "--check"]
+
+# Additional typos arguments  
+typos_args = ["--diff"]
+
+# Additional clippy arguments (when enabled)
+clippy_args = ["--", "-D", "warnings"]
+
+# Paths to ignore (relative to repository root)
+ignore_paths = ["target/", "vendor/", ".git/"]
+
+[general]
+# Show verbose output
+verbose = true
+
+# Fail fast on first error
+fail_fast = true
+
+# Allow commits even if optional tools are missing
+allow_missing_tools = true

@@ -43,3 +43,4 @@ create_link ~/.dotfiles/sketchybar ~/.config/sketchybar
 create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/commands ~/.claude/commands
+create_link ~/.dotfiles/git-hooks ~/.git-hooks
