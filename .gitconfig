@@ -6,7 +6,7 @@
 	helper = osxkeychain
 [core]
 	editor = nvim
-	hooksPath = /Users/atretyakov/.git-hooks
+	hooksPath = ~/.git-hooks
 [commit]
 	gpgsign = true
 [gpg]
