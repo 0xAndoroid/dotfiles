@@ -1,18 +1,5 @@
 {
   "cleanupPeriodDays": 30,
-  "env": {
-    "ANTHROPIC_MODEL": "claude-opus-4-20250514",
-    "ANTHROPIC_SMALL_FAST_MODEL": "claude-3-5-haiku-20241022",
-    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "8192",
-    "BASH_DEFAULT_TIMEOUT_MS": "100000",
-    "BASH_MAX_TIMEOUT_MS": "300000",
-    "BASH_MAX_OUTPUT_LENGTH": "50000",
-    "DISABLE_COST_WARNINGS": "0",
-    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "0",
-    "MAX_THINKING_TOKENS": "32000",
-    "MCP_TIMEOUT": "30000",
-    "MCP_TOOL_TIMEOUT": "60000"
-  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -151,6 +138,7 @@
       "Edit(.gitignore)",
       "Edit(README.md)",
       "Edit(LICENSE)",
+      "Search(**)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.rs)",
       "WebFetch(domain:crates.io)",
@@ -204,5 +192,5 @@
       "Read(**/credentials/**)"
     ]
   },
-  "model": "opus"
+  "model": "claude-opus-4-20250514"
 }

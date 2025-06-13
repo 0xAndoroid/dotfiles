@@ -27,3 +27,4 @@ When the subagent completes it's work, have the subagent to report their final c
 
 When running agents make sure they compile the code as little as possible. Make sure only specific tests are being run, not all tests.
 
+Unless absolutely necessary, stick to pre-approved commands only, as using other commands requires manual confirmation of user.
