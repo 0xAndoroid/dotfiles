@@ -55,16 +55,20 @@ return {
         "glob",
       },
       provider = "claude",
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-sonnet-4-20250514",
-        timeout = 30000,
-        -- temperature = 0,
-        max_tokens = 8192,
-      },
-      ollama = {
-        endpoint = "http://127.0.0.1:11434/v1",
-        model = "deepseek-r1:1.5b",
+      providers = {
+        claude = {
+          endpoint = "https://api.anthropic.com",
+          model = "claude-sonnet-4-20250514",
+          timeout = 30000,
+          extra_request_body = {
+            -- temperature = 0,
+            max_tokens = 8192,
+          },
+        },
+        ollama = {
+          endpoint = "http://127.0.0.1:11434/v1",
+          model = "deepseek-r1:1.5b",
+        },
       },
       auto_suggestions_provider = "ollama",
       behaviour = {

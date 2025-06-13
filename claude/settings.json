@@ -117,6 +117,7 @@
       "Edit(*.rs)",
       "Edit(*.py)",
       "Edit(*.js)",
+      "Edit(*.lua)",
       "Edit(*.ts)",
       "Edit(*.jsx)",
       "Edit(*.tsx)",
