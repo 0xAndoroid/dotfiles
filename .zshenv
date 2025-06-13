@@ -3,22 +3,20 @@
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
-export PATH="$HOME/.solana/bin:$PATH"
-
-# Setting PATH for Python 3.11
-export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$PATH"
-
 . "$HOME/.cargo/env"
-
-export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
 # For Lazygit path
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Consolidated PATH management
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+export PATH="$HOME/.solana/bin:$PATH"
+export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$PATH:/Users/andoroid/.config/.foundry/bin"
