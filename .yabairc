@@ -1,5 +1,10 @@
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# Check if SIP is disabled before attempting to load scripting addition
+if csrutil status | grep -q "disabled"; then
+    sudo yabai --load-sa
+    yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+else
+    echo "Warning: SIP is enabled. Some yabai features may not work."
+fi
 yabai -m config layout bsp
 
 # Space labels
@@ -50,16 +55,14 @@ yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" title="^$" manage=off
 # Don't manage popups
 yabai -m rule --add app="^Arc$" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Andrew$|^General$|^Profiles$|^Max$|^Links$|^Shortcuts$|^Icon$|^Advanced$|^Bitwarden$|^$" manage=off
 # Fix for mouse follow
-yabai -m signal --add app='^Arc$' \
+yabai -m signal --add app='^Arc$' event='window_created' \
     title='^$|^Rabby Wallet Notification$' \
-    event='window_created' \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
             if [ "$subrole" != "AXSystemDialog" ]; then \
                 yabai -m config focus_follows_mouse off; \
             fi'
-yabai -m signal --add app='^Arc$' \ 
+yabai -m signal --add app='^Arc$' event='window_title_changed' \
     title='^$|^Rabby Wallet Notification$' \
-    event='window_title_changed' \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
             if [ "$subrole" != "AXSystemDialog" ]; then \
                 # Used for debugging
