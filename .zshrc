@@ -120,7 +120,7 @@ alias copilot='gh copilot'
 alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
 alias cld='caffeinate -d claude'
-alias claude='caffeinate -d claude'
+alias coffee='caffeinate -d'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
