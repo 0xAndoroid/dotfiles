@@ -5,17 +5,17 @@
 # Enable/disable specific checks
 enable_fmt = true
 enable_typos = true
-enable_clippy = false
+enable_clippy = true
 enable_test = false
 
 # Additional cargo fmt arguments
-fmt_args = ["--", "--check"]
+fmt_args = ["--all", "-q", "--check", "--message-format=short"]
 
 # Additional typos arguments  
 typos_args = ["--diff"]
 
 # Additional clippy arguments (when enabled)
-clippy_args = ["--", "-D", "warnings"]
+clippy_args = ["-q", "--message-format=short", "--", "-D", "warnings"]
 
 # Paths to ignore (relative to repository root)
 ignore_paths = ["target/", "vendor/", ".git/"]
