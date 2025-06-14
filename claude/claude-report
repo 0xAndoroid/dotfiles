@@ -5,11 +5,10 @@ set -e
 
 # Function to show usage
 usage() {
-    echo "Usage: $0 -t TYPE -i IMPACT -d DESCRIPTION [-s SESSION_FILE]"
+    echo "Usage: $0 -t TYPE -i IMPACT -d DESCRIPTION"
     echo "  -t TYPE         Event type: 'decision' or 'milestone'"
     echo "  -i IMPACT       Impact level: 'high' or 'low'"
     echo "  -d DESCRIPTION  Description of the event"
-    echo "  -s SESSION_FILE Optional: Session file path (defaults to latest session)"
     exit 1
 }
 
@@ -17,14 +16,12 @@ usage() {
 TYPE=""
 IMPACT=""
 DESCRIPTION=""
-SESSION_FILE=""
 
-while getopts "t:i:d:s:h" opt; do
+while getopts "t:i:d:h" opt; do
     case $opt in
         t) TYPE="$OPTARG" ;;
         i) IMPACT="$OPTARG" ;;
         d) DESCRIPTION="$OPTARG" ;;
-        s) SESSION_FILE="$OPTARG" ;;
         h) usage ;;
         *) usage ;;
     esac
@@ -48,20 +45,22 @@ if [[ "$IMPACT" != "high" && "$IMPACT" != "low" ]]; then
     exit 1
 fi
 
-# If no session file provided, try to find the latest one
+# Get session name from environment
+SESSION_NAME="${ZELLIJ_SESSION_NAME:-}"
+if [[ -z "$SESSION_NAME" ]]; then
+    echo "Error: Not in a zellij session. This script must be run from within a Claude session."
+    exit 1
+fi
+
+# Find the session file for this session name
+SESSION_DIR=~/.claude/sessions
+SESSION_FILE=$(ls -t "$SESSION_DIR"/${SESSION_NAME}_*.txt 2>/dev/null | head -n1)
+
 if [[ -z "$SESSION_FILE" ]]; then
-    # Look for the most recent session file
-    SESSION_DIR=~/.claude/sessions
-    if [[ -d "$SESSION_DIR" ]]; then
-        SESSION_FILE=$(ls -t "$SESSION_DIR"/*.txt 2>/dev/null | head -n1)
-        if [[ -z "$SESSION_FILE" ]]; then
-            echo "Error: No session file found and none specified"
-            exit 1
-        fi
-    else
-        echo "Error: Session directory not found and no session file specified"
-        exit 1
-    fi
+    echo "Error: No session file found for session '$SESSION_NAME'"
+    echo "Available session files:"
+    ls -la "$SESSION_DIR"/*.txt 2>/dev/null || echo "  No session files found"
+    exit 1
 fi
 
 # Generate ISO8601 timestamp in local time

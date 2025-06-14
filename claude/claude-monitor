@@ -3,13 +3,19 @@
 # Claude session monitoring script
 set -e
 
-# Check if session file argument is provided
-if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <session-file>"
-    exit 1
-fi
+# Auto-detect session file based on zellij session name
+SESSION_NAME="${ZELLIJ_SESSION_NAME:-unknown}"
+echo "Looking for session file for: $SESSION_NAME"
 
-SESSION_FILE="$1"
+# Wait for a session file matching our session name to appear
+while true; do
+    # Find the most recent session file for this session
+    SESSION_FILE=$(ls -t ~/.claude/sessions/${SESSION_NAME}_*.txt 2>/dev/null | head -1)
+    if [[ -n "$SESSION_FILE" && -f "$SESSION_FILE" ]]; then
+        break
+    fi
+    sleep 0.5
+done
 
 # ANSI color codes
 RESET="\033[0m"

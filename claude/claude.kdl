@@ -1,0 +1,16 @@
+layout {
+    pane split_direction="vertical" {
+        pane size="60%" {
+            command "$HOME/.dotfiles/claude/claude-agent"
+            focus true
+            name "Claude Agent"
+        }
+        pane {
+            command "$HOME/.dotfiles/claude/claude-monitor"
+            name "Claude Monitor"
+        }
+    }
+    pane size=1 borderless=true {
+        plugin location="status-bar"
+    }
+}

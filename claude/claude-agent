@@ -1,0 +1,84 @@
+#!/usr/bin/env zsh
+
+# Claude agent script - sets up environment and runs claude
+set -e
+
+# Generate session info using zellij session name
+SESSION_NAME="${ZELLIJ_SESSION_NAME:-unknown}"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+# Create sessions directory if it doesn't exist
+mkdir -p ~/.claude/sessions
+
+# Session file for monitoring - use consistent naming based on session name
+SESSION_FILE=~/.claude/sessions/${SESSION_NAME}_${TIMESTAMP}.txt
+
+# Use local CLAUDE.md in current directory
+CLAUDE_MD_PATH="./CLAUDE.md"
+CLAUDE_MD_BACKUP=""
+CLAUDE_MD_CREATED=false
+
+# Check if local CLAUDE.md exists, if not create it
+if [[ -f "$CLAUDE_MD_PATH" ]]; then
+    # Backup existing local CLAUDE.md
+    CLAUDE_MD_BACKUP=$(mktemp)
+    cp "$CLAUDE_MD_PATH" "$CLAUDE_MD_BACKUP"
+else
+    # Create new local CLAUDE.md
+    CLAUDE_MD_CREATED=true
+    touch "$CLAUDE_MD_PATH"
+fi
+
+# Function to cleanup on exit
+cleanup() {
+    if [[ "$CLAUDE_MD_CREATED" == "true" ]]; then
+        # We created the file, so remove it
+        rm -f "$CLAUDE_MD_PATH"
+    elif [[ -n "$CLAUDE_MD_BACKUP" && -f "$CLAUDE_MD_BACKUP" ]]; then
+        # Restore original content
+        cp "$CLAUDE_MD_BACKUP" "$CLAUDE_MD_PATH"
+        rm -f "$CLAUDE_MD_BACKUP"
+    fi
+}
+
+# Set up cleanup on exit
+trap cleanup EXIT INT TERM
+
+# Add monitoring instructions to CLAUDE.md
+cat >>"$CLAUDE_MD_PATH" <<'EOF'
+
+# Session Monitoring Instructions
+
+THIS IS VERY IMPORTANT. DO NOT FORGET IT.
+When you make a major architectural decision or decide to try a new approach, use the claude-report script to log it.
+When you reach a milestone in the process, also use claude-report to log it.
+
+Use the Bash tool to run claude-report:
+```bash
+# -i is impact: high or low
+# For decisions:
+claude-report -t decision -i high -d "Decided to use async architecture"
+
+# For milestones:
+claude-report -t milestone -i low -d "Completed initial setup"
+```
+
+The script will automatically generate the timestamp and create properly formatted JSON.
+EOF
+
+
+# Create session file
+touch "$SESSION_FILE"
+
+# Log session start
+echo "{\"type\": \"milestone\", \"impact\": \"low\", \"timestamp\": \"$(date -Iseconds)\", \"description\": \"Session started in $PWD\"}" >>"$SESSION_FILE"
+
+# Run claude
+echo "Starting Claude session: $SESSION_NAME"
+echo "Session file: $SESSION_FILE"
+echo ""
+
+claude
+
+# Log session end
+echo "{\"type\": \"milestone\", \"impact\": \"low\", \"timestamp\": \"$(date -Iseconds)\", \"description\": \"Session ended\"}" >>"$SESSION_FILE"
