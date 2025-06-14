@@ -168,6 +168,7 @@ install_cargo_tool typstyle
 install_cargo_tool wasm-bindgen-cli
 install_cargo_tool typos-cli
 install_cargo_tool tomlq
+install_cargo_tool zellij
 
 # Configure npm global directory
 echo "Configuring npm global directory..."
@@ -178,8 +179,16 @@ echo -e "${GREEN}✓ npm global directory configured${NC}"
 # Function to install npm packages
 install_npm_package() {
   local package=$1
-  echo "Installing $package..."
-  npm install -g "$package"
+  echo "Checking for $package..."
+  
+  # Check if package is already installed globally
+  if npm list -g --depth=0 "$package" &> /dev/null; then
+    print_status "exists" "$package"
+  else
+    echo "Installing $package..."
+    npm install -g "$package"
+    print_status "installed" "$package"
+  fi
 }
 
 # Install npm packages
@@ -193,7 +202,6 @@ install_npm_package prettier
 # install_npm_package snarkjs
 install_npm_package tsc
 install_npm_package typescript-language-server
-install_npm_package typescript
 install_npm_package wscat
 echo -e "${GREEN}✓ npm packages installed${NC}"
 
