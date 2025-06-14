@@ -1,0 +1,81 @@
+#!/usr/bin/env zsh
+
+# Claude session recovery script
+set -e
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RESET='\033[0m'
+
+# Paths
+CLAUDE_DIR=~/.claude
+METADATA_DIR="$CLAUDE_DIR/metadata"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Function to recover orphaned sessions
+recover_sessions() {
+    local recovered=0
+    
+    # Check all metadata files
+    for metadata_file in "$METADATA_DIR"/*.json; do
+        [[ -f "$metadata_file" ]] || continue
+        
+        local session_id=$(basename "$metadata_file" .json)
+        local metadata=$(cat "$metadata_file")
+        local status=$(echo "$metadata" | jq -r '.status // "unknown"')
+        local name=$(echo "$metadata" | jq -r '.name // "unknown"')
+        local session_file=$(echo "$metadata" | jq -r '.session_file // ""')
+        
+        # Check if session is marked as active but zellij session doesn't exist
+        if [[ "$status" == "active" ]] && ! zellij list-sessions 2>/dev/null | grep -q "^$session_id"; then
+            echo -e "${YELLOW}Found orphaned session: $name${RESET}"
+            
+            # Check if we can restart the monitor
+            if [[ -f "$session_file" ]]; then
+                echo -e "${GREEN}Restarting monitor for session '$name'...${RESET}"
+                
+                # Create new zellij session with just the monitor
+                local monitor_script="$SCRIPT_DIR/claude-monitor"
+                local layout_file=$(mktemp -t zellij-recover.XXXXXX.kdl)
+                
+                cat > "$layout_file" << EOF
+layout {
+    pane {
+        command "$monitor_script"
+        args "$session_file"
+    }
+}
+EOF
+                
+                # Start zellij session in detached mode
+                zellij --session "${session_id}-monitor" --layout "$layout_file" &
+                sleep 2
+                
+                rm -f "$layout_file"
+                
+                # Update metadata
+                echo "$metadata" | jq '.status = "monitor-only"' > "${metadata_file}.tmp"
+                mv "${metadata_file}.tmp" "$metadata_file"
+                
+                ((recovered++))
+            else
+                echo -e "${RED}Session file not found for '$name'${RESET}"
+                
+                # Mark as dead
+                echo "$metadata" | jq '.status = "dead"' > "${metadata_file}.tmp"
+                mv "${metadata_file}.tmp" "$metadata_file"
+            fi
+        fi
+    done
+    
+    if [[ $recovered -eq 0 ]]; then
+        echo -e "${GREEN}No orphaned sessions found.${RESET}"
+    else
+        echo -e "${GREEN}Recovered $recovered session monitor(s).${RESET}"
+    fi
+}
+
+# Run recovery
+recover_sessions
