@@ -74,6 +74,3 @@ EOF
 
 # Append to session file
 echo "$JSON_OBJECT" >> "$SESSION_FILE"
-
-# Provide feedback
-echo "Logged $TYPE event (impact: $IMPACT) to $SESSION_FILE"
