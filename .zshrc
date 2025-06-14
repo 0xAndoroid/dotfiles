@@ -124,6 +124,7 @@ alias coffee='caffeinate -d'
 alias z='zellij'
 alias cld='zellij -n $HOME/.dotfiles/claude/claude.kdl'
 alias claude-report='$HOME/.dotfiles/claude/claude-report'
+alias claude-recover='$HOME/.dotfiles/claude/claude-session-recover'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
