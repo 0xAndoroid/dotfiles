@@ -121,6 +121,8 @@ alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
 alias cld='caffeinate -d claude'
 alias coffee='caffeinate -d'
+alias claude-session='$HOME/.dotfiles/claude/claude-session'
+alias claude-report='$HOME/.dotfiles/claude/claude-report'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
