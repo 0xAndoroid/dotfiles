@@ -245,16 +245,37 @@ echo ""
 # Create session file if it doesn't exist
 touch "$SESSION_FILE"
 
-# Monitor the session file for new lines
-tail -f "$SESSION_FILE" 2>/dev/null | while IFS= read -r line; do
-    # Skip empty lines
-    [[ -z "$line" ]] && continue
-    
-    # Try to parse as JSON and display
-    if echo "$line" | grep -q '^{.*}$'; then
-        display_event "$line"
-    else
-        # Display non-JSON lines as regular output
-        echo "${GRAY}[$(date +%H:%M:%S)] $line${RESET}"
-    fi
-done
+# Function to handle monitoring with reconnection
+monitor_with_reconnect() {
+    while true; do
+        # Check if session file still exists
+        if [[ ! -f "$SESSION_FILE" ]]; then
+            echo "${RED}Session file no longer exists. Exiting...${RESET}"
+            exit 1
+        fi
+        
+        # Monitor the session file for new lines
+        tail -f "$SESSION_FILE" 2>/dev/null | while IFS= read -r line; do
+            # Skip empty lines
+            [[ -z "$line" ]] && continue
+            
+            # Try to parse as JSON and display
+            if echo "$line" | grep -q '^{.*}$'; then
+                display_event "$line"
+            else
+                # Display non-JSON lines as regular output
+                echo "${GRAY}[$(date +%H:%M:%S)] $line${RESET}"
+            fi
+        done
+        
+        # If tail exits, wait and retry
+        echo "${YELLOW}Connection lost. Retrying in 2 seconds...${RESET}"
+        sleep 2
+    done
+}
+
+# Handle SIGTERM gracefully
+trap 'echo ""; echo "${YELLOW}Monitor shutting down...${RESET}"; exit 0' TERM INT
+
+# Start monitoring
+monitor_with_reconnect
