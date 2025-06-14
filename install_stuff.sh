@@ -169,4 +169,32 @@ install_cargo_tool wasm-bindgen-cli
 install_cargo_tool typos-cli
 install_cargo_tool tomlq
 
+# Configure npm global directory
+echo "Configuring npm global directory..."
+mkdir -p ~/.npm-global
+npm config set prefix ~/.npm-global
+echo -e "${GREEN}✓ npm global directory configured${NC}"
+
+# Function to install npm packages
+install_npm_package() {
+  local package=$1
+  echo "Installing $package..."
+  npm install -g "$package"
+}
+
+# Install npm packages
+echo "Installing npm global packages..."
+install_npm_package @anthropic-ai/claude-code
+install_npm_package @fsouza/prettierd
+install_npm_package @nomicfoundation/solidity-language-server
+install_npm_package ccusage
+install_npm_package eslint
+install_npm_package prettier
+# install_npm_package snarkjs
+install_npm_package tsc
+install_npm_package typescript-language-server
+install_npm_package typescript
+install_npm_package wscat
+echo -e "${GREEN}✓ npm packages installed${NC}"
+
 echo -e "${GREEN}All installations complete!${NC}"
