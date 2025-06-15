@@ -52,18 +52,24 @@ cat >>"$CLAUDE_MD_PATH" <<'EOF'
 THIS IS VERY IMPORTANT. DO NOT FORGET IT.
 When you make a major architectural decision or decide to try a new approach, use the claude-report script to log it.
 When you reach a milestone in the process, also use claude-report to log it.
+When you complete your task, use claude-report to log it as a high milestone.
+DO NOT FORGET TO USE THIS TOOL.
+
+ALWAYS report these events:
+- Task completion (including git commits, PRs, fixes, features) - use HIGH impact
+- Major decisions or approach changes - use HIGH impact
+- Intermediate milestones - use LOW impact
 
 Use the Bash tool to run claude-report:
 ```bash
 # -i is impact: high or low
 # For decisions:
 claude-report -t decision -i high -d "Decided to use async architecture"
-
 # For milestones:
 claude-report -t milestone -i low -d "Completed initial setup"
+# For task completion:
+claude-report -t milestone -i high -d "Completed git commit task"
 ```
-
-The script will automatically generate the timestamp and create properly formatted JSON.
 EOF
 
 

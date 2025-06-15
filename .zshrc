@@ -1,3 +1,4 @@
+source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -76,7 +77,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 ZVM_VI_ESCAPE_BINDKEY=jk
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode zsh-defer)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,9 +120,9 @@ alias du='dust'
 alias copilot='gh copilot'
 alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
-alias cld='caffeinate -d claude'
 alias coffee='caffeinate -d'
-alias claude-session='zellij --layout $HOME/.dotfiles/claude/claude.kdl'
+alias z='zellij'
+alias cld='zellij -n $HOME/.dotfiles/claude/claude.kdl'
 alias claude-report='$HOME/.dotfiles/claude/claude-report'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
