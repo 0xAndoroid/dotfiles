@@ -45,3 +45,4 @@ create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/commands ~/.claude/commands
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
+create_link ~/.dotfiles/zellij ~/.config/zellij
