@@ -5,7 +5,7 @@
 create_link() {
     source="$1"
     target="$2"
-    
+
     # Check if target already exists
     if [ -e "$target" ] || [ -L "$target" ]; then
         # Check if it's already the correct link
@@ -17,7 +17,7 @@ create_link() {
     else
         # Create the directory if it doesn't exist
         mkdir -p "$(dirname "$target")"
-        
+
         # Create the symbolic link
         ln -s "$source" "$target"
         echo "✅ Created link: $target -> $source"
@@ -33,8 +33,8 @@ create_link ~/.dotfiles/.gitconfig ~/.gitconfig
 create_link ~/.dotfiles/.rustfmt.toml ~/.rustfmt.toml
 create_link ~/.dotfiles/.skhdrc ~/.skhdrc
 create_link ~/.dotfiles/.yabairc ~/.yabairc
-create_link ~/.dotfiles/claude/settings.json ~/.claude/settings.json
-create_link ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+create_link ~/.dotfiles/claude/settings.json ~/.config/claude/settings.json
+create_link ~/.dotfiles/claude/CLAUDE.md ~/.config/claude/CLAUDE.md
 
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim
@@ -42,7 +42,7 @@ create_link ~/.dotfiles/lazygit ~/.config/lazygit
 create_link ~/.dotfiles/sketchybar ~/.config/sketchybar
 create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
-create_link ~/.dotfiles/claude/commands ~/.claude/commands
+create_link ~/.dotfiles/claude/commands ~/.config/claude/commands
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij

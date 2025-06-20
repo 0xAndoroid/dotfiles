@@ -1,0 +1,64 @@
+services:
+  claude-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.claude
+    image: claude-dev:latest
+    container_name: ${CONTAINER_NAME:-claude-dev}
+    volumes:
+      # Mount the current directory as workspace (bind mount)
+      - type: bind
+        source: ${WORK_DIR:-./}
+        target: /workspace
+      # Mount Claude configuration
+      - ~/.claude.json:/home/developer/.claude.json:rw
+      - ~/.dotfiles/claude/CLAUDE.md:/home/developer/.claude/CLAUDE.md:rw
+      - ~/.dotfiles/claude/settings.json:/home/developer/.claude/settings.json:rw
+      - ~/.dotfiles/claude/commands:/home/developer/.claude/commands:rw
+      - ~/.claude/projects:/home/developer/.claude/projects:rw
+      - ~/.claude/sessions:/home/developer/.claude/sessions:rw
+      - ~/.claude/todos:/home/developer/.claude/todos:rw
+      - ~/.claude/statsig:/home/developer/.claude/statsig:rw
+      # Mount Claude credentials
+      - ~/.claude/.credentials.json:/home/developer/.claude/.credentials.json:rw
+      - ~/.config/claude:/home/developer/.config/claude:rw
+      # Shared cargo registry across all containers
+      - claude-cargo-registry:/home/developer/.cargo/registry
+      - claude-cargo-git:/home/developer/.cargo/git
+      # Host configs
+      - ~/.dotfiles/.gitconfig:/home/developer/.gitconfig:ro
+      - ~/.dotfiles/.rustfmt.toml:/home/developer/.rustfmt.toml:ro
+      - ~/.dotfiles/.gitignore_global:/home/developer/.gitignore_global:ro
+    environment:
+      # Set Rust backtrace for better debugging
+      - RUST_BACKTRACE=1
+    # Limit resources to prevent runaway processes
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 8G
+    # Network isolation - only allow outbound connections
+    network_mode: bridge
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    # Read-only root filesystem except for mounted volumes
+    read_only: false # Set to true for extra security, but may cause issues
+    # Prevent privilege escalation
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    stdin_open: true
+    tty: true
+
+volumes:
+  claude-cargo-registry:
+    external: true
+  claude-cargo-git:
+    external: true
