@@ -22,6 +22,8 @@ services:
       # Mount Claude credentials
       - ~/.claude/.credentials.json:/home/developer/.claude/.credentials.json:rw
       - ~/.config/claude:/home/developer/.config/claude:rw
+      # Monut ssh key for commiting
+      - ~/.ssh/github_ed25519:/home/developer/.ssh/github_ed25519:ro
       # Shared cargo registry across all containers
       - claude-cargo-registry:/home/developer/.cargo/registry
       - claude-cargo-git:/home/developer/.cargo/git
