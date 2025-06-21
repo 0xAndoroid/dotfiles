@@ -241,8 +241,89 @@ status)
     docker ps -a --filter "name=$CONTAINER_NAME" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
     ;;
 
+wta)
+    shift # Remove the 'wta' command
+    if [[ $# -lt 1 ]]; then
+        print_error "Usage: $0 wta <new-branch-name> [base-branch]"
+        exit 1
+    fi
+    
+    NEW_BRANCH="$1"
+    BASE_BRANCH="${2:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")}"
+    
+    # Check if we're in a git repository
+    if ! git rev-parse --git-dir &>/dev/null; then
+        print_error "Not in a git repository"
+        exit 1
+    fi
+    
+    # Check if worktree already exists
+    if git worktree list | grep -q "/trees/$NEW_BRANCH "; then
+        print_error "Worktree for branch '$NEW_BRANCH' already exists in trees/ folder"
+        exit 1
+    fi
+    
+    # Ensure trees directory exists
+    if [[ ! -d "trees" ]]; then
+        print_info "Creating trees directory..."
+        mkdir -p trees
+    fi
+    
+    # Check if branch already exists
+    if git show-ref --verify --quiet "refs/heads/$NEW_BRANCH"; then
+        # Branch exists, create worktree with existing branch
+        print_info "Using existing branch '$NEW_BRANCH' for worktree..."
+        if git worktree add "trees/$NEW_BRANCH" "$NEW_BRANCH"; then
+            print_info "Worktree created successfully at: $(pwd)/trees/$NEW_BRANCH"
+        else
+            print_error "Failed to create worktree"
+            exit 1
+        fi
+    else
+        # Branch doesn't exist, create new branch
+        print_info "Creating worktree '$NEW_BRANCH' based on '$BASE_BRANCH'..."
+        if git worktree add "trees/$NEW_BRANCH" -b "$NEW_BRANCH" "$BASE_BRANCH"; then
+            print_info "Worktree created successfully at: $(pwd)/trees/$NEW_BRANCH"
+        else
+            print_error "Failed to create worktree"
+            exit 1
+        fi
+    fi
+    ;;
+
+wtrm)
+    shift # Remove the 'wtrm' command
+    if [[ $# -lt 1 ]]; then
+        print_error "Usage: $0 wtrm <branch-name>"
+        exit 1
+    fi
+    
+    BRANCH_NAME="$1"
+    
+    # Check if we're in a git repository
+    if ! git rev-parse --git-dir &>/dev/null; then
+        print_error "Not in a git repository"
+        exit 1
+    fi
+    
+    # Check if worktree exists in trees folder
+    if ! git worktree list | grep -q "/trees/$BRANCH_NAME "; then
+        print_error "No worktree found for branch '$BRANCH_NAME' in trees/ folder"
+        exit 1
+    fi
+    
+    # Remove the worktree
+    print_info "Removing worktree for branch '$BRANCH_NAME'..."
+    if git worktree remove "trees/$BRANCH_NAME"; then
+        print_info "Worktree removed successfully"
+    else
+        print_error "Failed to remove worktree"
+        exit 1
+    fi
+    ;;
+
 help)
-    echo "Usage: $0 {build|start|stop|shell|claude|logs|clean|clean-all|prune|status|help}"
+    echo "Usage: $0 {build|start|stop|shell|claude|logs|clean|clean-all|prune|status|wta|wtrm|help}"
     echo ""
     echo "Commands:"
     echo "  build         - Build the Docker container"
@@ -255,6 +336,8 @@ help)
     echo "  clean-all     - Remove ALL Claude containers (keeps shared volumes)"
     echo "  prune         - Remove ALL Claude containers AND volumes (complete reset)"
     echo "  status        - Show container status"
+    echo "  wta           - Create a new git worktree with a new branch (worktree add)"
+    echo "  wtrm          - Remove a git worktree (keeps the branch) (worktree remove)"
     echo "  help          - Show this help message"
     echo ""
     echo "Current container name: $CONTAINER_NAME"
@@ -266,6 +349,9 @@ help)
     echo "  $0 claude                        # Start Claude Code session"
     echo "  $0 claude --model opus-4         # Start Claude with specific model"
     echo "  $0 shell                         # Open shell in container"
+    echo "  $0 wta feature-xyz               # Create new worktree with branch feature-xyz"
+    echo "  $0 wta fix-bug main              # Create new worktree based on main branch"
+    echo "  $0 wtrm feature-xyz              # Remove worktree for branch feature-xyz"
     ;;
 
 "")
