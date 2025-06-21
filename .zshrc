@@ -143,3 +143,8 @@ function my_init() {
 zvm_after_init_commands+=(my_init)
 
 [ -f ~/.keysrc ] && source ~/.keysrc
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/andoroid/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
