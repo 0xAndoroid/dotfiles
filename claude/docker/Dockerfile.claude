@@ -40,9 +40,17 @@ RUN mkdir -p ~/.npm-global && \
 # Install Claude Code in user-writable location
 RUN npm install -g @anthropic-ai/claude-code
 
+# Install TypeScript globally
+RUN npm install -g typescript
+
 # Set up cargo for the developer user
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/home/developer/.npm-global/bin:/home/developer/.cargo/bin:${PATH}"
+
+# Install Foundry as developer user
+RUN curl -L https://foundry.paradigm.xyz | bash && \
+    /home/developer/.foundry/bin/foundryup
+
+ENV PATH="/home/developer/.npm-global/bin:/home/developer/.cargo/bin:/home/developer/.foundry/bin:${PATH}"
 
 # Install cargo-binstall for the developer user
 RUN cargo install cargo-binstall

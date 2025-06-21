@@ -130,6 +130,13 @@ build)
     print_info "Build complete!"
     ;;
 
+update)
+    print_info "Rebuilding Claude development container without cache..."
+    ensure_volumes_exist
+    cd "$SCRIPT_DIR" && $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml build --no-cache
+    print_info "Rebuild complete!"
+    ;;
+
 start)
     print_info "Starting Claude development container..."
     ensure_volumes_exist
@@ -140,7 +147,7 @@ start)
 
 stop)
     print_info "Stopping Claude development container..."
-    cd "$SCRIPT_DIR" && CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml down
+    cd "$SCRIPT_DIR" && CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml stop
     print_info "Container stopped!"
     ;;
 
@@ -176,7 +183,12 @@ clean)
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         print_info "Cleaning up..."
-        cd "$SCRIPT_DIR" && CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml down
+        # Check if container exists before trying to remove it
+        if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+            cd "$SCRIPT_DIR" && CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml down
+        else
+            print_info "Container $CONTAINER_NAME not found or already removed"
+        fi
         print_info "Cleanup complete!"
     else
         print_info "Cleanup cancelled."
@@ -323,16 +335,17 @@ wtrm)
     ;;
 
 help)
-    echo "Usage: $0 {build|start|stop|shell|claude|logs|clean|clean-all|prune|status|wta|wtrm|help}"
+    echo "Usage: $0 {build|update|start|stop|shell|claude|logs|clean|clean-all|prune|status|wta|wtrm|help}"
     echo ""
     echo "Commands:"
     echo "  build         - Build the Docker container"
+    echo "  update        - Rebuild the Docker container without cache"
     echo "  start         - Start the container in background"
-    echo "  stop          - Stop the container"
+    echo "  stop          - Stop the container (keeps container)"
     echo "  shell         - Open a bash shell in the container (auto-starts if needed)"
     echo "  claude        - Start Claude Code session (auto-starts if needed)"
     echo "  logs          - Show container logs"
-    echo "  clean         - Remove current container (keeps shared volumes)"
+    echo "  clean         - Stop and remove current container (keeps shared volumes)"
     echo "  clean-all     - Remove ALL Claude containers (keeps shared volumes)"
     echo "  prune         - Remove ALL Claude containers AND volumes (complete reset)"
     echo "  status        - Show container status"
@@ -345,6 +358,7 @@ help)
     echo "Examples:"
     echo "  $0                               # Start Claude Code session (default)"
     echo "  $0 build                         # Build container"
+    echo "  $0 update                        # Rebuild container without cache"
     echo "  $0 start                         # Start container"
     echo "  $0 claude                        # Start Claude Code session"
     echo "  $0 claude --model opus-4         # Start Claude with specific model"
