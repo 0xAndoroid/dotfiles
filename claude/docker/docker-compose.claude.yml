@@ -6,10 +6,10 @@ services:
     image: claude-dev:latest
     container_name: ${CONTAINER_NAME:-claude-dev}
     volumes:
-      # Mount the current directory as workspace (bind mount)
+      # Mount the current directory as project folder (bind mount)
       - type: bind
         source: ${WORK_DIR:-./}
-        target: /workspace
+        target: /${PROJECT_PATH:-workspace}
       # Mount Claude configuration
       - ~/.claude.json:/home/developer/.claude.json:rw
       - ~/.dotfiles/claude/CLAUDE.md:/home/developer/.claude/CLAUDE.md:rw
@@ -33,6 +33,11 @@ services:
     environment:
       # Set Rust backtrace for better debugging
       - RUST_BACKTRACE=1
+      # Pass through API keys for MCP server
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      # Enable full color support
+      - TERM=xterm-256color
     # Limit resources to prevent runaway processes
     deploy:
       resources:

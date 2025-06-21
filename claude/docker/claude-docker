@@ -15,8 +15,20 @@ NC='\033[0m' # No Color
 
 # Function to generate container name from current path
 generate_container_name() {
-    local current_path="$(pwd)"
+    local project_path="$(generate_project_path)"
     local container_name="claude-dev"
+
+    # Construct final container name
+    if [[ "$project_path" != "workspace" ]]; then
+        container_name="claude-dev-${project_path}"
+    fi
+
+    echo "$container_name"
+}
+
+# Function to generate project path from current directory
+generate_project_path() {
+    local current_path="$(pwd)"
 
     # Remove home directory prefix if present
     if [[ "$current_path" == "$HOME"* ]]; then
@@ -37,12 +49,12 @@ generate_container_name() {
     current_path="${current_path#-}"
     current_path="${current_path%-}"
 
-    # Construct final container name
-    if [[ -n "$current_path" ]]; then
-        container_name="claude-dev-${current_path}"
+    # If empty, default to workspace
+    if [[ -z "$current_path" ]]; then
+        current_path="workspace"
     fi
 
-    echo "$container_name"
+    echo "$current_path"
 }
 
 # Set working directory (current directory)
@@ -52,6 +64,10 @@ export WORK_DIR
 # Get container name for current directory
 CONTAINER_NAME=$(generate_container_name)
 export CONTAINER_NAME
+
+# Generate project path for mounting
+PROJECT_PATH=$(generate_project_path)
+export PROJECT_PATH
 
 # Generate project name to isolate docker-compose projects
 # Replace all non-alphanumeric characters with underscores
@@ -115,7 +131,7 @@ ensure_container_running() {
     if ! is_container_running; then
         print_info "Container not running. Starting container..."
         ensure_volumes_exist
-        cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
+        cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" PROJECT_PATH="$PROJECT_PATH" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
         print_info "Container started!"
         # Wait a moment for container to be ready
         sleep 2
@@ -140,7 +156,7 @@ update)
 start)
     print_info "Starting Claude development container..."
     ensure_volumes_exist
-    cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
+    cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" PROJECT_PATH="$PROJECT_PATH" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
     print_info "Container started!"
     print_info "To connect: $0 shell"
     ;;
@@ -155,19 +171,18 @@ shell)
     ensure_container_running
     print_info "Connecting to Claude development container ($CONTAINER_NAME)..."
     print_warn "You are now in an isolated environment. Only /workspace is shared with your host."
-    docker exec -it "$CONTAINER_NAME" /bin/bash
+    docker exec -it -e TERM=xterm-256color "$CONTAINER_NAME" /bin/bash
     ;;
 
 claude)
     shift # Remove the 'claude' command
     ensure_container_running
     print_info "Starting Claude Code in container ($CONTAINER_NAME)..."
-    print_warn "Using --dangerously-skip-permissions flag in isolated environment"
-    print_info "Working directory: $WORK_DIR -> /workspace"
+    print_info "Working directory: $WORK_DIR -> /$PROJECT_PATH"
     echo ""
 
     # Simply run Claude directly
-    docker exec -it -w /workspace "$CONTAINER_NAME" \
+    docker exec -it -e TERM=xterm-256color -w "/$PROJECT_PATH" "$CONTAINER_NAME" \
         claude --dangerously-skip-permissions "$@"
     ;;
 
@@ -372,12 +387,11 @@ help)
     # Default behavior: start Claude
     ensure_container_running
     print_info "Starting Claude Code in container ($CONTAINER_NAME)..."
-    print_warn "Using --dangerously-skip-permissions flag in isolated environment"
-    print_info "Working directory: $WORK_DIR -> /workspace"
+    print_info "Working directory: $WORK_DIR -> /$PROJECT_PATH"
     echo ""
 
     # Run Claude directly with all arguments
-    docker exec -it -w /workspace "$CONTAINER_NAME" \
+    docker exec -it -e TERM=xterm-256color -w "/$PROJECT_PATH" "$CONTAINER_NAME" \
         claude --dangerously-skip-permissions "$@"
     ;;
 

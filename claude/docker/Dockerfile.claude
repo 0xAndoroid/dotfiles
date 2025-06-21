@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     python3 \
     python3-pip \
+    python3-venv \
+    python3-dev \
     wget \
     jq \
     tree \
@@ -29,6 +31,16 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 RUN useradd -m -s /bin/bash -u 1000 developer && \
     mkdir -p /workspace && \
     chown -R developer:developer /workspace
+
+# Create MCP directory structure and install zen-mcp-server
+RUN mkdir -p /usr/local/mcp && \
+    cd /usr/local/mcp && \
+    git clone https://github.com/BeehiveInnovations/zen-mcp-server.git && \
+    cd zen-mcp-server && \
+    python3 -m venv .zen_venv && \
+    .zen_venv/bin/pip install --upgrade pip && \
+    .zen_venv/bin/pip install -r requirements.txt && \
+    chown -R developer:developer /usr/local/mcp
 
 # Switch to non-root user
 USER developer
@@ -67,7 +79,7 @@ RUN cargo binstall -y \
     typos-cli \
     tomlq
 
-WORKDIR /workspace
+WORKDIR /
 
 RUN mkdir -p ~/.config && \
     mkdir -p ~/.claude
