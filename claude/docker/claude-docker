@@ -122,6 +122,40 @@ ensure_volumes_exist() {
     done
 }
 
+# Function to ensure required files exist
+ensure_files_exist() {
+    # Create .claude directory if it doesn't exist
+    if [[ ! -d "$HOME/.claude" ]]; then
+        print_info "Creating ~/.claude directory"
+        mkdir -p "$HOME/.claude"
+    fi
+    
+    # Create credentials file if it doesn't exist
+    if [[ ! -f "$HOME/.claude/.credentials.json" ]]; then
+        print_info "Creating empty credentials file"
+        echo '{}' > "$HOME/.claude/.credentials.json"
+    elif [[ -d "$HOME/.claude/.credentials.json" ]]; then
+        # Fix case where it was created as a directory
+        print_warn "Found .credentials.json as directory, fixing..."
+        rmdir "$HOME/.claude/.credentials.json" 2>/dev/null || rm -rf "$HOME/.claude/.credentials.json"
+        echo '{}' > "$HOME/.claude/.credentials.json"
+    fi
+    
+    # Create other Claude directories
+    local dirs=(
+        "$HOME/.claude/projects"
+        "$HOME/.claude/sessions"
+        "$HOME/.claude/todos"
+        "$HOME/.claude/statsig"
+    )
+    
+    for dir in "${dirs[@]}"; do
+        if [[ ! -d "$dir" ]]; then
+            mkdir -p "$dir"
+        fi
+    done
+}
+
 # Function to check if container is running
 is_container_running() {
     docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
@@ -131,6 +165,7 @@ is_container_running() {
 ensure_container_running() {
     if ! is_container_running; then
         print_info "Container not running. Starting container..."
+        ensure_files_exist
         ensure_volumes_exist
         cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" PROJECT_PATH="$PROJECT_PATH" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
         print_info "Container started!"
@@ -142,6 +177,7 @@ ensure_container_running() {
 case "$1" in
 build)
     print_info "Building Claude development container..."
+    ensure_files_exist
     ensure_volumes_exist
     cd "$SCRIPT_DIR" && $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml build
     print_info "Build complete!"
@@ -149,6 +185,7 @@ build)
 
 update)
     print_info "Rebuilding Claude development container without cache..."
+    ensure_files_exist
     ensure_volumes_exist
     cd "$SCRIPT_DIR" && $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml build --no-cache
     print_info "Rebuild complete!"
@@ -156,6 +193,7 @@ update)
 
 start)
     print_info "Starting Claude development container..."
+    ensure_files_exist
     ensure_volumes_exist
     cd "$SCRIPT_DIR" && WORK_DIR="$WORK_DIR" CONTAINER_NAME="$CONTAINER_NAME" PROJECT_PATH="$PROJECT_PATH" $DOCKER_COMPOSE -p "$PROJECT_NAME" -f docker-compose.claude.yml up -d
     print_info "Container started!"
@@ -222,8 +260,10 @@ clean-all)
             print_info "No Claude containers found."
         else
             echo "$containers" | while read -r container; do
+                print_info "Stopping container: $container"
+                docker stop "$container" 2>/dev/null || true
                 print_info "Removing container: $container"
-                docker rm -f "$container"
+                docker rm "$container"
             done
             print_info "All Claude containers removed!"
         fi
