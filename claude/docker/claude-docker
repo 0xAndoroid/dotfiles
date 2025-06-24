@@ -111,6 +111,7 @@ ensure_volumes_exist() {
     local volumes=(
         "claude-cargo-registry"
         "claude-cargo-git"
+        "claude-cargo-target"
     )
     
     for volume in "${volumes[@]}"; do
@@ -170,8 +171,8 @@ stop)
 shell)
     ensure_container_running
     print_info "Connecting to Claude development container ($CONTAINER_NAME)..."
-    print_warn "You are now in an isolated environment. Only /workspace is shared with your host."
-    docker exec -it -e TERM=xterm-256color "$CONTAINER_NAME" /bin/bash
+    print_info "You are now in an isolated environment. Only /$PROJECT_PATH is shared with your host."
+    docker exec -it -e TERM=xterm-256color -w "/$PROJECT_PATH" "$CONTAINER_NAME" /bin/bash
     ;;
 
 claude)
@@ -249,6 +250,7 @@ prune)
         volumes=(
             "claude-cargo-registry"
             "claude-cargo-git"
+            "claude-cargo-target"
         )
         for volume in "${volumes[@]}"; do
             if docker volume inspect "$volume" &>/dev/null; then

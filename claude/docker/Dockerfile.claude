@@ -56,13 +56,30 @@ RUN npm install -g @anthropic-ai/claude-code
 RUN npm install -g typescript
 
 # Set up cargo for the developer user
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+
+# Install nightly toolchain and set as default
+RUN . $HOME/.cargo/env && \
+    rustup toolchain install nightly && \
+    rustup default nightly
+
+# Create cargo directories with proper permissions before volumes are mounted
+RUN mkdir -p ~/.cargo/registry && \
+    mkdir -p ~/.cargo/git && \
+    chmod -R 755 ~/.cargo
 
 # Install Foundry as developer user
 RUN curl -L https://foundry.paradigm.xyz | bash && \
     /home/developer/.foundry/bin/foundryup
 
 ENV PATH="/home/developer/.npm-global/bin:/home/developer/.cargo/bin:/home/developer/.foundry/bin:${PATH}"
+
+# Set CARGO_TARGET_DIR to a container-only location for better performance
+ENV CARGO_TARGET_DIR=/home/developer/.cargo-target
+
+# Create the cargo target directory
+RUN mkdir -p /home/developer/.cargo-target && \
+    chmod 755 /home/developer/.cargo-target
 
 # Install cargo-binstall for the developer user
 RUN cargo install cargo-binstall
