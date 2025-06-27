@@ -21,7 +21,7 @@ VERBOSE=true
 FAIL_FAST=true
 ALLOW_MISSING_TOOLS=true
 FMT_ARGS="-- --check"
-TYPOS_ARGS="--diff"
+TYPOS_ARGS=""
 CLIPPY_ARGS="-- -D warnings"
 
 # Function to parse TOML config using tq
@@ -37,7 +37,7 @@ parse_config() {
         local fmt_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.fmt_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "-- --check")
         FMT_ARGS="$fmt_args_array"
         
-        local typos_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.typos_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "--diff")
+        local typos_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.typos_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "")
         TYPOS_ARGS="$typos_args_array"
         
         local clippy_args_array=$(tq -f "$CONFIG_FILE" -r '.rust.clippy_args' -o json 2>/dev/null | jq -r 'join(" ")' 2>/dev/null || echo "-- -D warnings")
@@ -161,7 +161,7 @@ main() {
     # Run typos check
     if [ "$ENABLE_TYPOS" = "true" ]; then
         if command -v typos &> /dev/null; then
-            if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" false; then
+            if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" true; then
                 failed=true
             fi
         else
