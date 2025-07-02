@@ -25,15 +25,6 @@ return {
       },
     },
   },
-  { import = "astrocommunity.bars-and-lines.lualine-nvim" },
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = {
-      options = {
-        theme = "sonokai",
-      },
-    },
-  },
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
 }
