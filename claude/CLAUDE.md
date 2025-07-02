@@ -1,6 +1,6 @@
 # User preferences and instructions
 
-Do not write a lot of coments. Comments should be rare only on complex parts of the code and on public APIs.
+Do not write a lot of comments. Comments should be rare only on complex parts of the code and on public APIs.
 All code must be implemented in idiomatic way, without shortcuts. You must be meticulous about code quality.
 PERFORMANCE IS CRITICAL AND TOP PRIORITY.
 YOU MUST NOT MAKE ANY SHORTCUTS IN YOUR IMPLEMENTATION.

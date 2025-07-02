@@ -1,0 +1,20 @@
+[default.extend-words]
+"noice" = "noice"  # noice.nvim is a valid Neovim plugin name
+"shortcat" = "shortcat"  # Shortcat is a valid macOS app name
+"Folx" = "Folx"  # Folx is a valid app name
+"folx" = "folx"  # lowercase version
+"Pn" = "Pn"  # Valid in filename context
+
+[files]
+extend-exclude = [
+    "*.jpg",
+    "*.jpeg",
+    "*.png",
+    "*.gif",
+    "*.ico",
+    "*.webp",
+    "*.svg",
+    "*.pdf",
+    "*.lock",
+    "lazy-lock.json",
+]
