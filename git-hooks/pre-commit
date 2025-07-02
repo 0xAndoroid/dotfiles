@@ -1,6 +1,5 @@
 #!/bin/bash
-# Enhanced universal pre-commit hook for Rust projects with config support
-# Reads configuration from ~/.git-hooks/pre-commit-config.toml using tomlq
+# Universal pre-commit hook with typos checking for all repositories
 
 # Colors for output
 RED='\033[0;31m'
@@ -47,6 +46,9 @@ parse_config() {
         VERBOSE=$(tq -f "$CONFIG_FILE" -r '.general.verbose' 2>/dev/null || echo "true")
         FAIL_FAST=$(tq -f "$CONFIG_FILE" -r '.general.fail_fast' 2>/dev/null || echo "true")
         ALLOW_MISSING_TOOLS=$(tq -f "$CONFIG_FILE" -r '.general.allow_missing_tools' 2>/dev/null || echo "true")
+        
+        # Override typos to always be enabled for all repos
+        ENABLE_TYPOS=$(tq -f "$CONFIG_FILE" -r '.general.enable_typos' 2>/dev/null || echo "true")
     elif [ -f "$CONFIG_FILE" ] && ! command -v tq &> /dev/null; then
         echo -e "${YELLOW}⚠️  tq not found, using default settings${NC}"
         echo -e "${YELLOW}   Install with: cargo install tomlq${NC}"
@@ -118,51 +120,35 @@ main() {
     # Parse configuration
     parse_config
     
-    # Exit early if not a Rust project
-    if ! is_rust_project; then
-        exit 0
-    fi
-    
-    log "${BLUE}🦀 Running Rust pre-commit checks...${NC}"
+    log "${BLUE}🔍 Running pre-commit checks...${NC}"
     if [ -f "$CONFIG_FILE" ]; then
         log "${BLUE}📋 Using config from: $CONFIG_FILE${NC}"
     else
         log "${YELLOW}⚠️  No config file found at: $CONFIG_FILE (using defaults)${NC}"
     fi
     
-    # Check if cargo is installed
-    if ! command -v cargo &> /dev/null; then
-        echo -e "${RED}Error: cargo is not installed${NC}"
-        exit 1
-    fi
-    
-    # Get staged files for info
-    local staged_files=$(get_staged_rust_files)
-    if [ -z "$staged_files" ]; then
-        log "${YELLOW}No Rust files staged, but checking entire project${NC}"
-    else
-        log "${BLUE}Staged Rust files:${NC}"
-        echo "$staged_files" | while read -r file; do
-            log "  • $file"
-        done
-    fi
-    
     local failed=false
     
-    # Run cargo fmt check
-    if [ "$ENABLE_FMT" = "true" ]; then
-        if ! run_check "cargo fmt" "cargo fmt $FMT_ARGS" "cargo fmt" true; then
-            failed=true
-        fi
-    else
-        log "${YELLOW}⏩ Skipping cargo fmt (disabled in config)${NC}"
-    fi
-    
-    # Run typos check
+    # Always run typos check for all repositories
     if [ "$ENABLE_TYPOS" = "true" ]; then
         if command -v typos &> /dev/null; then
-            if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" true; then
+            log "${YELLOW}Running typos check...${NC}"
+            
+            # Run typos and capture the exit code
+            typos $TYPOS_ARGS
+            local typos_exit_code=$?
+            
+            if [ $typos_exit_code -eq 0 ]; then
+                log "${GREEN}✓ typos check passed${NC}"
+            else
+                echo -e "${RED}❌ typos check failed!${NC}"
+                echo -e "${RED}Run 'typos -w' to fix${NC}"
+                
+                # Always fail on typos errors
                 failed=true
+                if [ "$FAIL_FAST" = "true" ]; then
+                    exit 1
+                fi
             fi
         else
             if [ "$ALLOW_MISSING_TOOLS" = "true" ]; then
@@ -177,22 +163,53 @@ main() {
         log "${YELLOW}⏩ Skipping typos check (disabled in config)${NC}"
     fi
     
-    # Run cargo clippy
-    if [ "$ENABLE_CLIPPY" = "true" ]; then
-        if ! run_check "cargo clippy" "cargo clippy $CLIPPY_ARGS" "cargo clippy --fix" false; then
-            failed=true
+    # Rust-specific checks only for Rust projects
+    if is_rust_project; then
+        log "${BLUE}🦀 Running Rust-specific checks...${NC}"
+        
+        # Check if cargo is installed
+        if ! command -v cargo &> /dev/null; then
+            echo -e "${RED}Error: cargo is not installed${NC}"
+            exit 1
         fi
-    else
-        log "${YELLOW}⏩ Skipping cargo clippy (disabled in config)${NC}"
-    fi
-    
-    # Run cargo test
-    if [ "$ENABLE_TEST" = "true" ]; then
-        if ! run_check "cargo test" "cargo test --quiet" "" false; then
-            failed=true
+        
+        # Get staged files for info
+        local staged_files=$(get_staged_rust_files)
+        if [ -z "$staged_files" ]; then
+            log "${YELLOW}No Rust files staged, but checking entire project${NC}"
+        else
+            log "${BLUE}Staged Rust files:${NC}"
+            echo "$staged_files" | while read -r file; do
+                log "  • $file"
+            done
         fi
-    else
-        log "${YELLOW}⏩ Skipping cargo test (disabled in config)${NC}"
+        
+        # Run cargo fmt check
+        if [ "$ENABLE_FMT" = "true" ]; then
+            if ! run_check "cargo fmt" "cargo fmt $FMT_ARGS" "cargo fmt" true; then
+                failed=true
+            fi
+        else
+            log "${YELLOW}⏩ Skipping cargo fmt (disabled in config)${NC}"
+        fi
+        
+        # Run cargo clippy
+        if [ "$ENABLE_CLIPPY" = "true" ]; then
+            if ! run_check "cargo clippy" "cargo clippy $CLIPPY_ARGS" "cargo clippy --fix" false; then
+                failed=true
+            fi
+        else
+            log "${YELLOW}⏩ Skipping cargo clippy (disabled in config)${NC}"
+        fi
+        
+        # Run cargo test
+        if [ "$ENABLE_TEST" = "true" ]; then
+            if ! run_check "cargo test" "cargo test --quiet" "" false; then
+                failed=true
+            fi
+        else
+            log "${YELLOW}⏩ Skipping cargo test (disabled in config)${NC}"
+        fi
     fi
     
     # Final result
