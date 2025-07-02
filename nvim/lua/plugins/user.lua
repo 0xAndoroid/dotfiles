@@ -82,6 +82,13 @@ return {
     "pocco81/auto-save.nvim",
     opts = {
       enabled = true,
+      debounce_delay = 1000, -- Wait 1 second after typing stops
+      conditions = {
+        exists = true,
+        modifiable = true,
+        filename_is_not = {},
+        filetype_is_not = {},
+      },
     },
     event = "BufRead",
   },

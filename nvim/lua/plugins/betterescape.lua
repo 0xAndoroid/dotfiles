@@ -3,7 +3,7 @@ return {
     "max397574/better-escape.nvim",
     event = "InsertCharPre",
     opts = {
-      timeout = 300,
+      timeout = 500,
       default_mappings = true,
       mappings = {
         i = {

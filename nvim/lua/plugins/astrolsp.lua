@@ -70,7 +70,7 @@ return {
               extraArgs = {
                 "--no-deps",
                 "--jobs",
-                "5",
+                "2",
               },
             },
             procMacro = {
