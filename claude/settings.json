@@ -1,7 +1,6 @@
 {
   "cleanupPeriodDays": 30,
   "includeCoAuthoredBy": false,
-  "preferredNotifChannel": "notifications_disabled",
   "permissions": {
     "allow": [
       "Read(**)",
