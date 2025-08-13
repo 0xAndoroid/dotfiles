@@ -8,25 +8,25 @@ end
 
 local function smart_navigation(direction, yabai_direction)
   local current_win = vim.api.nvim_get_current_win()
-  local win_count = #vim.api.nvim_list_wins()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local buf_name = vim.api.nvim_buf_get_name(current_buf)
+  -- local win_count = #vim.api.nvim_list_wins()
+  -- local current_buf = vim.api.nvim_get_current_buf()
+  -- local buf_name = vim.api.nvim_buf_get_name(current_buf)
 
-  debug_log(
-    string.format(
-      "Navigation attempt: direction=%s, yabai_direction=%s, win_count=%d, buf=%s",
-      direction,
-      yabai_direction,
-      win_count,
-      buf_name
-    )
-  )
+  -- debug_log(
+  --   string.format(
+  --     "Navigation attempt: direction=%s, yabai_direction=%s, win_count=%d, buf=%s",
+  --     direction,
+  --     yabai_direction,
+  --     win_count,
+  --     buf_name
+  --   )
+  -- )
 
   local success = pcall(function() vim.cmd("wincmd " .. direction) end)
   local new_win = vim.api.nvim_get_current_win()
 
   if not success or current_win == new_win then
-    debug_log "At edge window, attempting yabai focus"
+    -- debug_log "At edge window, attempting yabai focus"
 
     -- Method 1: Direct yabai call with immediate execution
     local result = vim
@@ -40,15 +40,15 @@ local function smart_navigation(direction, yabai_direction)
       debug_log("Yabai focus failed with code: " .. tostring(result.code) .. ", stderr: " .. (result.stderr or ""))
 
       -- Method 2: Try with a small delay
-      vim.defer_fn(function()
-        debug_log "Retrying yabai focus with delay"
-        vim.system({ "yabai", "-m", "window", "--focus", yabai_direction }, { detach = true })
-      end, 50)
-    else
-      debug_log "Yabai focus succeeded"
+      -- vim.defer_fn(function()
+      --   -- debug_log "Retrying yabai focus with delay"
+      --   vim.system({ "yabai", "-m", "window", "--focus", yabai_direction }, { detach = true })
+      -- end, 50)
+      -- else
+      -- debug_log "Yabai focus succeeded"
     end
-  else
-    debug_log "Successfully moved within neovim"
+    -- else
+    --   debug_log "Successfully moved within neovim"
   end
 end
 
