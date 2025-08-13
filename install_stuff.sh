@@ -154,6 +154,7 @@ install_cargo_tool cargo-edit
 install_cargo_tool cargo-nextest
 install_cargo_tool cargo-update
 install_cargo_tool cargo-watch
+install_cargo_tool cargo-llvm-cov
 # Commented out tools
 # install_cargo_tool circom
 # install_cargo_tool circom-lsp
