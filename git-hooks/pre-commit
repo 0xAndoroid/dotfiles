@@ -21,7 +21,7 @@ FAIL_FAST=true
 ALLOW_MISSING_TOOLS=true
 FMT_ARGS="-- --check"
 TYPOS_ARGS=""
-CLIPPY_ARGS="-- -D warnings"
+CLIPPY_ARGS="--all --all-targets -- -D warnings"
 
 # Function to parse TOML config using tq
 parse_config() {
@@ -131,33 +131,8 @@ main() {
     
     # Always run typos check for all repositories
     if [ "$ENABLE_TYPOS" = "true" ]; then
-        if command -v typos &> /dev/null; then
-            log "${YELLOW}Running typos check...${NC}"
-            
-            # Run typos and capture the exit code
-            typos $TYPOS_ARGS
-            local typos_exit_code=$?
-            
-            if [ $typos_exit_code -eq 0 ]; then
-                log "${GREEN}✓ typos check passed${NC}"
-            else
-                echo -e "${RED}❌ typos check failed!${NC}"
-                echo -e "${RED}Run 'typos -w' to fix${NC}"
-                
-                # Always fail on typos errors
-                failed=true
-                if [ "$FAIL_FAST" = "true" ]; then
-                    exit 1
-                fi
-            fi
-        else
-            if [ "$ALLOW_MISSING_TOOLS" = "true" ]; then
-                log "${YELLOW}⚠️  'typos' not installed. Install with: cargo install typos-cli${NC}"
-            else
-                echo -e "${RED}Error: 'typos' is required but not installed${NC}"
-                echo -e "${RED}Install with: cargo install typos-cli${NC}"
-                exit 1
-            fi
+        if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" true; then
+            failed=true
         fi
     else
         log "${YELLOW}⏩ Skipping typos check (disabled in config)${NC}"

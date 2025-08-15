@@ -12,10 +12,18 @@ enable_test = false
 fmt_args = ["--all", "-q", "--check", "--message-format=short"]
 
 # Additional typos arguments  
-typos_args = ["--diff"]
+typos_args = []
 
 # Additional clippy arguments (when enabled)
-clippy_args = ["-q", "--message-format=short", "--", "-D", "warnings"]
+clippy_args = [
+  "--all",
+  "--all-targets",
+  "-q",
+  "--message-format=short",
+  "--",
+  "-D",
+  "warnings",
+]
 
 # Paths to ignore (relative to repository root)
 ignore_paths = ["target/", "vendor/", ".git/"]
