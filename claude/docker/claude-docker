@@ -112,6 +112,8 @@ ensure_volumes_exist() {
         "claude-cargo-registry"
         "claude-cargo-git"
         "claude-cargo-target"
+        "claude-node-modules"
+        "claude-npm-cache"
     )
     
     for volume in "${volumes[@]}"; do
@@ -291,6 +293,8 @@ prune)
             "claude-cargo-registry"
             "claude-cargo-git"
             "claude-cargo-target"
+            "claude-node-modules"
+            "claude-npm-cache"
         )
         for volume in "${volumes[@]}"; do
             if docker volume inspect "$volume" &>/dev/null; then

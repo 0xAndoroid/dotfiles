@@ -19,6 +19,7 @@ services:
       - ~/.dotfiles/claude/commands:/home/developer/.claude/commands:rw
       - ~/.claude/projects:/home/developer/.claude/projects:rw
       - ~/.claude/sessions:/home/developer/.claude/sessions:rw
+      - ~/.claude/shell-snapshots:/home/developer/.claude/shell-snapshots:rw
       - ~/.claude/todos:/home/developer/.claude/todos:rw
       - ~/.claude/statsig:/home/developer/.claude/statsig:rw
       # Mount Claude credentials
@@ -30,6 +31,10 @@ services:
       - claude-cargo-git:/home/developer/.cargo/git
       # Cargo target directory (build artifacts) - container-only for performance
       - claude-cargo-target:/home/developer/.cargo-target
+      # Node modules directory - container-only for performance
+      - claude-node-modules:/home/developer/.node-modules
+      # NPM cache directory
+      - claude-npm-cache:/home/developer/.npm-cache
       # Host configs
       - ~/.dotfiles/.gitconfig:/home/developer/.gitconfig:ro
       - ~/.dotfiles/.rustfmt.toml:/home/developer/.rustfmt.toml:ro
@@ -47,6 +52,13 @@ services:
       - CARGO_NET_GIT_FETCH_WITH_CLI=true
       - CARGO_INCREMENTAL=1
       - CARGO_BUILD_JOBS=8
+      - CARGO_TARGET_DIR=/home/developer/.cargo-target
+      # Node/NPM configuration
+      - NODE_PATH=/home/developer/.node-modules
+      - NODE_MODULES_DIR=/home/developer/.node-modules
+      - NPM_CONFIG_CACHE=/home/developer/.npm-cache
+      # PATH configuration
+      - PATH=/home/developer/.npm-global/bin:/home/developer/.cargo/bin:/home/developer/.foundry/bin:${PATH}
     # Network isolation - only allow outbound connections
     network_mode: bridge
     # Security options
@@ -72,4 +84,8 @@ volumes:
   claude-cargo-git:
     external: true
   claude-cargo-target:
+    external: true
+  claude-node-modules:
+    external: true
+  claude-npm-cache:
     external: true

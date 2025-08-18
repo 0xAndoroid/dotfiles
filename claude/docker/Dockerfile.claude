@@ -1,5 +1,5 @@
 # Use Ubuntu as base image for better compatibility with development tools
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Install essential development tools
 RUN apt-get update && apt-get install -y \
@@ -22,13 +22,20 @@ RUN apt-get update && apt-get install -y \
     zsh \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 20 (LTS)
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+# Install Node.js 24
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user for running Claude
-RUN useradd -m -s /bin/bash -u 1000 developer && \
+# Create a non-root user for running Claude (handle existing UID 1000 in Ubuntu 24)
+RUN if id -u 1000 &>/dev/null; then \
+        existing_user=$(id -un 1000); \
+        existing_group=$(id -gn 1000); \
+        groupmod -n developer $existing_group; \
+        usermod -l developer -d /home/developer -m $existing_user; \
+    else \
+        useradd -m -s /bin/bash -u 1000 developer; \
+    fi && \
     mkdir -p /workspace && \
     chown -R developer:developer /workspace
 
@@ -45,9 +52,12 @@ RUN mkdir -p /usr/local/mcp && \
 # Switch to non-root user
 USER developer
 
-# Set up user-writable npm prefix for autoupdates
+# Set up user-writable npm prefix for autoupdates and configure npm cache
 RUN mkdir -p ~/.npm-global && \
-    npm config set prefix ~/.npm-global
+    npm config set prefix ~/.npm-global && \
+    mkdir -p /home/developer/.npm-cache && \
+    npm config set cache /home/developer/.npm-cache && \
+    chmod -R 755 /home/developer/.npm-cache
 
 # Install Claude Code in user-writable location
 RUN npm install -g @anthropic-ai/claude-code
@@ -72,14 +82,14 @@ RUN mkdir -p ~/.cargo/registry && \
 RUN curl -L https://foundry.paradigm.xyz | bash && \
     /home/developer/.foundry/bin/foundryup
 
+# PATH needs to be set during build for cargo and npm installations to work
 ENV PATH="/home/developer/.npm-global/bin:/home/developer/.cargo/bin:/home/developer/.foundry/bin:${PATH}"
 
-# Set CARGO_TARGET_DIR to a container-only location for better performance
-ENV CARGO_TARGET_DIR=/home/developer/.cargo-target
-
-# Create the cargo target directory
+# Create the cargo target directory and node modules directory
 RUN mkdir -p /home/developer/.cargo-target && \
-    chmod 755 /home/developer/.cargo-target
+    chmod 755 /home/developer/.cargo-target && \
+    mkdir -p /home/developer/.node-modules && \
+    chmod 755 /home/developer/.node-modules
 
 # Install cargo-binstall for the developer user
 RUN cargo install cargo-binstall
@@ -94,7 +104,8 @@ RUN cargo binstall -y \
     just \
     tokei \
     typos-cli \
-    tomlq
+    tomlq \
+    eza
 
 WORKDIR /
 
@@ -103,6 +114,7 @@ RUN mkdir -p ~/.config && \
 
 # Create useful aliases and setup
 RUN echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc && \
+    echo 'export NODE_PATH=/home/developer/.node-modules' >> ~/.bashrc && \
     echo 'alias ll="ls -la"' >> ~/.bashrc && \
     echo 'alias la="ls -la"' >> ~/.bashrc && \
     echo 'alias l="ls -l"' >> ~/.bashrc && \
@@ -112,9 +124,6 @@ RUN echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc && \
     echo 'alias grep="rg"' >> ~/.bashrc && \
     echo 'alias ls="eza"' >> ~/.bashrc && \
     echo 'alias du="dust"' >> ~/.bashrc
-
-# Install eza (modern ls replacement)
-RUN cargo binstall -y eza
 
 # Set up shell
 SHELL ["/bin/bash", "-c"]
