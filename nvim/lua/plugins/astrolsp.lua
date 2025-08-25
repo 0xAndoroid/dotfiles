@@ -33,17 +33,11 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
-      "circom_lsp",
       "rust_analyzer",
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
-      circom_lsp = {
-        cmd = { "circom-lsp" },
-        filetypes = { "circom" },
-        root_dir = require("lspconfig.util").root_pattern "package.json",
-      },
       clangd = {
         filetypes = { "c", "cpp", "objc", "objcpp" },
         capabilities = {

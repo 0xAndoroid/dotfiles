@@ -125,9 +125,6 @@ return {
     },
   },
   {
-    "iden3/vim-circom-syntax",
-  },
-  {
     "akinsho/git-conflict.nvim",
     version = "*",
     config = true,
