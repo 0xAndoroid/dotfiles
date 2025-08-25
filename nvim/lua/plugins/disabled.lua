@@ -6,4 +6,6 @@ return {
   { "stevearc/aerial.nvim", enabled = false },
   -- Word highlighting (using native LSP document highlights)
   { "RRethy/vim-illuminate", enabled = false },
+  -- TODO comments (using snacks picker for TODOs)
+  { "folke/todo-comments.nvim", enabled = false },
 }
