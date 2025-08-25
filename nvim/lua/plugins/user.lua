@@ -89,7 +89,12 @@ return {
       select = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },
-      scroll = { enabled = false },
+      scroll = { 
+        enabled = true,
+        animate = {
+          duration = { step = 10, total = 100 },
+        },
+      },
       statuscolumn = { enabled = true },
       words = { enabled = true },
     },
@@ -123,6 +128,22 @@ return {
     "ggandor/leap.nvim",
     lazy = false,
     config = function() require("leap").add_default_mappings() end,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          always_show = {
+            ".env",
+            ".gitignore",
+            ".gitmodules",
+            ".gitattributes",
+            "out",
+          },
+        },
+      },
+    },
   },
   {
     "akinsho/git-conflict.nvim",

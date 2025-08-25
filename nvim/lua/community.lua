@@ -14,17 +14,6 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.programming-language-support.csv-vim" },
-  { import = "astrocommunity.utility.noice-nvim" },
-  { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-  {
-    "m4xshen/smartcolumn.nvim",
-    opts = {
-      colorcolumn = "100",
-      custom_colorcolumn = {
-        typescriptreact = "120",
-      },
-    },
-  },
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
 }
