@@ -122,9 +122,7 @@ alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
 alias coffee='caffeinate -d'
 alias z='zellij'
-alias cld='bash $HOME/.dotfiles/claude/docker/claude-docker'
-alias claude-report='bash $HOME/.dotfiles/claude/claude-report'
-alias claude-recover='bash $HOME/.dotfiles/claude/claude-session-recover'
+alias cld='caffeinate -di command claude --dangerously-skip-permissions'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
