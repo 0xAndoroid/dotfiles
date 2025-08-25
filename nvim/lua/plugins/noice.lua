@@ -3,17 +3,34 @@ return {
     "folke/noice.nvim",
     opts = {
       messages = {
-        view = false,
+        enabled = false, -- Disable message UI (use snacks.notifier instead)
+      },
+      notify = {
+        enabled = false, -- Use snacks.notifier instead
       },
       lsp = {
+        progress = {
+          enabled = false, -- Disable LSP progress
+        },
         hover = {
-          -- silent = true,
+          enabled = false, -- Use default hover
+        },
+        signature = {
+          enabled = false, -- Use default signature  
+        },
+        message = {
+          enabled = false, -- Disable LSP message UI
         },
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+          -- Disable all LSP overrides
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+          ["vim.lsp.util.stylize_markdown"] = false,
+          ["cmp.entry.get_documentation"] = false,
         },
+      },
+      cmdline = {
+        enabled = true, -- Keep the command line UI you like
+        view = "cmdline_popup", -- Use popup view
       },
       routes = {
         {
@@ -44,10 +61,10 @@ return {
       },
       presets = {
         bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
-        lsp_doc_border = true,
+        command_palette = true, -- Keep command palette
+        long_message_to_split = false, -- Disable since messages are disabled
+        inc_rename = false, -- Disable to avoid conflicts
+        lsp_doc_border = false, -- Using default LSP UI
       },
     },
   },

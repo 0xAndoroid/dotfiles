@@ -17,6 +17,9 @@ require("lazy").setup({
   -- Configure any other `lazy.nvim` configuration options here
   install = { colorscheme = { "astrotheme", "habamax" } },
   ui = { backdrop = 100 },
+  rocks = {
+    enabled = false, -- Disable luarocks support
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins, add more to your liking
@@ -26,6 +29,16 @@ require("lazy").setup({
         "tarPlugin",
         "tohtml",
         "zipPlugin",
+        "matchit",
+        "matchparen",
+        "2html_plugin",
+        "getscript",
+        "getscriptPlugin",
+        "logipat",
+        "rrhelper",
+        "spellfile_plugin",
+        "vimball",
+        "vimballPlugin",
       },
     },
   },

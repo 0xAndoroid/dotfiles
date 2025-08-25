@@ -57,7 +57,18 @@ return {
         },
       },
       bigfile = { enabled = true },
-      explorer = { enabled = true },
+      explorer = {
+        enabled = true,
+        filters = {
+          always_show = {
+            ".env",
+            ".gitignore", 
+            ".gitmodules",
+            ".gitattributes",
+            "out",
+          },
+        },
+      },
       indent = { enabled = true },
       input = { enabled = true },
       image = {
@@ -70,7 +81,12 @@ return {
           inline = false,
         },
       },
-      notifier = { enabled = false },
+      notifier = {
+        enabled = true,
+        timeout = 3000,
+      },
+      -- Replace dressing.nvim functionality
+      select = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = false },
@@ -107,22 +123,6 @@ return {
     "ggandor/leap.nvim",
     lazy = false,
     config = function() require("leap").add_default_mappings() end,
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      filesystem = {
-        filtered_items = {
-          always_show = {
-            ".env",
-            ".gitignore",
-            ".gitmodules",
-            ".gitattributes",
-            "out",
-          },
-        },
-      },
-    },
   },
   {
     "akinsho/git-conflict.nvim",

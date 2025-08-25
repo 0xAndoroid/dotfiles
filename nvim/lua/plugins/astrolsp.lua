@@ -165,7 +165,6 @@ return {
     on_attach = function(_, _)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
-      vim.lsp.set_level("ERROR")
     end,
   },
 }
