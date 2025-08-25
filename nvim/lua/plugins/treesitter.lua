@@ -8,7 +8,7 @@ return {
       "lua",
       "solidity",
       "yaml",
-      "markdown",
+      "rust",
     },
   },
 }
