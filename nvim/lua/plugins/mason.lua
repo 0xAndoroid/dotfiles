@@ -15,6 +15,7 @@ return {
 
         -- install formatters
         "stylua",
+        "prettier",
 
         -- install debuggers
 
