@@ -13,7 +13,7 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
-  { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
+  { import = "astrocommunity.editing-support.multiple-cursors.nvim" },
 }

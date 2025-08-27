@@ -45,6 +45,7 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        mouse = "", -- disable mouse support
       },
       g = { -- vim.g.<key>
         loaded_matchparen = 1,
