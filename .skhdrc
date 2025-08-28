@@ -15,9 +15,10 @@ ctrl + alt - h : yabai -m window --warp west
 ctrl + alt - l : yabai -m window --warp east
 ctrl + alt - j : yabai -m window --warp south
 ctrl + alt - k : yabai -m window --warp north
+ctrl + alt - r : yabai -m window --toggle split
 
 # Rotate layout
-ctrl + alt - b : yabai -m space --rotate 90
+ctrl + shift - r : yabai -m space --rotate 90
 # Balance the layout
 ctrl - b [
      "iTerm2" ~
@@ -62,16 +63,16 @@ ctrl - f [
 ctrl + shift - h : yabai -m config top_padding 0 ; yabai -m config bottom_padding 0 ; yabai -m config left_padding 0 ; yabai -m config right_padding 0 ; yabai -m config window_gap 10
 ctrl + shift + alt - h   : yabai -m config top_padding 16 ; yabai -m config bottom_padding 16 ; yabai -m config left_padding 16 ; yabai -m config right_padding 16 ; yabai -m config window_gap 24 
 # Toggle floating/bsp
-ctrl - d  [
+ctrl + shift - d  [
      "iTerm2" ~
      "Ghostty" ~
       * : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
 ]
-ctrl - i               : yabai -m config focus_follows_mouse autofocus
-ctrl + alt - i         : yabai -m config focus_follows_mouse off
+ctrl + shift - i               : yabai -m config focus_follows_mouse autofocus
+ctrl + shift + alt - i         : yabai -m config focus_follows_mouse off
 
-ctrl + shift - i               : yabai -m config mouse_follows_focus on
-ctrl + shift + alt - i         : yabai -m config mouse_follows_focus off
+ctrl + shift - m               : yabai -m config mouse_follows_focus on
+ctrl + shift + alt - m         : yabai -m config mouse_follows_focus off
 
 # Change desktop
 cmd - 1 : yabai -m space --focus 1
