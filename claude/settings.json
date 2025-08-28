@@ -230,7 +230,7 @@
       "Edit(.gitignore)",
       "Edit(README.md)",
       "Edit(LICENSE)",
-      "Search(**)",
+      "WebSearch(**)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.rs)",
       "WebFetch(domain:crates.io)",
