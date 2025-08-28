@@ -15,6 +15,4 @@ return {
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
-  { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
-  { import = "astrocommunity.git.octo-nvim" },
 }
