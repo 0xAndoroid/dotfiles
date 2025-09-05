@@ -45,6 +45,12 @@ return {
         },
       },
       rust_analyzer = {
+        on_new_config = function(config, root_dir)
+          -- Check if we're in the Jolt project
+          if root_dir and root_dir:match("jolt") then
+            config.settings["rust-analyzer"].cargo.features = { "allocative", "host" }
+          end
+        end,
         settings = {
           ["rust-analyzer"] = {
             imports = {
