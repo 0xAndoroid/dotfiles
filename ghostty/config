@@ -13,7 +13,7 @@ font-feature = liga
 font-feature = calt
 font-feature = dlig
 
-cursor-style = block
+cursor-style = bar
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
@@ -48,3 +48,9 @@ macos-option-as-alt = left
 keybind = alt+left=unbind
 keybind = alt+right=unbind
 keybind = shift+enter=text:\n
+
+# Unbind ctrl+hjkl for yabai navigation
+keybind = ctrl+h=unbind
+keybind = ctrl+j=unbind
+keybind = ctrl+k=unbind
+keybind = ctrl+l=unbind

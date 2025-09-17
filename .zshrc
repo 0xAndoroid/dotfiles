@@ -76,8 +76,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-ZVM_VI_ESCAPE_BINDKEY=jk
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode zsh-defer)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-defer)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,6 +114,7 @@ alias ll='eza --icons -l'
 alias la='eza --icons -la'
 alias vim=nvim
 alias vi=nvim
+alias v=nvim
 alias cat=bat
 alias du='dust'
 alias copilot='gh copilot'
@@ -130,15 +130,11 @@ if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 
-function my_init() {
-  source <(fzf --zsh)
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-  bindkey -M viins -r '^H' '^J' '^K' '^L'
-  bindkey -M visual -r '^H' '^J' '^K' '^L'
-  bindkey -M vicmd -r '^H' '^J' '^K' '^L'
-  bindkey -M emacs -r '^H' '^J' '^K' '^L'
-}
-zvm_after_init_commands+=(my_init)
+source <(fzf --zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Remove ctrl+hjkl bindings for yabai navigation
+bindkey -r '^H' '^J' '^K' '^L'
 
 [ -f ~/.keysrc ] && source ~/.keysrc
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
