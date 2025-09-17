@@ -16,6 +16,7 @@ yabai -m space 5 --label telegram
 yabai -m space 6 --label discord 
 yabai -m space 7 --label music
 yabai -m space 8 --label calendar
+yabai -m space 9 --label claude
 
 yabai -m rule --add app="^iTerm2$" space=terminal
 yabai -m rule --add app="^Alacritty$" space=terminal
@@ -26,6 +27,8 @@ yabai -m rule --add app="^Telegram$" space=telegram
 yabai -m rule --add app="^Slack$" space=telegram
 yabai -m rule --add app="Spotify" space=music
 yabai -m rule --add app="^Calendar$" space=calendar
+yabai -m rule --add app="^Airtable$" space=notes
+yabai -m rule --add app="^Claude$" space=claude
 
 # Window rules
 yabai -m rule --add app="^(Calculator|System Settings|Archive Utility)$" manage=off sticky=on
