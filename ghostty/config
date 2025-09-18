@@ -13,7 +13,6 @@ font-feature = liga
 font-feature = calt
 font-feature = dlig
 
-cursor-style = bar
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
