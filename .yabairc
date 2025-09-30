@@ -18,16 +18,16 @@ yabai -m space 7 --label music
 yabai -m space 8 --label calendar
 yabai -m space 9 --label claude
 
-yabai -m rule --add app="^iTerm2$" space=terminal
-yabai -m rule --add app="^Alacritty$" space=terminal
+yabai -m rule --add app="^Ghostty$" space=terminal
+yabai -m rule --add app="^Brave" space=web
 yabai -m rule --add app="Mail" space=mail
 yabai -m rule --add app="^GoodNotes$" space=notes
+yabai -m rule --add app="^Airtable$" space=notes
 yabai -m rule --add app="^Discord$" space=discord
 yabai -m rule --add app="^Telegram$" space=telegram
 yabai -m rule --add app="^Slack$" space=telegram
 yabai -m rule --add app="Spotify" space=music
 yabai -m rule --add app="^Calendar$" space=calendar
-yabai -m rule --add app="^Airtable$" space=notes
 yabai -m rule --add app="^Claude$" space=claude
 
 # Window rules
@@ -44,12 +44,14 @@ yabai -m rule --add app="^Weather$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="Sideloadly" manage=off
 yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" manage=on
+yabai -m rule --add app="^Brave" manage=on
 # Arc PiP window
 yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" title="^$" manage=off mouse_follows_focus=off
 
 # Arc Rabby fix
 # Don't manage popups
 yabai -m rule --add app="^Arc$" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Andrew$|^General$|^Profiles$|^Max$|^Links$|^Shortcuts$|^Icon$|^Advanced$|^Bitwarden$|^$" manage=off
+# yabai -m rule --add app="^Brave" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Bitwarden$|^$" manage=off
 # Fix for mouse follow
 yabai -m signal --add app='^Arc$' event='window_created' \
     title='^$|^Rabby Wallet Notification$' \
