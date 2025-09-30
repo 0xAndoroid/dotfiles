@@ -25,6 +25,7 @@ return {
               ".next/",
               ".cache",
               "public",
+              "trees",
             },
           },
           ["grep"] = {
@@ -41,6 +42,7 @@ return {
               "*lock.yaml",
               "*.lock",
               "public",
+              "trees",
             },
           },
         },
@@ -62,7 +64,7 @@ return {
         filters = {
           always_show = {
             ".env",
-            ".gitignore", 
+            ".gitignore",
             ".gitmodules",
             ".gitattributes",
             "out",
@@ -89,7 +91,7 @@ return {
       select = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },
-      scroll = { 
+      scroll = {
         enabled = true,
         animate = {
           duration = { step = 10, total = 100 },
