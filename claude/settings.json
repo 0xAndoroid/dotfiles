@@ -1,4 +1,8 @@
 {
+  "env": {
+    "ANTHROPIC_MODEL": "claude-opus-4-1-20250805"
+  },
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Read(**)",
@@ -319,10 +323,7 @@
       "Read(**/credentials/**)"
     ]
   },
-  "forceLoginMethod": "claudeai",
   "enableAllProjectMcpServers": true,
-  "includeCoAuthoredBy": false,
-  "env": {
-    "ANTHROPIC_MODEL": "claude-opus-4-1-20250805"
-  }
+  "forceLoginMethod": "claudeai",
+  "model": "opus"
 }
