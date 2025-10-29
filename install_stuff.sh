@@ -59,11 +59,37 @@ else
   print_status "exists" "Homebrew"
 fi
 
+# Install packages from Brewfile
+echo "Installing packages from Brewfile..."
+if [ -f "$HOME/.dotfiles/Brewfile" ]; then
+  brew bundle --file="$HOME/.dotfiles/Brewfile"
+  echo -e "${GREEN}✓ Brewfile packages installed${NC}"
+elif [ -f "$(pwd)/Brewfile" ]; then
+  brew bundle --file="$(pwd)/Brewfile"
+  echo -e "${GREEN}✓ Brewfile packages installed${NC}"
+else
+  echo -e "${YELLOW}⚠ Brewfile not found, skipping brew bundle${NC}"
+fi
+
 # Install Oh My Zsh if not already installed
 echo "Checking for Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  # Backup existing .zshrc if it exists
+  if [ -f "$HOME/.zshrc" ]; then
+    echo "Backing up existing .zshrc to .zshrc.backup..."
+    cp "$HOME/.zshrc" "$HOME/.zshrc.backup"
+  fi
+
+  # Install Oh My Zsh without overriding .zshrc
+  KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+  # Restore the original .zshrc if it was backed up
+  if [ -f "$HOME/.zshrc.backup" ]; then
+    mv "$HOME/.zshrc.backup" "$HOME/.zshrc"
+    echo -e "${GREEN}✓ Original .zshrc restored${NC}"
+  fi
+
   print_status "installed" "Oh My Zsh"
 else
   print_status "exists" "Oh My Zsh"
@@ -107,6 +133,16 @@ if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-mode" ]; then
   print_status "installed" "zsh-vi-mode"
 else
   print_status "exists" "zsh-vi-mode"
+fi
+
+# Install zsh-defer plugin
+echo "Checking for zsh-defer..."
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-defer" ]; then
+  echo "Installing zsh-defer plugin..."
+  git clone https://github.com/romkatv/zsh-defer.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-defer"
+  print_status "installed" "zsh-defer"
+else
+  print_status "exists" "zsh-defer"
 fi
 
 # Install Rust if not already installed
@@ -174,34 +210,43 @@ install_cargo_tool zellij
 # Install yabai window manager
 echo "Checking for yabai..."
 if ! command -v yabai &> /dev/null; then
-  echo "Installing yabai from source..."
+  echo "Checking for yabai-cert certificate..."
 
-  # Clone the repository
-  YABAI_TEMP_DIR=$(mktemp -d)
-  cd "$YABAI_TEMP_DIR"
-  git clone https://github.com/0xAndoroid/yabai.git
-  cd yabai
+  # Check if yabai-cert certificate exists in the keychain
+  if ! security find-certificate -c "yabai-cert" &> /dev/null; then
+    echo -e "${YELLOW}⚠ yabai-cert certificate not found in keychain${NC}"
+    echo -e "${YELLOW}⚠ Skipping yabai installation - please create yabai-cert certificate first${NC}"
+    echo -e "${YELLOW}⚠ See: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition${NC}"
+  else
+    echo "Installing yabai from source..."
 
-  # Checkout the fix-arc-fs-new branch
-  git checkout fix-arc-fs-new
+    # Clone the repository
+    YABAI_TEMP_DIR=$(mktemp -d)
+    cd "$YABAI_TEMP_DIR"
+    git clone https://github.com/0xAndoroid/yabai.git
+    cd yabai
 
-  # Build yabai
-  echo "Building yabai..."
-  make
+    # Checkout the fix-arc-fs-new branch
+    git checkout fix-arc-fs-new
 
-  # Sign the binary
-  echo "Signing yabai binary..."
-  make sign
+    # Build yabai
+    echo "Building yabai..."
+    make
 
-  # Move to /usr/local/bin (requires sudo)
-  echo "Installing yabai to /usr/local/bin (requires sudo)..."
-  sudo mv ./bin/yabai /usr/local/bin/
+    # Sign the binary
+    echo "Signing yabai binary..."
+    make sign
 
-  # Clean up temp directory
-  cd "$HOME"
-  rm -rf "$YABAI_TEMP_DIR"
+    # Move to /usr/local/bin (requires sudo)
+    echo "Installing yabai to /usr/local/bin (requires sudo)..."
+    sudo mv ./bin/yabai /usr/local/bin/
 
-  print_status "installed" "yabai"
+    # Clean up temp directory
+    cd "$HOME"
+    rm -rf "$YABAI_TEMP_DIR"
+
+    print_status "installed" "yabai"
+  fi
 else
   print_status "exists" "yabai"
 fi
