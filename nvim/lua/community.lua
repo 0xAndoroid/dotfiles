@@ -14,5 +14,7 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.motion.mini-surround" },
+  { import = "astrocommunity.motion.leap-nvim" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
+  { import = "astrocommunity.git.diffview-nvim" },
 }

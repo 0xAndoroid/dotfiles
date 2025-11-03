@@ -127,11 +127,6 @@ return {
     ft = { "markdown" },
   },
   {
-    "ggandor/leap.nvim",
-    lazy = false,
-    config = function() require("leap").add_default_mappings() end,
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
