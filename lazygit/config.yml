@@ -15,10 +15,10 @@ git:
   autoFetch: true
   commit:
     signOff: true
-  paging:
-    colorArg: always
-    # pager: cat
-    # pager: delta --paging=never
+  pagers:
+    - colorArg: always
+      # pager: cat
+      # pager: delta --paging=never
 update:
   method: never
 quitOnTopLevelReturn: false
