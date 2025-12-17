@@ -191,9 +191,6 @@ install_cargo_tool cargo-nextest
 install_cargo_tool cargo-update
 install_cargo_tool cargo-watch
 install_cargo_tool cargo-llvm-cov
-# Commented out tools
-# install_cargo_tool circom
-# install_cargo_tool circom-lsp
 install_cargo_tool du-dust
 install_cargo_tool just
 install_cargo_tool loc
@@ -274,16 +271,24 @@ install_npm_package() {
 
 # Install npm packages
 echo "Installing npm global packages..."
-install_npm_package @anthropic-ai/claude-code
 install_npm_package @fsouza/prettierd
 install_npm_package @nomicfoundation/solidity-language-server
 install_npm_package ccusage
 install_npm_package eslint
 install_npm_package prettier
-# install_npm_package snarkjs
 install_npm_package tsc
 install_npm_package typescript-language-server
 install_npm_package wscat
 echo -e "${GREEN}✓ npm packages installed${NC}"
+
+# Install Claude Code if not already installed
+echo "Checking for Claude Code..."
+if ! command -v claude &> /dev/null; then
+  echo "Installing Claude Code..."
+  curl -fsSL https://claude.ai/install.sh | bash
+  print_status "installed" "Claude Code"
+else
+  print_status "exists" "Claude Code"
+fi
 
 echo -e "${GREEN}All installations complete!${NC}"
