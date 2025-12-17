@@ -325,5 +325,8 @@
   },
   "enableAllProjectMcpServers": true,
   "forceLoginMethod": "claudeai",
-  "model": "opus"
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true
+  }
 }

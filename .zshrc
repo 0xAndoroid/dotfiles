@@ -142,3 +142,8 @@ fpath=(/Users/andoroid/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# bun completions
+[ -s "/Users/atretyakov/.bun/_bun" ] && source "/Users/atretyakov/.bun/_bun"
+
+. "$HOME/.local/bin/env"
