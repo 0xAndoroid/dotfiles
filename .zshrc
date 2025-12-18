@@ -133,8 +133,13 @@ fi
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Remove ctrl+hjkl bindings for yabai navigation
-bindkey -r '^H' '^J' '^K' '^L'
+# Ignore ctrl+hjkl in shell for yabai/nvim navigation
+noop() {}
+zle -N noop
+bindkey '^H' noop
+bindkey '^J' noop
+bindkey '^K' noop
+bindkey '^L' noop
 
 [ -f ~/.keysrc ] && source ~/.keysrc
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.

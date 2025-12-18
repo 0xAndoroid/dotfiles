@@ -204,50 +204,6 @@ install_cargo_tool typos-cli
 install_cargo_tool tomlq
 install_cargo_tool zellij
 
-# Install yabai window manager
-echo "Checking for yabai..."
-if ! command -v yabai &> /dev/null; then
-  echo "Checking for yabai-cert certificate..."
-
-  # Check if yabai-cert certificate exists in the keychain
-  if ! security find-certificate -c "yabai-cert" &> /dev/null; then
-    echo -e "${YELLOW}⚠ yabai-cert certificate not found in keychain${NC}"
-    echo -e "${YELLOW}⚠ Skipping yabai installation - please create yabai-cert certificate first${NC}"
-    echo -e "${YELLOW}⚠ See: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition${NC}"
-  else
-    echo "Installing yabai from source..."
-
-    # Clone the repository
-    YABAI_TEMP_DIR=$(mktemp -d)
-    cd "$YABAI_TEMP_DIR"
-    git clone https://github.com/0xAndoroid/yabai.git
-    cd yabai
-
-    # Checkout the fix-arc-fs-new branch
-    git checkout fix-arc-fs-new
-
-    # Build yabai
-    echo "Building yabai..."
-    make
-
-    # Sign the binary
-    echo "Signing yabai binary..."
-    make sign
-
-    # Move to /usr/local/bin (requires sudo)
-    echo "Installing yabai to /usr/local/bin (requires sudo)..."
-    sudo mv ./bin/yabai /usr/local/bin/
-
-    # Clean up temp directory
-    cd "$HOME"
-    rm -rf "$YABAI_TEMP_DIR"
-
-    print_status "installed" "yabai"
-  fi
-else
-  print_status "exists" "yabai"
-fi
-
 # Configure npm global directory
 echo "Configuring npm global directory..."
 mkdir -p ~/.npm-global

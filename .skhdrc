@@ -4,11 +4,35 @@
      "Civilization VI"
 ]
 
-# Navigation
-ctrl - h -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus west
-ctrl - j -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus south
-ctrl - k -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus north
-ctrl - l -> : ~/.dotfiles/is_nvim_window.sh || yabai -m window --focus east
+# Navigation - passthrough to nvim, otherwise yabai handles it
+ctrl - h [
+    "Ghostty" title~="nvim" ~
+    "Ghostty" title~="Nvim" ~
+    "iTerm2" title~="nvim" ~
+    "iTerm2" title~="Nvim" ~
+    * : yabai -m window --focus west
+]
+ctrl - j [
+    "Ghostty" title~="nvim" ~
+    "Ghostty" title~="Nvim" ~
+    "iTerm2" title~="nvim" ~
+    "iTerm2" title~="Nvim" ~
+    * : yabai -m window --focus south
+]
+ctrl - k [
+    "Ghostty" title~="nvim" ~
+    "Ghostty" title~="Nvim" ~
+    "iTerm2" title~="nvim" ~
+    "iTerm2" title~="Nvim" ~
+    * : yabai -m window --focus north
+]
+ctrl - l [
+    "Ghostty" title~="nvim" ~
+    "Ghostty" title~="Nvim" ~
+    "iTerm2" title~="nvim" ~
+    "iTerm2" title~="Nvim" ~
+    * : yabai -m window --focus east
+]
 
 # Moving windows
 ctrl + alt - h : yabai -m window --warp west

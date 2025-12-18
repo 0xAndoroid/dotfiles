@@ -54,24 +54,6 @@ return {
         -- This can be found in the `lua/lazy_setup.lua` file
       },
     },
-    autocmds = {
-      focus_tracker = {
-        {
-          event = { "VimEnter", "FocusGained" },
-          callback = function() vim.system({ "touch", "/tmp/nvim_edge_move_lock" }, { detach = true }) end,
-        },
-        {
-          event = { "FocusLost" },
-          callback = function()
-            vim.defer_fn(function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end, 100)
-          end,
-        },
-        {
-          event = { "VimLeavePre" },
-          callback = function() vim.system({ "rm", "-f", "/tmp/nvim_edge_move_lock" }, { detach = true }) end,
-        },
-      },
-    },
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
