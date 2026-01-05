@@ -152,3 +152,5 @@ compinit
 [ -s "/Users/atretyakov/.bun/_bun" ] && source "/Users/atretyakov/.bun/_bun"
 
 . "$HOME/.local/bin/env"
+
+alias claude-mem='bun "/Users/atretyakov/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
