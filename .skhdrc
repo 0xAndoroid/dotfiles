@@ -7,23 +7,23 @@
 # Navigation - passthrough to nvim, otherwise yabai handles it
 # Match "- Nvim" at end of title (actual nvim windows), not "nvim" anywhere (like Claude)
 ctrl - h [
-    "Ghostty" title~="- Nvim$" ~
-    "iTerm2" title~="- Nvim$" ~
+    "Ghostty" title="*- Nvim" ~
+    "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus west
 ]
 ctrl - j [
-    "Ghostty" title~="- Nvim$" ~
-    "iTerm2" title~="- Nvim$" ~
+    "Ghostty" title="*- Nvim" ~
+    "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus south
 ]
 ctrl - k [
-    "Ghostty" title~="- Nvim$" ~
-    "iTerm2" title~="- Nvim$" ~
+    "Ghostty" title="*- Nvim" ~
+    "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus north
 ]
 ctrl - l [
-    "Ghostty" title~="- Nvim$" ~
-    "iTerm2" title~="- Nvim$" ~
+    "Ghostty" title="*- Nvim" ~
+    "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus east
 ]
 
