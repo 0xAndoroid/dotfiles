@@ -244,34 +244,6 @@
       "WebFetch(domain:nodejs.org)",
       "WebFetch(domain:developer.mozilla.org)"
     ],
-    "ask": [
-      "Bash(git push:*)",
-      "Bash(git tag:*)",
-      "Bash(gh repo create:*)",
-      "Bash(gh repo delete:*)",
-      "Bash(gh repo fork:*)",
-      "Bash(gh repo clone:*)",
-      "Bash(gh repo edit:*)",
-      "Bash(gh repo transfer:*)",
-      "Bash(gh pr create:*)",
-      "Bash(gh pr close:*)",
-      "Bash(gh pr merge:*)",
-      "Bash(gh pr review:*)",
-      "Bash(gh pr edit:*)",
-      "Bash(gh issue create:*)",
-      "Bash(gh issue close:*)",
-      "Bash(gh issue delete:*)",
-      "Bash(gh issue edit:*)",
-      "Bash(gh release create:*)",
-      "Bash(gh release delete:*)",
-      "Bash(gh release upload:*)",
-      "Bash(gh gist create:*)",
-      "Bash(gh gist delete:*)",
-      "Bash(gh gist edit:*)",
-      "Bash(gh workflow run:*)",
-      "Bash(gh workflow disable:*)",
-      "Bash(gh workflow enable:*)"
-    ],
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
@@ -321,8 +293,37 @@
       "Read(**/.env)",
       "Read(**/secrets/**)",
       "Read(**/credentials/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git tag:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(gh repo fork:*)",
+      "Bash(gh repo clone:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh repo transfer:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr close:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh pr review:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh issue delete:*)",
+      "Bash(gh issue edit:*)",
+      "Bash(gh release create:*)",
+      "Bash(gh release delete:*)",
+      "Bash(gh release upload:*)",
+      "Bash(gh gist create:*)",
+      "Bash(gh gist delete:*)",
+      "Bash(gh gist edit:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(gh workflow disable:*)",
+      "Bash(gh workflow enable:*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "hooks": {
     "PreToolUse": [
       {
@@ -337,7 +338,6 @@
       }
     ]
   },
-  "enableAllProjectMcpServers": true,
   "statusLine": {
     "type": "command",
     "command": "bash -c 'node \"$(ls -td ~/.claude/plugins/cache/claude-hud/claude-hud/*/ 2>/dev/null | head -1)dist/index.js\"'"
@@ -345,9 +345,7 @@
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
     "claude-hud@claude-hud": true,
-    "ralph-wiggum@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true
+    "ralph-wiggum@claude-plugins-official": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
