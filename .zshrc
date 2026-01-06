@@ -122,7 +122,8 @@ alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
 alias coffee='caffeinate -d'
 alias z='zellij'
-alias cld='caffeinate -di command claude --dangerously-skip-permissions'
+alias claude='claude --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
+alias cld='caffeinate -di command claude --dangerously-skip-permissions --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
@@ -134,12 +135,6 @@ source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Ignore ctrl+hjkl in shell for yabai/nvim navigation
-noop() {}
-zle -N noop
-bindkey '^H' noop
-bindkey '^J' noop
-bindkey '^K' noop
-bindkey '^L' noop
 
 [ -f ~/.keysrc ] && source ~/.keysrc
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
