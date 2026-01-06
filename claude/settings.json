@@ -5,7 +5,7 @@
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
-      "Read(**)",
+      "Read",
       "Glob",
       "Grep",
       "Bash(cargo check:*)",
@@ -244,18 +244,9 @@
       "WebFetch(domain:nodejs.org)",
       "WebFetch(domain:developer.mozilla.org)"
     ],
-    "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(sudo:*)",
-      "Bash(su:*)",
-      "Bash(chmod 777:*)",
-      "Bash(curl:*)",
+    "ask": [
       "Bash(git push:*)",
-      "Bash(git remote:*)",
       "Bash(git tag:*)",
-      "Bash(git credential:*)",
-      "Bash(git config:*)",
-      "Bash(gh auth:*)",
       "Bash(gh repo create:*)",
       "Bash(gh repo delete:*)",
       "Bash(gh repo fork:*)",
@@ -279,14 +270,24 @@
       "Bash(gh gist edit:*)",
       "Bash(gh workflow run:*)",
       "Bash(gh workflow disable:*)",
-      "Bash(gh workflow enable:*)",
+      "Bash(gh workflow enable:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(chmod 777:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(git credential:*)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
       "Bash(gh secret:*)",
       "Bash(gh ssh-key:*)",
       "Bash(gh gpg-key:*)",
       "Bash(gh codespace:*)",
       "Bash(gh org:*)",
       "Bash(gh config set:*)",
-      "Bash(wget:*)",
       "Bash(ssh:*)",
       "Bash(scp:*)",
       "Bash(rsync:*)",
@@ -320,6 +321,20 @@
       "Read(**/.env)",
       "Read(**/secrets/**)",
       "Read(**/credentials/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a security reviewer evaluating a bash command for destructive potential. Analyze this command: $ARGUMENTS\n\nBLOCK if the command would:\n- Delete, remove, or destroy files/directories recursively or in bulk\n- Overwrite or corrupt critical system files, configs, or data\n- Cause irreversible data loss\n- Execute destructive operations via find, xargs, or loops\n- Wipe, format, or damage filesystems\n\nALLOW if the command is:\n- Read-only (cat, ls, grep, find without -delete/-exec rm)\n- Safe write operations to non-critical paths\n- Standard development commands (git status, npm install, etc.)\n- Precise SQL DELETE with a specific ID in WHERE clause\n\nRespond with JSON: {\"decision\": \"approve\" or \"block\", \"reason\": \"brief explanation\"}",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "enableAllProjectMcpServers": true,
