@@ -329,7 +329,10 @@
   },
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
-    "claude-hud@claude-hud": true
+    "claude-hud@claude-hud": true,
+    "ralph-wiggum@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
