@@ -124,6 +124,7 @@ alias coffee='caffeinate -d'
 alias z='zellij'
 alias claude='claude --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
 alias cld='caffeinate -di command claude --dangerously-skip-permissions --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
+alias claude-mem='bun "/Users/atretyakov/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
@@ -137,15 +138,12 @@ source <(fzf --zsh)
 # Ignore ctrl+hjkl in shell for yabai/nvim navigation
 
 [ -f ~/.keysrc ] && source ~/.keysrc
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/andoroid/.docker/completions $fpath)
+fpath=("$HOME/.docker/completions" $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
 # bun completions
-[ -s "/Users/atretyakov/.bun/_bun" ] && source "/Users/atretyakov/.bun/_bun"
-
-. "$HOME/.local/bin/env"
-
-alias claude-mem='bun "/Users/atretyakov/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
