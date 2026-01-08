@@ -1,33 +1,46 @@
 ---
-allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), mcp__pal__precommit
+allowed-tools: Bash(git checkout:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(git branch:*), Bash(git diff:*), Bash(gh pr create:*), Bash(gh pr list:*), mcp__pal__precommit, mcp__pal__chat
 description: Commit, push, and open a PR
 ---
 
-## PAL Pre-commit Validation
-
-Before committing, run `mcp__pal__precommit` to validate changes:
-```
-path: <repo_root>
-total_steps: 3
-include_staged: true
-include_unstaged: true
-```
-If critical issues found, fix before proceeding. Skip for trivial changes.
-
----
-
 ## Context
+- Status: !`git status`
+- Diff: !`git diff HEAD`
+- Branch: !`git branch --show-current`
+- Recent commits: !`git log --oneline -5`
 
-- Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
-- Current branch: !`git branch --show-current`
+## Steps
 
-## Your task
+1. **Check existing PRs**: Run `gh pr list --head $(git branch --show-current)`. If PR exists, ask user if they want to update it instead of creating new.
 
-Based on the above changes:
+2. **Check for sensitive files**: If any staged files look like secrets (.env, credentials, keys), warn user and stop.
 
-1. Create a new branch if on main
-2. Create a single commit with an appropriate message
-3. Push the branch to origin
-4. Create a pull request using `gh pr create`
-5. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+3. **Pre-commit validation**: Run `mcp__pal__precommit` for non-trivial changes. Skip for simple fixes.
+
+4. **Create branch** if on main/master: `git checkout -b <descriptive-branch-name>`
+
+5. **Stage and commit** with conventional commit message:
+   - Format: `type(scope): description`
+   - Types: feat, fix, refactor, docs, test, chore, perf
+
+6. **Push** to origin with `-u` flag.
+
+7. **Create PR**:
+   - Title: Match commit message or summarize changes
+   - Body format:
+     ```
+     ## Summary
+     <2-3 bullet points>
+
+     ## Changes
+     <list key file changes>
+
+     ## Testing
+     <how to test, or "CI covers this">
+
+     Closes #<issue> (if applicable)
+     ```
+   - Use `mcp__pal__chat` if unsure about PR description
+   - Add `--draft` flag if user indicates work is incomplete
+
+Execute steps 4-7 in a single message with parallel tool calls where possible.

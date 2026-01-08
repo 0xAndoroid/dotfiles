@@ -20,14 +20,34 @@ Use PAL tools when issues arise during execution:
 
 ## Instructions
 
-You will implement the engineering plan detailed in PLAN_TO_EXECUTE.
+Implement the engineering plan detailed in PLAN_TO_EXECUTE.
 
-When you complete the work, report their final changes made in a comprehensive `RESULTS.md` file at the root of their respective workspace.
+When complete, report final changes in a comprehensive `RESULTS.md` file at workspace root.
 
 Do not commit `RESULTS.md`, `CLAUDE.md` or PLAN_TO_EXECUTE to git.
 
-When running agents make sure they compile the code as little as possible. Make sure only specific tests are being run, not all tests.
+## Error Recovery
 
-Unless absolutely necessary, stick to pre-approved commands only, as using other commands requires manual confirmation of user.
+When execution fails:
+1. **Compilation error**: Use `mcp__pal__debug` with the error. Don't retry blindly.
+2. **Test failure**: Analyze with `mcp__pal__thinkdeep`. Check if test is flaky or code is wrong.
+3. **Stuck >10 min on same issue**: Use `mcp__pal__chat` to brainstorm alternatives.
+4. **Unclear requirement**: Ask user before proceeding with assumptions.
 
-Periodically commit your changes to git.
+## Escalate to User When
+- Plan requires changes to files not mentioned in plan
+- Discovered architectural issue that affects plan
+- >3 failed attempts at same step
+- Security-sensitive changes needed
+- Unsure which of multiple valid approaches to take
+
+## Checkpointing
+- Commit after completing each major section of the plan
+- Use descriptive messages: `WIP: implement X from plan step N`
+- Don't commit broken code - stash if needed
+- Run only specific relevant tests, not full test suite
+
+## Execution Guidelines
+- Compile/build only when needed to verify changes work
+- Run specific tests for changed functionality, not all tests
+- Stick to pre-approved commands - other commands require user confirmation

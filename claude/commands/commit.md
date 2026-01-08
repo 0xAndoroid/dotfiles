@@ -1,26 +1,24 @@
 ---
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), mcp__pal__precommit
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*), mcp__pal__precommit, mcp__pal__chat
 description: Create a git commit
 ---
 
-## PAL Pre-commit (Optional)
-
-For non-trivial changes, run `mcp__pal__precommit` first:
-```
-path: <repo_root>, total_steps: 3, precommit_type: internal (quick) | external (thorough)
-```
-
----
-
 ## Context
+- Status: !`git status`
+- Diff: !`git diff HEAD`
+- Branch: !`git branch --show-current`
+- Recent commits: !`git log --oneline -5`
 
-- Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -10`
+## Steps
 
-## Your task
+1. **Check for sensitive files**: If any staged files look like secrets (.env, credentials, keys, tokens), warn user and stop.
 
-Based on the above changes, create a single git commit.
+2. **Pre-commit validation**: For changes touching >3 files or core logic, run `mcp__pal__precommit`. Skip for trivial changes.
 
-You have the capability to call multiple tools in a single response. Stage and create the commit using a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+3. **Craft commit message**:
+   - Use conventional commits format: `type(scope): description`
+   - Types: feat, fix, refactor, docs, test, chore, perf
+   - If unsure about message quality, use `mcp__pal__chat` to refine
+   - Match style of recent commits in repo
+
+4. **Stage and commit** in single message.
