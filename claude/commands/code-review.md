@@ -1,7 +1,15 @@
 ---
-allowed-tools: Bash(gh issue view:*), Bash(gh search:*), Bash(gh issue list:*), Bash(gh pr comment:*), Bash(gh pr diff:*), Bash(gh pr view:*), Bash(gh pr list:*)
+allowed-tools: Bash(gh issue view:*), Bash(gh search:*), Bash(gh issue list:*), Bash(gh pr comment:*), Bash(gh pr diff:*), Bash(gh pr view:*), Bash(gh pr list:*), mcp__pal__codereview, mcp__pal__consensus
 description: Code review a pull request
 disable-model-invocation: false
+---
+
+## PAL Integration (Optional)
+
+For additional validation, use PAL tools after the main review:
+- `mcp__pal__codereview`: Get external model review with `review_type=security` for security-critical changes
+- `mcp__pal__consensus`: Get multi-model opinions on controversial findings before posting
+
 ---
 
 Provide a code review for the given pull request.

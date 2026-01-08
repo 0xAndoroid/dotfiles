@@ -1,6 +1,15 @@
 ---
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), mcp__pal__precommit
 description: Create a git commit
+---
+
+## PAL Pre-commit (Optional)
+
+For non-trivial changes, run `mcp__pal__precommit` first:
+```
+path: <repo_root>, total_steps: 3, precommit_type: internal (quick) | external (thorough)
+```
+
 ---
 
 ## Context

@@ -6,6 +6,18 @@ PLAN_TO_EXECUTE: $ARGUMENTS
 ## Run these commands top to bottom
 READ: PLAN_TO_EXECUTE
 
+## PAL Tools for Execution
+
+Use PAL tools when issues arise during execution:
+- `mcp__pal__debug`: Runtime errors, crashes - use `hypothesis` + `confidence` levels
+- `mcp__pal__thinkdeep`: Complex blockers requiring deep analysis
+- `mcp__pal__chat`: Quick questions, validation of approach mid-execution
+- `mcp__pal__precommit`: Before periodic commits, validate changes
+
+**Remember**: Reuse `continuation_id` across all PAL calls in this session.
+
+---
+
 ## Instructions
 
 You will implement the engineering plan detailed in PLAN_TO_EXECUTE.

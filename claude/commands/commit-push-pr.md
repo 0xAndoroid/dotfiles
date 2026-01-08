@@ -1,6 +1,19 @@
 ---
-allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*)
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), mcp__pal__precommit
 description: Commit, push, and open a PR
+---
+
+## PAL Pre-commit Validation
+
+Before committing, run `mcp__pal__precommit` to validate changes:
+```
+path: <repo_root>
+total_steps: 3
+include_staged: true
+include_unstaged: true
+```
+If critical issues found, fix before proceeding. Skip for trivial changes.
+
 ---
 
 ## Context
