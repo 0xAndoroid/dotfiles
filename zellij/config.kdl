@@ -76,7 +76,7 @@ keybinds clear-defaults=true {
         bind "up" { MovePane "up"; }
         bind "right" { MovePane "right"; }
         bind "h" { MovePane "left"; }
-        bind "Ctrl h" { SwitchToMode "normal"; }
+        bind "Alt m" { SwitchToMode "normal"; }
         bind "j" { MovePane "down"; }
         bind "k" { MovePane "up"; }
         bind "l" { MovePane "right"; }
@@ -145,11 +145,10 @@ keybinds clear-defaults=true {
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Ctrl g" { SwitchToMode "locked"; }
-        bind "Alt h" { MoveFocusOrTab "left"; }
+        bind "Alt x" { CloseFocus; }
+        bind "Alt |" { NewPane "right"; }
+        bind "Alt \\" { NewPane "down"; }
         bind "Alt i" { MoveTab "left"; }
-        bind "Alt j" { MoveFocus "down"; }
-        bind "Alt k" { MoveFocus "up"; }
-        bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
@@ -157,7 +156,7 @@ keybinds clear-defaults=true {
         bind "Ctrl q" { Quit; }
     }
     shared_except "locked" "move" {
-        bind "Ctrl h" { SwitchToMode "move"; }
+        bind "Alt m" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" {
         bind "Ctrl o" { SwitchToMode "session"; }
@@ -182,6 +181,32 @@ keybinds clear-defaults=true {
     }
     shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
         bind "esc" { SwitchToMode "normal"; }
+    }
+    shared_except "locked" {
+        bind "Ctrl h" {
+            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
+                name "move_focus";
+                payload "left";
+            };
+        }
+        bind "Ctrl j" {
+            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
+                name "move_focus";
+                payload "down";
+            };
+        }
+        bind "Ctrl k" {
+            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
+                name "move_focus";
+                payload "up";
+            };
+        }
+        bind "Ctrl l" {
+            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
+                name "move_focus";
+                payload "right";
+            };
+        }
     }
     shared_among "pane" "tmux" {
         bind "x" { CloseFocus; SwitchToMode "normal"; }
@@ -264,9 +289,8 @@ plugins {
 }
 
 // Plugins to load in the background when a new session starts
-// eg. "file:/path/to/my-plugin.wasm"
-// eg. "https://example.com/my-plugin.wasm"
 load_plugins {
+    "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm"
 }
 web_client {
     font "monospace"
@@ -287,7 +311,7 @@ web_client {
 // Choose the base input mode of zellij.
 // Default: normal
 // 
-default_mode "locked"
+default_mode "normal"
  
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL

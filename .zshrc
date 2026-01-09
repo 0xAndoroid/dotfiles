@@ -122,6 +122,7 @@ alias gcs='gh copilot suggest'
 alias gce='gh copilot explain'
 alias coffee='caffeinate -d'
 alias z='zellij'
+
 alias claude='claude --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
 alias cld='caffeinate -di command claude --dangerously-skip-permissions --plugin-dir ~/.dotfiles/claude/plugin/rust-lsp'
 alias claude-mem='bun "~/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'

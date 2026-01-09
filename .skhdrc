@@ -4,24 +4,28 @@
      "Civilization VI"
 ]
 
-# Navigation - passthrough to nvim, otherwise yabai handles it
-# Match "- Nvim" at end of title (actual nvim windows), not "nvim" anywhere (like Claude)
+# Navigation - passthrough to zellij/nvim, otherwise yabai handles it
+# Priority: zellij (matches "session | tab" format) > nvim direct > yabai
 ctrl - h [
+    "Ghostty" title="* | *" ~
     "Ghostty" title="*- Nvim" ~
     "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus west
 ]
 ctrl - j [
+    "Ghostty" title="* | *" ~
     "Ghostty" title="*- Nvim" ~
     "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus south
 ]
 ctrl - k [
+    "Ghostty" title="* | *" ~
     "Ghostty" title="*- Nvim" ~
     "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus north
 ]
 ctrl - l [
+    "Ghostty" title="* | *" ~
     "Ghostty" title="*- Nvim" ~
     "iTerm2" title="*- Nvim" ~
     * : yabai -m window --focus east
