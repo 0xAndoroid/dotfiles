@@ -83,20 +83,22 @@ impl ZellijPlugin for State {
                     self.got_permissions = true;
                 }
             }
+            Event::TabUpdate(tabs) => {
+                self.tab_info = tabs.into_iter().find(|t| t.active);
+            }
             Event::PaneUpdate(pane_manifest) => {
-                // Find the focused terminal pane (not plugin pane)
                 self.pane_info = None;
-                'outer: for panes in pane_manifest.panes.values() {
-                    for pane in panes {
-                        if pane.is_focused && !pane.is_plugin {
-                            self.pane_info = Some(pane.clone());
-                            break 'outer;
+                let active_tab_idx = self.tab_info.as_ref().map(|t| t.position);
+                if let Some(idx) = active_tab_idx {
+                    if let Some(panes) = pane_manifest.panes.get(&idx) {
+                        for pane in panes {
+                            if pane.is_focused && !pane.is_plugin {
+                                self.pane_info = Some(pane.clone());
+                                break;
+                            }
                         }
                     }
                 }
-            }
-            Event::TabUpdate(tabs) => {
-                self.tab_info = tabs.into_iter().find(|t| t.active);
             }
             Event::ListClients(clients) => {
                 self.clients = clients;
