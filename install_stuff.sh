@@ -183,26 +183,23 @@ install_cargo_tool() {
 }
 
 # Install Rust tools
-install_cargo_tool cargo-audit
-install_cargo_tool bob-nvim
-install_cargo_tool cargo-cache
-install_cargo_tool cargo-edit
-install_cargo_tool cargo-nextest
-install_cargo_tool cargo-update
-install_cargo_tool cargo-watch
-install_cargo_tool cargo-llvm-cov
-install_cargo_tool du-dust
-install_cargo_tool just
-install_cargo_tool loc
-install_cargo_tool mdbook
-install_cargo_tool svm-rs
-install_cargo_tool tree-sitter-cli
-install_cargo_tool trunk
-install_cargo_tool typstyle
-install_cargo_tool wasm-bindgen-cli
-install_cargo_tool typos-cli
-install_cargo_tool tomlq
-install_cargo_tool zellij
+# install_cargo_tool cargo-audit
+# install_cargo_tool bob-nvim
+# install_cargo_tool cargo-cache
+# install_cargo_tool cargo-edit
+# install_cargo_tool cargo-nextest
+# install_cargo_tool cargo-update
+# install_cargo_tool cargo-watch
+# install_cargo_tool cargo-llvm-cov
+# install_cargo_tool du-dust
+# install_cargo_tool just
+# install_cargo_tool loc
+# install_cargo_tool tree-sitter-cli
+# install_cargo_tool trunk
+# install_cargo_tool typstyle
+# install_cargo_tool wasm-bindgen-cli
+# install_cargo_tool typos-cli
+# install_cargo_tool tomlq
 
 # Configure npm global directory
 echo "Configuring npm global directory..."
