@@ -44,6 +44,7 @@ create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/commands ~/.claude/commands
 create_link ~/.dotfiles/claude/rules ~/.claude/rules
+create_link ~/.dotfiles/claude/claude-hud ~/.claude/plugins/claude-hud
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij
