@@ -135,8 +135,6 @@ fi
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Ignore ctrl+hjkl in shell for yabai/nvim navigation
-
 [ -f ~/.keysrc ] && source ~/.keysrc
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
