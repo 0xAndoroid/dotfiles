@@ -329,9 +329,9 @@
     "command": "bash -c '\"${HOME}/.bun/bin/bun\" \"$(ls -td ~/.claude/plugins/cache/claude-hud/claude-hud/*/ 2>/dev/null | head -1)src/index.ts\"'"
   },
   "enabledPlugins": {
-    "claude-mem@thedotmack": true,
     "claude-hud@claude-hud": true,
-    "ralph-wiggum@claude-code-plugins": true
+    "ralph-wiggum@claude-code-plugins": true,
+    "claude-mem@thedotmack": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
