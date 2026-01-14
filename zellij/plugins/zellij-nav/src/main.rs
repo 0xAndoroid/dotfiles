@@ -85,6 +85,7 @@ impl ZellijPlugin for State {
             }
             Event::TabUpdate(tabs) => {
                 self.tab_info = tabs.into_iter().find(|t| t.active);
+                self.pane_info = None;
             }
             Event::PaneUpdate(pane_manifest) => {
                 self.pane_info = None;
