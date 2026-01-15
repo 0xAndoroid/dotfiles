@@ -329,8 +329,7 @@
     "command": "~/.dotfiles/claude/statusline.sh"
   },
   "enabledPlugins": {
-    "ralph-wiggum@claude-code-plugins": true,
-    "claude-mem@thedotmack": true
+    "ralph-wiggum@claude-code-plugins": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
