@@ -13,14 +13,11 @@ mkdir -p "$MCP_DIR"
 copy_pal_settings() {
     local dest="$1"
 
-    if [[ ! -f "$dest/.env" ]]; then
-        echo "  Creating .env from template..."
-        cp "$DOTFILES_DIR/mcp/pal/.env.template" "$dest/.env"
-        echo "  WARNING: Edit $dest/.env and add your API keys"
-    fi
+    echo "  Copying .env..."
+    cp "$DOTFILES_DIR/mcp/pal/.env.template" "$dest/.env"
 
-    echo "  Copying openai_models.json..."
-    cp "$DOTFILES_DIR/mcp/pal/openai_models.json" "$dest/openai_models.json"
+    echo "  Copying openai_models.json to conf/..."
+    cp "$DOTFILES_DIR/mcp/pal/openai_models.json" "$dest/conf/openai_models.json"
 }
 
 install_pal() {
@@ -29,7 +26,9 @@ install_pal() {
 
     if [[ -d "$dest" ]]; then
         echo "Updating PAL MCP server..."
+        git -C "$dest" stash --quiet
         git -C "$dest" pull --quiet
+        git -C "$dest" stash pop --quiet 2>/dev/null || true
         copy_pal_settings "$dest"
         echo "  PAL MCP server updated"
     else
