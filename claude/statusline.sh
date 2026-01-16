@@ -39,6 +39,7 @@ YELLOW='\033[33m'
 GREEN='\033[32m'
 MAGENTA='\033[35m'
 BLUE='\033[34m'
+DIM='\033[2m'
 RESET='\033[0m'
 
 if [ $PERCENT_FREE -gt 50 ]; then
@@ -49,6 +50,11 @@ else
   CTX_COLOR='\033[31m'
 fi
 
+if [ "$AUTO_COMPACT" = "true" ]; then
+  AC_INFO="${GREEN}AC on${RESET}"
+else
+  AC_INFO="${DIM}AC off${RESET}"
+fi
 GIT_ICON=$''
 GIT_INFO=""
 if [ -n "$BRANCH" ]; then
@@ -58,4 +64,4 @@ fi
 FOLDER_ICON=$''
 MODEL_ICON=$'󰚩'
 
-echo -e "${BLUE}${FOLDER_ICON} ${DIRNAME} ${RESET}${GIT_INFO}${CYAN}${MODEL_ICON} ${MODEL}${RESET} ${MAGENTA}⏱ ${DURATION}${RESET} ${CTX_COLOR}◉ ${PERCENT_FREE}% free${RESET}"
+echo -e "${BLUE}${FOLDER_ICON} ${DIRNAME} ${RESET}${GIT_INFO}${CYAN}${MODEL_ICON} ${MODEL}${RESET} ${MAGENTA}⏱ ${DURATION}${RESET} ${CTX_COLOR}◉ ${PERCENT_FREE}% free${RESET} ${AC_INFO}"
