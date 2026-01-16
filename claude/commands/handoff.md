@@ -1,48 +1,65 @@
----
-allowed-tools: Bash, Read, Glob, Grep, Write
----
-
 # /handoff
 
 Package current state for next agent/session to resume quickly.
 
 ## Output
 
-Write handoff state to `.handoff.md` in the current directory.
+Write to both:
+- `.handoff.yaml` in current directory (structured)
+- `~/.claude/handoffs/<timestamp>_<topic>.yaml` (persistent)
 
-## Contents
+## YAML Format
 
-Generate a concise bullet list containing:
+```yaml
+---
+date: YYYY-MM-DD
+status: complete|partial|blocked
+branch: <git branch>
+---
 
-1. **Scope/Status**
-   - What you were doing
-   - What's done
-   - What's pending
-   - Any blockers
+goal: <what this session accomplished>
+now: <what next session should do first>
 
-2. **Git State**
-   - Run `git status -sb`
-   - Note unpushed local commits
+done:
+  - <completed task 1>
+  - <completed task 2>
 
-3. **Branch/PR**
-   - Current branch name
-   - PR number if applicable
-   - CI status (`gh run list -L 3`)
+pending:
+  - <unfinished task>
 
-4. **Tests/Checks**
-   - Which commands were run
-   - Results (pass/fail counts)
-   - What still needs to run
+blockers:
+  - <blocking issue if any>
 
-5. **Next Steps**
-   - Ordered bullets of immediate actions
+git:
+  branch: <branch name>
+  uncommitted: <true/false>
+  unpushed: <count>
 
-6. **Risks/Gotchas**
-   - Flaky tests
-   - Feature flags
-   - Brittle areas
-   - Required credentials/env vars
+tests:
+  ran: <command>
+  passed: <count>
+  failed: <count>
 
-## Action
+next:
+  - <immediate action 1>
+  - <immediate action 2>
 
-Write the handoff to `.handoff.md` in the current directory.
+files:
+  modified:
+    - <file1.ts>
+    - <file2.ts>
+
+risks:
+  - <gotcha or risk>
+```
+
+## Process
+
+1. Run `git status -sb` and `git log @{u}..HEAD --oneline`
+2. Summarize session work
+3. Write YAML to both locations
+4. Report: "Handoff saved to .handoff.yaml"
+
+## Keep It Concise
+
+Target ~400 tokens. No prose - just structured data.

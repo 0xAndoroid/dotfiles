@@ -1,8 +1,0 @@
-{
-  "name": "rust-lsp",
-  "description": "Rust Language Server with Clippy",
-  "version": "1.0.0",
-  "author": {
-    "name": "Andrew Tretyakov"
-  }
-}
