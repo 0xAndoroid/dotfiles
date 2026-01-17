@@ -84,22 +84,22 @@ else
 fi
 
 # Install zsh plugins
-declare -A zsh_plugins=(
-  ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-  ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-  ["zsh-defer"]="https://github.com/romkatv/zsh-defer.git"
-)
-
-for plugin in "${!zsh_plugins[@]}"; do
-  echo "Checking for $plugin..."
-  if [ ! -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
-    echo "Installing $plugin..."
-    git clone "${zsh_plugins[$plugin]}" "$ZSH_CUSTOM/plugins/$plugin"
-    print_status "installed" "$plugin"
+install_zsh_plugin() {
+  local name=$1
+  local url=$2
+  echo "Checking for $name..."
+  if [ ! -d "$ZSH_CUSTOM/plugins/$name" ]; then
+    echo "Installing $name..."
+    git clone --depth=1 "$url" "$ZSH_CUSTOM/plugins/$name"
+    print_status "installed" "$name"
   else
-    print_status "exists" "$plugin"
+    print_status "exists" "$name"
   fi
-done
+}
+
+install_zsh_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
+install_zsh_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+install_zsh_plugin "zsh-defer" "https://github.com/romkatv/zsh-defer.git"
 
 # Install Rust if not already installed
 echo "Checking for Rust..."
