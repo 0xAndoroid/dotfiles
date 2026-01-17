@@ -9,7 +9,6 @@ return {
       "solidity",
       "yaml",
       "rust",
-      "latex",
     },
   },
 }
