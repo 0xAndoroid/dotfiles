@@ -2,32 +2,6 @@
   "env": {
     "ANTHROPIC_MODEL": "claude-opus-4-5-20251101"
   },
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/check-context.sh"
-          },
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify-stop.sh"
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/pre-compact.sh"
-          }
-        ]
-      }
-    ]
-  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -350,12 +324,39 @@
     ]
   },
   "enableAllProjectMcpServers": true,
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/check-context.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/notify-stop.sh"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/pre-compact.sh"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/statusline.sh"
   },
   "enabledPlugins": {
-    "ralph-wiggum@claude-code-plugins": true
+    "ralph-wiggum@claude-code-plugins": true,
+    "worktrunk@worktrunk": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
