@@ -330,21 +330,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/claude/hooks/check-context.sh"
-          },
-          {
-            "type": "command",
             "command": "~/.dotfiles/claude/hooks/notify-stop.sh"
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/pre-compact.sh"
           }
         ]
       }
