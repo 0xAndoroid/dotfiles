@@ -19,6 +19,17 @@ print_status() {
   fi
 }
 
+# Install Rust if not already installed
+echo "Checking for Rust..."
+if ! command -v rustc &> /dev/null; then
+  echo "Installing Rust..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  print_status "installed" "Rust"
+else
+  print_status "exists" "Rust"
+fi
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
 # Install Homebrew if not already installed
 echo "Checking for Homebrew..."
 if ! command -v brew &> /dev/null; then
@@ -40,12 +51,8 @@ fi
 
 # Install Neovim via bob
 echo "Installing Neovim via bob..."
-if command -v bob &> /dev/null; then
-  bob use stable
-  print_status "installed" "Neovim (stable)"
-else
-  echo -e "${YELLOW}⚠ bob not found, skipping Neovim installation${NC}"
-fi
+bob use stable
+print_status "installed" "Neovim (stable)"
 
 # Install Oh My Zsh if not already installed
 echo "Checking for Oh My Zsh..."
@@ -100,17 +107,6 @@ install_zsh_plugin() {
 install_zsh_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
 install_zsh_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 install_zsh_plugin "zsh-defer" "https://github.com/romkatv/zsh-defer.git"
-
-# Install Rust if not already installed
-echo "Checking for Rust..."
-if ! command -v rustc &> /dev/null; then
-  echo "Installing Rust..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  source "$HOME/.cargo/env"
-  print_status "installed" "Rust"
-else
-  print_status "exists" "Rust"
-fi
 
 # Function to install npm packages
 install_npm_package() {
