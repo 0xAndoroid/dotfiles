@@ -1,0 +1,16 @@
+#!/bin/bash
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+[[ "$repo_root" != "$HOME/.dotfiles" ]] && exit 0
+
+branch=$(git branch --show-current)
+[[ "$branch" != "main" ]] && exit 0
+
+for b in a16z homeserver; do
+  git show-ref --verify --quiet "refs/heads/$b" || continue
+  git rebase main "$b" --quiet 2>/dev/null || {
+    git rebase --abort 2>/dev/null
+    echo "⚠ $b rebase conflict - manual resolution needed"
+  }
+done
+
+git checkout main --quiet

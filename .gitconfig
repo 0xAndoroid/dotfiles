@@ -19,5 +19,7 @@
 	process = git-lfs filter-process
 [pull]
 	rebase = true
+[alias]
+	pushall = "!f() { git push \"$@\" && repo=$(git rev-parse --show-toplevel); if [ \"$repo\" = \"$HOME/.dotfiles\" ]; then for b in a16z homeserver; do git show-ref --verify --quiet refs/heads/$b && git push origin $b --force-with-lease 2>/dev/null; done; fi; }; f"
 [init]
 	defaultBranch = main
