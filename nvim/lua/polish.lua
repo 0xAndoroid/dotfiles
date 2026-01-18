@@ -10,3 +10,19 @@ vim.g.loaded_ruby_provider = 0
 
 -- Set LSP log level to ERROR only
 vim.lsp.log.set_level("ERROR")
+
+-- OSC 52 clipboard for SSH sessions
+if os.getenv("SSH_TTY") then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = osc52.paste("+"),
+      ["*"] = osc52.paste("*"),
+    },
+  }
+end

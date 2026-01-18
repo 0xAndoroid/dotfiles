@@ -20,6 +20,9 @@ keybind = super+t=new_window
 
 confirm-close-surface = false
 
+clipboard-read = "allow"
+clipboard-write = "allow"
+
 background = "#2B2D3A"
 foreground = "#E1E3E4"
 
