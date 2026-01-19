@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git checkout:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(git branch:*), Bash(git diff:*), Bash(gh pr create:*), Bash(gh pr list:*), mcp__pal__precommit, mcp__pal__chat
+allowed-tools: Bash(git checkout:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(git branch:*), Bash(git diff:*), Bash(gh pr create:*), Bash(gh pr list:*), mcp__pal__chat
 description: Commit, push, and open a PR
 ---
 
@@ -15,17 +15,15 @@ description: Commit, push, and open a PR
 
 2. **Check for sensitive files**: If any staged files look like secrets (.env, credentials, keys), warn user and stop.
 
-3. **Pre-commit validation**: Run `mcp__pal__precommit` for non-trivial changes. Skip for simple fixes.
+3. **Create branch** if on main/master: `git checkout -b <descriptive-branch-name>`
 
-4. **Create branch** if on main/master: `git checkout -b <descriptive-branch-name>`
-
-5. **Stage and commit** with conventional commit message:
+4. **Stage and commit** with conventional commit message:
    - Format: `type(scope): description`
    - Types: feat, fix, refactor, docs, test, chore, perf
 
-6. **Push** to origin with `-u` flag.
+5. **Push** to origin with `-u` flag.
 
-7. **Create PR**:
+6. **Create PR**:
    - Title: Match commit message or summarize changes
    - Body format:
      ```
@@ -43,4 +41,4 @@ description: Commit, push, and open a PR
    - Use `mcp__pal__chat` if unsure about PR description
    - Add `--draft` flag if user indicates work is incomplete
 
-Execute steps 4-7 in a single message with parallel tool calls where possible.
+Execute steps 3-7 in a single message with parallel tool calls where possible.

@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(gh issue view:*), Bash(gh search:*), Bash(gh issue list:*), Bash(gh pr comment:*), Bash(gh pr diff:*), Bash(gh pr view:*), Bash(gh pr list:*), mcp__pal__codereview, mcp__pal__consensus
+allowed-tools: Bash(gh issue view:*), Bash(gh search:*), Bash(gh issue list:*), Bash(gh pr comment:*), Bash(gh pr diff:*), Bash(gh pr view:*), Bash(gh pr list:*), mcp__pal__codereview, mcp__pal__chat, mcp__pal__thinkdeep
 description: Code review a pull request
 disable-model-invocation: false
 ---
@@ -19,7 +19,6 @@ Follow these steps:
 
    **All agents**: When uncertain about an issue, use PAL MCP tools:
    - `mcp__pal__thinkdeep` for complex semantic analysis
-   - `mcp__pal__debug` to trace through suspicious code paths
    - `mcp__pal__chat` to reason through edge cases
 
    a. **Semantic Consistency Agent**: For each new function/type/enum introduced:
@@ -47,7 +46,7 @@ Follow these steps:
       - Check for breaking changes to existing callers
 
 4. **Validate Issues** (PAL MCP): For issues that seem significant but uncertain, use:
-   - `mcp__pal__consensus` with multiple models to get independent opinions on whether the issue is real
+   - `mcp__pal__codereview` with multiple models to get independent opinions on whether the issue is real
    - `mcp__pal__thinkdeep` for complex issues requiring deeper analysis
    - If still unsure after using these tools, ask the user directly before posting
 
@@ -58,34 +57,12 @@ Follow these steps:
    - 75: Verified real issue that will impact functionality. Insufficient existing approach.
    - 100: Confirmed real issue that will happen frequently. Direct evidence confirms it.
 
-5. **Filter**: Keep only issues scoring 75+. If none, stop.
+5. **List issues to user for double check**: List all the issues and their scores to user.
 
-6. **Post Comment**: Use `gh pr comment` with this format:
-
-```
-### Code review
-
-Found N issues:
-
-1. <description> (<reason: e.g., "misuse of X function", "breaks invariant Y">)
-
-<github link to file#L-L with full SHA>
-
-...
-
-Generated with [Claude Code](https://claude.ai/code)
-
-<sub>If useful, react with thumbs up. Otherwise, thumbs down.</sub>
-```
-
-Or if no issues:
-```
-### Code review
-
-No issues found.
-
-Generated with [Claude Code](https://claude.ai/code)
-```
+6. **Post comments to PR**: For each issue that is approved by user, post a comment to PR in
+   specific lines of code. Optionally, if the issue is small enough with a trivial fix, post
+   a fix note using ```suggestions diff in comments body.
+   Or if no issues, do not post a comments.
 
 ## False Positives (skip these)
 

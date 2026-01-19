@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(*), Read, Grep, Glob, mcp__pal__debug, mcp__pal__thinkdeep, mcp__pal__chat
+allowed-tools: Bash(*), Read, Grep, Glob, mcp__pal__thinkdeep, mcp__pal__chat
 description: Debug an issue systematically
 ---
 
@@ -13,7 +13,7 @@ description: Debug an issue systematically
    - Check recent changes: `git log -p -5 -- <file>`
    - Search for related code: use Grep/Glob
 
-2. **Form hypothesis**: Use `mcp__pal__debug` with:
+2. **Form hypothesis**:
    - `hypothesis`: Your theory about root cause
    - `confidence`: exploring → low → medium → high → very_high → certain
    - `relevant_files`: Absolute paths to files involved
