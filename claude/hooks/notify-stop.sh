@@ -24,19 +24,10 @@ if [[ "$frontmost" != "$terminal" ]]; then
     exit 0
 fi
 
-# Terminal is frontmost - check zellij tab focus
-layout=$(zellij action dump-layout 2>/dev/null) || exit 0
-rel_cwd="${cwd#$HOME/}"
+# Terminal is frontmost - check if THIS pane is focused
+[[ -z "$ZELLIJ_PANE_ID" ]] && exit 0
 
-# Extract focused tab block and check if it contains our cwd
-focused_tab=$(echo "$layout" | awk '
-    /^[[:space:]]*tab.*focus=true/ { capture=1 }
-    capture && /^[[:space:]]*tab/ && !/focus=true/ { exit }
-    capture { print }
-')
-
-if echo "$focused_tab" | grep -q "cwd=\"$rel_cwd\""; then
-    exit 0
-fi
+focused_pane=$(zellij action list-clients 2>/dev/null | awk 'NR==2 {print $2}')
+[[ "$focused_pane" == "terminal_$ZELLIJ_PANE_ID" ]] && exit 0
 
 notify
