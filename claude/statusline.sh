@@ -8,11 +8,11 @@ WORKDIR=$(echo "$input" | jq -r '.workspace.current_dir')
 
 CURRENT_TOKENS=$(echo "$input" | jq -r '.context_window.current_usage | .input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
 
-AUTO_COMPACT=$(jq -r '.autoCompactEnabled // false' ~/.claude.json 2>/dev/null)
+AUTO_COMPACT=$(jq -r '.autoCompactEnabled // true' ~/.claude.json 2>/dev/null)
 if [ "$AUTO_COMPACT" = "true" ]; then
   BUFFER=45000
 else
-  BUFFER=3000
+  BUFFER=33000
 fi
 EFFECTIVE_CAPACITY=$((CONTEXT_SIZE - BUFFER))
 FREE_TOKENS=$((EFFECTIVE_CAPACITY - CURRENT_TOKENS))
@@ -42,9 +42,15 @@ BLUE='\033[34m'
 DIM='\033[2m'
 RESET='\033[0m'
 
-if [ $PERCENT_FREE -gt 50 ]; then
+GIT_ICON=$''
+FOLDER_ICON=$''
+MODEL_ICON=$'󰚩'
+CLOCK_ICON=$''
+CTX_ICON=$''
+
+if [ $PERCENT_FREE -gt 40 ]; then
   CTX_COLOR=$GREEN
-elif [ $PERCENT_FREE -gt 20 ]; then
+elif [ $PERCENT_FREE -gt 15 ]; then
   CTX_COLOR=$YELLOW
 else
   CTX_COLOR='\033[31m'
@@ -55,13 +61,10 @@ if [ "$AUTO_COMPACT" = "true" ]; then
 else
   AC_INFO="${DIM}AC off${RESET}"
 fi
-GIT_ICON=$''
 GIT_INFO=""
 if [ -n "$BRANCH" ]; then
   GIT_INFO="${GREEN}${GIT_ICON} git(${BRANCH})${RESET} "
 fi
 
-FOLDER_ICON=$''
-MODEL_ICON=$'󰚩'
 
-echo -e "${BLUE}${FOLDER_ICON} ${DIRNAME} ${RESET}${GIT_INFO}${CYAN}${MODEL_ICON} ${MODEL}${RESET} ${MAGENTA}⏱ ${DURATION}${RESET} ${CTX_COLOR}◉ ${PERCENT_FREE}% free${RESET} ${AC_INFO}"
+echo -e "${BLUE}${FOLDER_ICON} ${DIRNAME} ${RESET}${GIT_INFO}${CYAN}${MODEL_ICON} ${MODEL}${RESET} ${MAGENTA}${CLOCK_ICON} ${DURATION}${RESET} ${CTX_COLOR}${CTX_ICON} ${PERCENT_FREE}% free${RESET} ${AC_INFO}${RESET}"
