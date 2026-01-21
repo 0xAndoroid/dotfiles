@@ -11,7 +11,8 @@ vim.g.loaded_ruby_provider = 0
 -- Set LSP log level to ERROR only
 vim.lsp.log.set_level("ERROR")
 
--- OSC 52 clipboard for SSH sessions
+-- OSC 52 clipboard for SSH sessions (write-only, paste uses last yank)
+-- Read disabled: Zellij blocks it, and it's a security risk
 if os.getenv("SSH_TTY") then
   local osc52 = require("vim.ui.clipboard.osc52")
   vim.g.clipboard = {
@@ -21,8 +22,8 @@ if os.getenv("SSH_TTY") then
       ["*"] = osc52.copy("*"),
     },
     paste = {
-      ["+"] = osc52.paste("+"),
-      ["*"] = osc52.paste("*"),
+      ["+"] = function() return vim.fn.getreg("0") end,
+      ["*"] = function() return vim.fn.getreg("0") end,
     },
   }
 end

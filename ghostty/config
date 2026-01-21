@@ -20,7 +20,7 @@ keybind = super+t=new_window
 
 confirm-close-surface = false
 
-clipboard-read = "allow"
+clipboard-read = "ask"
 clipboard-write = "allow"
 
 background = "#2B2D3A"
