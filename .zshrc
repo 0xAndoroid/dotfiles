@@ -124,7 +124,7 @@ alias coffee='caffeinate -d'
 alias z='zellij'
 
 alias cld='caffeinate -di command claude --dangerously-skip-permissions'
-alias claude-mem='bun "~/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+alias cdx='caffeinate -di command codex --dangerously-bypass-approvals-and-sandbox'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 

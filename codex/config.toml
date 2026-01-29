@@ -1,0 +1,11 @@
+model = "gpt-5.2-codex"
+model_reasoning_effort = "xhigh"
+
+notify = ["~/.dotfiles/claude/hooks/notify-stop.sh", "codex"]
+
+[projects."/Users/atretyakov/Developer/jolt"]
+trust_level = "trusted"
+
+[tui]
+alternate_screen = "never"
+notifications = ["agent-turn-complete"]

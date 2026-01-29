@@ -36,6 +36,16 @@ create_link ~/.dotfiles/.yabairc ~/.yabairc
 create_link ~/.dotfiles/claude/settings.json ~/.claude/settings.json
 create_link ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 
+# Codex configuration
+create_link ~/.dotfiles/codex/config.toml ~/.codex/config.toml
+create_link ~/.dotfiles/codex/instructions.md ~/.codex/instructions.md
+
+# Codex skills
+create_link ~/.dotfiles/codex/skills/commit ~/.codex/skills/commit
+create_link ~/.dotfiles/codex/skills/debug ~/.codex/skills/debug
+create_link ~/.dotfiles/codex/skills/code-review ~/.codex/skills/code-review
+create_link ~/.dotfiles/codex/skills/commit-push-pr ~/.codex/skills/commit-push-pr
+
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim
 create_link ~/.dotfiles/lazygit ~/.config/lazygit
@@ -44,7 +54,6 @@ create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/commands ~/.claude/commands
 create_link ~/.dotfiles/claude/rules ~/.claude/rules
-create_link ~/.dotfiles/claude/claude-hud ~/.claude/plugins/claude-hud
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij

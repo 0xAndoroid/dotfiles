@@ -1,10 +1,16 @@
 #!/bin/bash
-# Stop hook: notify when Claude completes if pane not visible
+# Stop hook: notify when AI tool completes if pane not visible
+# Usage: notify-stop.sh [claude|codex]
 # Fires if: terminal not frontmost, OR zellij pane not focused
 
 set -euo pipefail
 
-# Read hook input and extract cwd
+case "${1:-claude}" in
+    claude) tool="Claude" ;;
+    codex)  tool="Codex" ;;
+    *)      tool="${1}" ;;
+esac
+
 input=$(cat)
 cwd=$(echo "$input" | jq -r '.cwd // empty')
 [[ -z "$cwd" ]] && exit 0
@@ -12,7 +18,7 @@ cwd=$(echo "$input" | jq -r '.cwd // empty')
 project=$(basename "$cwd")
 
 notify() {
-    osascript -e "display notification \"Task completed\" with title \"Claude: $project\" sound name \"Glass\"" 2>/dev/null || true
+    osascript -e "display notification \"Task completed\" with title \"$tool: $project\" sound name \"Glass\"" 2>/dev/null || true
 }
 
 # Check if terminal app is frontmost
