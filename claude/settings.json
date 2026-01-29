@@ -250,8 +250,6 @@
       "Bash(sudo:*)",
       "Bash(su:*)",
       "Bash(chmod 777:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
       "Bash(git credential:*)",
       "Bash(git config:*)",
       "Bash(gh auth:*)",
@@ -266,7 +264,6 @@
       "Bash(rsync:*)",
       "Bash(apt:*)",
       "Bash(yum:*)",
-      "Bash(brew:*)",
       "Bash(systemctl:*)",
       "Bash(service:*)",
       "Bash(kill:*)",
@@ -346,5 +343,9 @@
     "worktrunk@worktrunk": true
   },
   "forceLoginMethod": "claudeai",
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
 }
