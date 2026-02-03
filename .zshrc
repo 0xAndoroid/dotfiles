@@ -116,6 +116,13 @@ alias vim=nvim
 alias vi=nvim
 alias v=nvim
 alias cat=bat
+rm() {
+  local args=()
+  for arg in "$@"; do
+    [[ "$arg" != -* ]] && args+=("$arg")
+  done
+  rip "${args[@]}"
+}
 alias du='dust'
 alias copilot='gh copilot'
 alias gcs='gh copilot suggest'

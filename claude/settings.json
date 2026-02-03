@@ -59,6 +59,7 @@
       "Bash(npm run dev:*)",
       "Bash(npm list:*)",
       "Bash(mkdir:*)",
+      "Bash(rm:*)",
       "Bash(yarn lint:*)",
       "Bash(yarn test:*)",
       "Bash(yarn build:*)",
@@ -246,7 +247,6 @@
       "WebFetch(domain:developer.mozilla.org)"
     ],
     "deny": [
-      "Bash(rm -rf:*)",
       "Bash(sudo:*)",
       "Bash(su:*)",
       "Bash(chmod 777:*)",
