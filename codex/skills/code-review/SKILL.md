@@ -46,7 +46,7 @@ description: Code review a pull request with deep analysis. Use when user wants 
 
 5. **List issues to user** for approval before posting.
 
-6. **Post comments** to PR on specific lines. Use suggestion blocks for trivial fixes.
+6. **Post comments** to PR on specific lines. THE COMMENT MUST BE POSTED TO A SPECIFIC LINES OF CODE. Use suggestion blocks for trivial fixes.
 
 ## Skip (False Positives)
 

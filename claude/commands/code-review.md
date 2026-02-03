@@ -60,7 +60,8 @@ Follow these steps:
 5. **List issues to user for double check**: List all the issues and their scores to user.
 
 6. **Post comments to PR**: For each issue that is approved by user, post a comment to PR in
-   specific lines of code. Optionally, if the issue is small enough with a trivial fix, post
+   specific lines of code. THE COMMENT MUST BE POSTED TO A SPECIFIC LINES OF CODE.
+   Optionally, if the issue is small enough with a trivial fix, post
    a fix note using ```suggestions diff in comments body.
    Or if no issues, do not post a comments.
 
