@@ -1,6 +1,6 @@
 {
   "env": {
-    "ANTHROPIC_MODEL": "claude-opus-4-5-20251101",
+    "ANTHROPIC_MODEL": "opus",
     "MAX_THINKING_TOKENS": "63999"
   },
   "includeCoAuthoredBy": false,
@@ -339,8 +339,7 @@
     "command": "~/.dotfiles/claude/statusline.sh"
   },
   "enabledPlugins": {
-    "worktrunk@worktrunk": true,
-    "claude-code-mem0@claude-code-mem0": true
+    "worktrunk@worktrunk": true
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true
