@@ -86,3 +86,9 @@ _dotfiles_daily_pull() {
 if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
 fi
+
+export TERM=xterm-256color
+
+alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
+alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
+alias reload-donna='sudo launchctl kickstart -k system/com.donna.assistant'
