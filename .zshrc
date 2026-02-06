@@ -154,3 +154,9 @@ compinit
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+export TERM=xterm-256color
+
+alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
+alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
+alias reload-donna='sudo launchctl kickstart -k system/com.donna.assistant'
