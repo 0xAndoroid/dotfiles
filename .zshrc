@@ -126,9 +126,8 @@ if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
 fi
 
-if [[ -n "$ZELLIJ" ]]; then
-    _shim="${XDG_DATA_HOME:-$HOME/.local/share}/zellij-tmux-shim/activate.sh"
-    # shellcheck disable=SC1090
-    [[ -f "$_shim" ]] && source "$_shim"
-    unset _shim
-fi
+export TERM=xterm-256color
+
+alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
+alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
+alias reload-pika='sudo launchctl kickstart -k system/com.pika.assistant'
