@@ -91,4 +91,4 @@ export TERM=xterm-256color
 
 alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
 alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
-alias reload-donna='sudo launchctl kickstart -k system/com.donna.assistant'
+alias reload-pika='sudo launchctl kickstart -k system/com.pika.assistant'
