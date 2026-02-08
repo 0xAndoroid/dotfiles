@@ -1,11 +1,9 @@
 # Global gitignore file
 
 # Project-specific folders
-trees/
 .worktrees/
 
 # Project-specific files
-CLAUDE.md
 RESULTS.md
 
 # OS generated files
