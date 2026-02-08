@@ -130,7 +130,7 @@ alias gce='gh copilot explain'
 alias coffee='caffeinate -d'
 alias z='zellij'
 
-alias cld='claude --dangerously-skip-permissions'
+alias cld='claude --dangerously-skip-permissions --mcp-config ~/.dotfiles/claude/mcp.json'
 alias cdx='codex --dangerously-bypass-approvals-and-sandbox'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
