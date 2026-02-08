@@ -336,5 +336,6 @@
     "worktrunk@worktrunk": true
   },
   "forceLoginMethod": "claudeai",
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "fastMode": true
 }
