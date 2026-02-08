@@ -615,5 +615,21 @@ themes {
         cyan "#77D5F0"
         white "#E1E3E4"
         orange "#F89860"
+        text_unselected {
+            base 225 227 228
+            background 43 45 58
+            emphasis_0 225 227 228
+            emphasis_1 126 130 148
+            emphasis_2 109 202 232
+            emphasis_3 248 152 96
+        }
+        ribbon_unselected {
+            base 225 227 228
+            background 24 26 28
+            emphasis_0 225 227 228
+            emphasis_1 126 130 148
+            emphasis_2 109 202 232
+            emphasis_3 248 152 96
+        }
     }
 }
