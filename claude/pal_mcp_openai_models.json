@@ -290,17 +290,17 @@
       "temperature_constraint": "fixed"
     },
     {
-      "model_name": "gpt-5.2-codex",
-      "friendly_name": "OpenAI (GPT-5.2 Codex)",
+      "model_name": "gpt-5.3-codex",
+      "friendly_name": "OpenAI (GPT-5.3 Codex)",
       "aliases": [
-        "gpt5.2-codex",
-        "gpt-5.2-codex",
-        "gpt5.2code",
-        "gpt-5.2-code",
-        "codex-5.2"
+        "gpt5.3-codex",
+        "gpt-5.3-codex",
+        "gpt5.3code",
+        "gpt-5.3-code",
+        "codex-5.3"
       ],
       "intelligence_score": 19,
-      "description": "GPT-5.2 Codex (400K context, 128K output) - Agentic coding specialization available through the Responses API.",
+      "description": "GPT-5.3 Codex (400K context, 128K output) - Agentic coding specialization available through the Responses API.",
       "context_window": 400000,
       "max_output_tokens": 128000,
       "supports_extended_thinking": true,

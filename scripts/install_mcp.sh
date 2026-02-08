@@ -13,11 +13,9 @@ mkdir -p "$MCP_DIR"
 copy_pal_settings() {
     local dest="$1"
 
-    echo "  Copying .env..."
-    cp "$DOTFILES_DIR/mcp/pal/.env.template" "$dest/.env"
-
     echo "  Copying openai_models.json to conf/..."
-    cp "$DOTFILES_DIR/mcp/pal/openai_models.json" "$dest/conf/openai_models.json"
+    mkdir -p "$dest/conf"
+    cp "$DOTFILES_DIR/claude/pal_mcp_openai_models.json" "$dest/conf/openai_models.json"
 }
 
 install_pal() {

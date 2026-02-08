@@ -2,9 +2,9 @@
   "mcpServers": {
     "pal": {
       "type": "stdio",
-      "command": "$HOME/.claude/mcp/pal-mcp-server/.pal_venv/bin/python",
+      "command": "${HOME}/.claude/mcp/pal-mcp-server/.pal_venv/bin/python",
       "args": [
-        "#HOME/.claude/mcp/pal-mcp-server/server.py"
+        "${HOME}/.claude/mcp/pal-mcp-server/server.py"
       ],
       "env": {
         "DEFAULT_MODEL": "gpt-5.3-codex",
