@@ -353,7 +353,7 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-// theme "dracula"
+theme "sonokai"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -398,7 +398,7 @@ default_mode "normal"
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames false
+pane_frames false
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -601,3 +601,19 @@ show_startup_tips false
 // can be useful for removing wrappers around commands
 // Note: be sure to escape backslashes and similar characters properly
 // post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
+
+themes {
+    sonokai {
+        fg "#E1E3E4"
+        bg "#2B2D3A"
+        black "#2B2D3A"
+        red "#FB617E"
+        green "#9ED06C"
+        yellow "#EDC763"
+        blue "#6DCAE8"
+        magenta "#BB97EE"
+        cyan "#77D5F0"
+        white "#E1E3E4"
+        orange "#F89860"
+    }
+}
