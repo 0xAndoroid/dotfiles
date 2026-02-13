@@ -25,21 +25,6 @@
       "env": {
         "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
       }
-    },
-    "nanobanana": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["nanobanana-mcp-server@latest"],
-      "env": {
-        "GEMINI_API_KEY": "${GEMINI_API_KEY}"
-      }
-    },
-    "Ref": {
-      "type": "http",
-      "url": "https://api.ref.tools/mcp",
-      "headers": {
-        "x-ref-api-key": "${REF_API_KEY}"
-      }
     }
   }
 }
