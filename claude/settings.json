@@ -337,5 +337,5 @@
   },
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true,
-  "fastMode": true
+  "skipDangerousModePermissionPrompt": true
 }
