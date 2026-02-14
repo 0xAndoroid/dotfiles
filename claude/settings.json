@@ -327,6 +327,16 @@
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/notify-stop.sh"
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
