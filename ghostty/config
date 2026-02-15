@@ -12,6 +12,7 @@ font-size = 14
 font-feature = liga
 font-feature = calt
 font-feature = dlig
+adjust-cell-height = 10%
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
