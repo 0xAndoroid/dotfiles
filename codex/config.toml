@@ -18,12 +18,3 @@ notifications = ["agent-turn-complete"]
 command = "npx"
 args = ["-y", "@perplexity-ai/mcp-server"]
 env_vars = ["PERPLEXITY_API_KEY"]
-
-[mcp_servers.nanobanana]
-command = "uvx"
-args = ["nanobanana-mcp-server@latest"]
-env_vars = ["GEMINI_API_KEY"]
-
-[mcp_servers.Ref]
-url = "https://api.ref.tools/mcp"
-env_http_headers = { x-ref-api-key = "REF_API_KEY" }

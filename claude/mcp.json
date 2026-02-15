@@ -9,7 +9,7 @@
       "env": {
         "DEFAULT_MODEL": "gpt-5.3-codex",
         "DEFAULT_THINKING_MODE_THINKDEEP": "max",
-        "OPENAI_ALLOWED_MODELS": "gpt-5.3-codex,gpt-5.2-pro",
+        "OPENAI_ALLOWED_MODELS": "gpt-5.3-codex",
         "GOOGLE_ALLOWED_MODELS": "gemini-3-pro-preview",
         "CONVERSATION_TIMEOUT_HOURS": "24",
         "MAX_CONVERSATION_TURNS": "40",
