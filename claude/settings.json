@@ -333,7 +333,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify-stop.sh"
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Task completed'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Needs approval'"
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Has a question'"
           }
         ]
       }
