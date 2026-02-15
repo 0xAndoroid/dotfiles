@@ -154,3 +154,15 @@ compinit
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+_dotfiles_daily_pull() {
+  local stamp="$HOME/.cache/.dotfiles-last-pull"
+  local today=$(date +%Y-%m-%d)
+  [[ -f "$stamp" ]] && [[ "$(< "$stamp")" == "$today" ]] && return
+  mkdir -p "$(dirname "$stamp")"
+  git -C "$HOME/.dotfiles" pull --ff-only --quiet &>/dev/null &!
+  echo "$today" > "$stamp"
+}
+if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
+  zsh-defer _dotfiles_daily_pull
+fi
