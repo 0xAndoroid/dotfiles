@@ -78,5 +78,5 @@ Follow these steps:
 
 - Do NOT run builds/tests - CI handles that
 - Use `gh` for all GitHub interaction
-- Links must use full SHA: `https://github.com/owner/repo/blob/<full-sha>/path/file.rs#L10-L15`
+- When posting comments, post them to the specific lines of code
 - Make a todo list to track progress

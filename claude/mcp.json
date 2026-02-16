@@ -10,7 +10,7 @@
         "DEFAULT_MODEL": "gpt-5.3-codex",
         "DEFAULT_THINKING_MODE_THINKDEEP": "max",
         "OPENAI_ALLOWED_MODELS": "gpt-5.3-codex",
-        "GOOGLE_ALLOWED_MODELS": "gemini-3-pro-preview",
+        "GEMINI_API_KEY": "",
         "CONVERSATION_TIMEOUT_HOURS": "24",
         "MAX_CONVERSATION_TURNS": "40",
         "LOG_LEVEL": "INFO",
