@@ -296,34 +296,6 @@
       "Read(**/.env)",
       "Read(**/secrets/**)",
       "Read(**/credentials/**)"
-    ],
-    "ask": [
-      "Bash(git push:*)",
-      "Bash(git tag:*)",
-      "Bash(gh repo create:*)",
-      "Bash(gh repo delete:*)",
-      "Bash(gh repo fork:*)",
-      "Bash(gh repo clone:*)",
-      "Bash(gh repo edit:*)",
-      "Bash(gh repo transfer:*)",
-      "Bash(gh pr create:*)",
-      "Bash(gh pr close:*)",
-      "Bash(gh pr merge:*)",
-      "Bash(gh pr review:*)",
-      "Bash(gh pr edit:*)",
-      "Bash(gh issue create:*)",
-      "Bash(gh issue close:*)",
-      "Bash(gh issue delete:*)",
-      "Bash(gh issue edit:*)",
-      "Bash(gh release create:*)",
-      "Bash(gh release delete:*)",
-      "Bash(gh release upload:*)",
-      "Bash(gh gist create:*)",
-      "Bash(gh gist delete:*)",
-      "Bash(gh gist edit:*)",
-      "Bash(gh workflow run:*)",
-      "Bash(gh workflow disable:*)",
-      "Bash(gh workflow enable:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -333,7 +305,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Task completed'"
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Task completed'",
+            "async": true
           }
         ]
       }
@@ -344,7 +317,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Needs approval'"
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Needs approval'",
+            "async": true
           }
         ]
       },
@@ -353,7 +327,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Has a question'"
+            "command": "~/.dotfiles/claude/hooks/notify.sh 'Has a question'",
+            "async": true
           }
         ]
       }
