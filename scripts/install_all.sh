@@ -28,6 +28,7 @@ if ! command -v rustc &> /dev/null; then
 else
   print_status "exists" "Rust"
 fi
+# shellcheck disable=SC1091
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Install Homebrew if not already installed

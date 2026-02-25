@@ -29,6 +29,7 @@ project=$(basename "$cwd")
 notify() {
     osascript -e "display notification \"$message\" with title \"$tool: $project\" sound name \"Glass\"" 2>/dev/null || true
 
+    # shellcheck disable=SC1090
     source ~/.keysrc
     [[ -z "${CLAUDE_NOTIF_NTFY_TOPIC:-}" ]] && return
 

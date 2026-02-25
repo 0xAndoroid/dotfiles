@@ -9,6 +9,7 @@ NC='\033[0m'
 
 echo -e "${GREEN}Updating Rust and cargo packages...${NC}"
 
+# shellcheck disable=SC1091
 source "$HOME/.cargo/env" 2>/dev/null || true
 
 if command -v rustup &> /dev/null; then

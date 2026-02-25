@@ -18,10 +18,10 @@ case "$CURRENT_INPUT" in
   *"Dvorak"*|*"US"*|*"ABC"*|*"U.S."*)
     LABEL="EN"
     ;;
-  *"Russian"*|*"RussianWin"*)
+  *"Russian"*)
     LABEL="RU"
     ;;
-  *"Ukrainian"*|*"UkrainianWin"*)
+  *"Ukrainian"*)
     LABEL="UA"
     ;;
   *)
@@ -30,4 +30,4 @@ case "$CURRENT_INPUT" in
     ;;
 esac
 
-sketchybar --set $NAME label="$LABEL"
+sketchybar --set "$NAME" label="$LABEL"
