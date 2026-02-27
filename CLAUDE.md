@@ -38,7 +38,7 @@ MCP servers configured: PAL (reasoning via local Python server), Perplexity (sea
 
 PAL server installs to `~/.claude/mcp/pal-mcp-server/` — model definitions in `claude/pal_mcp_openai_models.json` get copied to its `conf/` dir.
 
-Claude custom commands live in `claude/commands/`, rules in `claude/rules/`. Codex skills mirror some of these in `codex/skills/`.
+Claude skills live in `claude/skills/<name>/SKILL.md`, rules in `claude/rules/`. Codex skills mirror some of these in `codex/skills/`.
 
 ### 3-Layer Navigation System (skhd → Zellij → Neovim → Yabai)
 
