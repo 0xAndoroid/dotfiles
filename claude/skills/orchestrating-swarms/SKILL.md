@@ -99,20 +99,10 @@ SendMessage({ type: "shutdown_request", recipient: "worker-1", content: "Done" }
 TeamDelete()  # Fails if active members remain
 ```
 
-## Spawn Backends
-
-Auto-detected. Override with `CLAUDE_CODE_SPAWN_BACKEND`.
-
-| Backend | When | Visibility | Persistence |
-|---------|------|------------|-------------|
-| **in-process** | Default (no tmux) | Hidden | Dies with leader |
-| **tmux** | `$TMUX` set | `tmux select-pane -t N` | Survives leader |
-| **iterm2** | iTerm2 + `it2` CLI | Split panes | Dies with window |
-
 ## Agent Type Selection
 
 | Type | Tools | Use For |
 |------|-------|---------|
-| Explore | Read-only | Search, analysis (use `model: "haiku"` for speed) |
+| Explore | Read-only | Search, analysis (use `model: "sonnet"` for speed) |
 | Plan | Read-only | Architecture, planning |
 | general-purpose | All | Implementation, multi-step work |
