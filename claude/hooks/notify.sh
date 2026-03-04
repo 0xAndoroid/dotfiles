@@ -1,8 +1,9 @@
 #!/bin/bash
-# Two-stage notification: macOS first, then phone/watch via ntfy if no user reaction
+# macOS notification + optional phone/watch escalation via ntfy
 # Usage: notify.sh <message> [claude|codex]
+# Claude: macOS-only (Agentfy handles phone). Codex: macOS + ntfy phone escalation.
 # Fires if: terminal not frontmost, OR zellij pane not focused
-# Requires CLAUDE_NOTIF_NTFY_TOPIC in ~/.keysrc for phone escalation
+# Requires CLAUDE_NOTIF_NTFY_TOPIC in ~/.keysrc for phone escalation (codex only)
 
 set -euo pipefail
 
@@ -28,6 +29,8 @@ project=$(basename "$cwd")
 
 notify() {
     osascript -e "display notification \"$message\" with title \"$tool: $project\" sound name \"Glass\"" 2>/dev/null || true
+
+    [[ "$tool" == "Claude" ]] && return
 
     # shellcheck disable=SC1090
     source ~/.keysrc

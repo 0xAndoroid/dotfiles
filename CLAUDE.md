@@ -57,3 +57,7 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 `git-hooks/pre-commit` is a universal Rust hook (fmt check + typos). Configurable per-repo via `pre-commit-config.toml`. Applied globally via `.gitconfig` `core.hooksPath`.
 
 `.gitconfig` alias `pushall` force-with-lease pushes main + a16z + homeserver branches.
+
+### Commit Workflow
+
+Unless otherwise instructed, commit to `main`: switch to main, commit, run `git pushall` (auto-rebases other branches on top of main), then switch back to the original branch.

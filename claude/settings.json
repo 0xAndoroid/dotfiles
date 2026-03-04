@@ -303,6 +303,50 @@
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"SessionStart\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"UserPromptSubmit\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"PreToolUse\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"PermissionRequest\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
@@ -310,6 +354,15 @@
             "type": "command",
             "command": "~/.dotfiles/claude/hooks/notify.sh 'Task completed'",
             "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"Stop\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -332,6 +385,37 @@
             "type": "command",
             "command": "~/.dotfiles/claude/hooks/notify.sh 'Has a question'",
             "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"Notification\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"PreCompact\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '. + {hook_event_name: \"SessionEnd\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
