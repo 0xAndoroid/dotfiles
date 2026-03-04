@@ -11,25 +11,3 @@ When introducing new features, think whether there's a nice way to refactor the 
 that would simplify the code, even if it breaks backwards compatibility.
 
 Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
-
-## GitHub PR Review
-
-Fetch unresolved review threads via GraphQL (not REST — REST has no resolution status):
-
-```bash
-gh api graphql -f query='
-{
-  repository(owner: "OWNER", name: "REPO") {
-    pullRequest(number: NUMBER) {
-      reviewThreads(first: 100) {
-        nodes {
-          isResolved
-          comments(first: 10) {
-            nodes { path line body author { login } }
-          }
-        }
-      }
-    }
-  }
-}' --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved == false) | {path: .comments.nodes[0].path, line: .comments.nodes[0].line, author: .comments.nodes[0].author.login, body: .comments.nodes[0].body}'
-```
