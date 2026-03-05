@@ -49,7 +49,6 @@ create_link ~/.dotfiles/codex/skills/commit-push-pr ~/.codex/skills/commit-push-
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim
 create_link ~/.dotfiles/lazygit ~/.config/lazygit
-create_link ~/.dotfiles/sketchybar ~/.config/sketchybar
 create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/skills ~/.claude/skills
