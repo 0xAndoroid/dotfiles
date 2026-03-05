@@ -6,6 +6,9 @@ return {
     enable_cmp_source = false,
     virtual_text = {
       enabled = true,
+      filetypes = {
+        [""] = false,
+      },
       key_bindings = {
         accept = "<C-t>",
         next = "<M-]>",
@@ -23,16 +26,5 @@ return {
         },
       },
     },
-  },
-  specs = {
-    -- {
-    --   "onsails/lspkind.nvim",
-    --   optional = true,
-    --   -- Adds icon for codeium using lspkind
-    --   opts = function(_, opts)
-    --     if not opts.symbol_map then opts.symbol_map = {} end
-    --     opts.symbol_map.Codeium = require("astroui").get_icon("Codeium", 1, true)
-    --   end,
-    -- },
   },
 }
