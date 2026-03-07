@@ -30,7 +30,6 @@ create_link ~/.dotfiles/.zshenv ~/.zshenv
 create_link ~/.dotfiles/.zprofile ~/.zprofile
 create_link ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
 create_link ~/.dotfiles/.gitconfig ~/.gitconfig
-create_link ~/.dotfiles/.rustfmt.toml ~/.rustfmt.toml
 create_link ~/.dotfiles/.skhdrc ~/.skhdrc
 create_link ~/.dotfiles/.yabairc ~/.yabairc
 create_link ~/.dotfiles/claude/settings.json ~/.claude/settings.json

@@ -96,9 +96,10 @@ run_check() {
     local check_command="$2"
     local fix_command="$3"
     local required="$4"
-    
+    local disable_var="$5"
+
     log "${YELLOW}Running $check_name...${NC}"
-    
+
     if eval "$check_command"; then
         log "${GREEN}✓ $check_name passed${NC}"
         return 0
@@ -107,7 +108,10 @@ run_check() {
         if [ -n "$fix_command" ]; then
             echo -e "${RED}Run '$fix_command' to fix${NC}"
         fi
-        
+        if [ -n "$disable_var" ]; then
+            echo -e "${YELLOW}To skip this check: ${disable_var}=1 git commit ...${NC}"
+        fi
+
         if [ "$FAIL_FAST" = "true" ] || [ "$required" = "true" ]; then
             exit 1
         fi
@@ -130,8 +134,10 @@ main() {
     local failed=false
     
     # Always run typos check for all repositories
-    if [ "$ENABLE_TYPOS" = "true" ]; then
-        if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" true; then
+    if [ "${DISABLE_TYPOS:-0}" = "1" ]; then
+        log "${YELLOW}⏩ Skipping typos check (DISABLE_TYPOS=1)${NC}"
+    elif [ "$ENABLE_TYPOS" = "true" ]; then
+        if ! run_check "typos" "typos $TYPOS_ARGS" "typos -w" true "DISABLE_TYPOS"; then
             failed=true
         fi
     else
@@ -160,26 +166,32 @@ main() {
         fi
         
         # Run cargo fmt check
-        if [ "$ENABLE_FMT" = "true" ]; then
-            if ! run_check "cargo fmt" "cargo fmt $FMT_ARGS" "cargo fmt" true; then
+        if [ "${DISABLE_FMT:-0}" = "1" ]; then
+            log "${YELLOW}⏩ Skipping cargo fmt (DISABLE_FMT=1)${NC}"
+        elif [ "$ENABLE_FMT" = "true" ]; then
+            if ! run_check "cargo fmt" "cargo fmt $FMT_ARGS" "cargo fmt" true "DISABLE_FMT"; then
                 failed=true
             fi
         else
             log "${YELLOW}⏩ Skipping cargo fmt (disabled in config)${NC}"
         fi
-        
+
         # Run cargo clippy
-        if [ "$ENABLE_CLIPPY" = "true" ]; then
-            if ! run_check "cargo clippy" "cargo clippy $CLIPPY_ARGS" "cargo clippy --fix" false; then
+        if [ "${DISABLE_CLIPPY:-0}" = "1" ]; then
+            log "${YELLOW}⏩ Skipping cargo clippy (DISABLE_CLIPPY=1)${NC}"
+        elif [ "$ENABLE_CLIPPY" = "true" ]; then
+            if ! run_check "cargo clippy" "cargo clippy $CLIPPY_ARGS" "cargo clippy --fix" false "DISABLE_CLIPPY"; then
                 failed=true
             fi
         else
             log "${YELLOW}⏩ Skipping cargo clippy (disabled in config)${NC}"
         fi
-        
+
         # Run cargo test
-        if [ "$ENABLE_TEST" = "true" ]; then
-            if ! run_check "cargo test" "cargo test --quiet" "" false; then
+        if [ "${DISABLE_TEST:-0}" = "1" ]; then
+            log "${YELLOW}⏩ Skipping cargo test (DISABLE_TEST=1)${NC}"
+        elif [ "$ENABLE_TEST" = "true" ]; then
+            if ! run_check "cargo test" "cargo test --quiet" "" false "DISABLE_TEST"; then
                 failed=true
             fi
         else
