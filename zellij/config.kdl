@@ -130,6 +130,7 @@ keybinds clear-defaults=true {
         bind "w" { SearchToggleOption "Wrap"; }
     }
     session {
+        bind "Ctrl q" { Quit; }
         bind "a" {
             LaunchOrFocusPlugin "zellij:about" {
                 floating true
@@ -190,7 +191,6 @@ keybinds clear-defaults=true {
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
-        bind "Ctrl q" { Quit; }
         bind "Ctrl 1" { GoToTab 1; }
         bind "Ctrl 2" { GoToTab 2; }
         bind "Ctrl 3" { GoToTab 3; }
