@@ -308,7 +308,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"SessionStart\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"SessionStart\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -319,7 +319,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"UserPromptSubmit\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"UserPromptSubmit\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -330,7 +330,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"PreToolUse\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PreToolUse\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -341,7 +341,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"PermissionRequest\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PermissionRequest\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -361,7 +361,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"Stop\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"Stop\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -392,7 +392,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"Notification\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"Notification\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -403,7 +403,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"PreCompact\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PreCompact\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }
@@ -414,7 +414,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c '. + {hook_event_name: \"SessionEnd\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"SessionEnd\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
           }
         ]
       }

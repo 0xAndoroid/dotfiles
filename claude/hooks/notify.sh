@@ -7,6 +7,8 @@
 
 set -euo pipefail
 
+[[ "${NO_NOTIFY:-}" == "1" ]] && exit 0
+
 message="${1:-Needs attention}"
 
 case "${2:-claude}" in
