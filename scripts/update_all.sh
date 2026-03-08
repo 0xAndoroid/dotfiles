@@ -15,18 +15,15 @@ print_section() {
 echo -e "${BLUE}Starting system update...${NC}"
 
 print_section "Homebrew"
-"$SCRIPT_DIR/brew.sh"
+"$SCRIPT_DIR/update_brew.sh"
 
 print_section "npm"
-"$SCRIPT_DIR/npm.sh"
+"$SCRIPT_DIR/update_npm.sh"
 
 print_section "Cargo"
-"$SCRIPT_DIR/cargo.sh"
+"$SCRIPT_DIR/update_cargo.sh"
 
 print_section "Zsh"
-"$SCRIPT_DIR/zsh.sh"
-
-print_section "Claude Plugins"
-"$SCRIPT_DIR/claude.sh"
+"$SCRIPT_DIR/update_zsh.sh"
 
 echo -e "\n${GREEN}All updates complete!${NC}"

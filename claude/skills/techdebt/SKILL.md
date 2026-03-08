@@ -43,7 +43,7 @@ Scan the codebase areas touched this session for:
 - Understand new abstractions that are introduced, new functions/types/enums
 - Identify possible future usecases for these things and understand whether abstractions meet future requirements
 - See which paradigms of Rust (or other language) development are used and whether they apply here
-- Identify possible improvements that would benefit long term maintenability of the code
+- Identify possible improvements that would benefit long term maintainability of the code
 - Be an enjoyer of abstractions: generics, traits, dyn, enums, etc.
 
 ### Small fixes (< ~100 lines changed, no behavioral change)
