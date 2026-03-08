@@ -18,7 +18,7 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use `npx agentcash fetch` for twit.sh (X) and Reddit endpoints. X endpoints $0.005–$0.01/call; Reddit $0.02/call.
+  Use `agentcash fetch` for twit.sh (X) and Reddit endpoints. X endpoints $0.005–$0.01/call; Reddit $0.02/call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
@@ -46,14 +46,14 @@ See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
 ## X/Twitter via twit.sh
 
-All twit.sh endpoints are GET with query parameters. Run `npx agentcash discover https://twit.sh` or `npx agentcash check https://twit.sh/<path>` for full parameter lists.
+All twit.sh endpoints are GET with query parameters. Run `agentcash discover https://twit.sh` or `agentcash check https://twit.sh/<path>` for full parameter lists.
 
 ### Search Posts
 
 Search for X posts by keywords (at least one filter required):
 
 ```bash
-npx agentcash fetch "https://twit.sh/tweets/search?words=AI%20agents"
+agentcash fetch "https://twit.sh/tweets/search?words=AI%20agents"
 ```
 
 **Parameters (query string):**
@@ -72,7 +72,7 @@ npx agentcash fetch "https://twit.sh/tweets/search?words=AI%20agents"
 Find X users matching a keyword:
 
 ```bash
-npx agentcash fetch "https://twit.sh/users/search?query=AI%20researcher%20San%20Francisco"
+agentcash fetch "https://twit.sh/users/search?query=AI%20researcher%20San%20Francisco"
 ```
 
 **Parameters:**
@@ -85,7 +85,7 @@ npx agentcash fetch "https://twit.sh/users/search?query=AI%20researcher%20San%20
 Fetch recent posts from a specific user:
 
 ```bash
-npx agentcash fetch "https://twit.sh/tweets/user?username=elonmusk"
+agentcash fetch "https://twit.sh/tweets/user?username=elonmusk"
 ```
 
 **Parameters:**
@@ -100,7 +100,7 @@ npx agentcash fetch "https://twit.sh/tweets/user?username=elonmusk"
 Search Reddit for posts:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "best programming languages 2024"}'
+agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "best programming languages 2024"}'
 ```
 
 **Parameters:**
@@ -118,7 +118,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"que
 ### Search in Subreddit
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{
+agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{
   "query": "typescript vs javascript",
   "subreddit": "programming",
   "sort": "top",
@@ -131,7 +131,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{
 Get comments from a Reddit post:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/r/programming/comments/abc123/..."}'
+agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/r/programming/comments/abc123/..."}'
 ```
 
 **Returns:**
@@ -144,25 +144,25 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b
 
 ### Standard
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
-- [ ] Use `npx agentcash discover https://twit.sh` or `https://stableenrich.dev` to list endpoints
-- [ ] Use `npx agentcash check <endpoint-url>` to see expected parameters and pricing
-- [ ] Call endpoint with `npx agentcash fetch`
+- [ ] (Optional) Check balance: `agentcash wallet info`
+- [ ] Use `agentcash discover https://twit.sh` or `https://stableenrich.dev` to list endpoints
+- [ ] Use `agentcash check <endpoint-url>` to see expected parameters and pricing
+- [ ] Call endpoint with `agentcash fetch`
 - [ ] Parse and present results
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `agentcash wallet info`
 - [ ] Search X for brand mentions
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 
 ```bash
-npx agentcash fetch "https://twit.sh/tweets/search?words=YourBrand&from=YourBrand"
+agentcash fetch "https://twit.sh/tweets/search?words=YourBrand&from=YourBrand"
 ```
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "YourBrand", "sort": "new"}'
+agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "YourBrand", "sort": "new"}'
 ```
 
 ### Competitor Research
@@ -172,7 +172,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"que
 - [ ] Analyze common complaints and praise
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "competitor name review", "sort": "top", "time": "year"}'
+agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "competitor name review", "sort": "top", "time": "year"}'
 ```
 
 ### Influencer Discovery
@@ -182,7 +182,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"que
 - [ ] Get recent posts for top candidates
 
 ```bash
-npx agentcash fetch "https://twit.sh/users/search?query=tech%20blogger%20100k%20followers"
+agentcash fetch "https://twit.sh/users/search?query=tech%20blogger%20100k%20followers"
 ```
 
 ### Community Sentiment
@@ -193,11 +193,11 @@ npx agentcash fetch "https://twit.sh/users/search?query=tech%20blogger%20100k%20
 - [ ] Synthesize overall sentiment
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}'
+agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}'
 ```
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/..."}'
+agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/..."}'
 ```
 
 ## Response Data
