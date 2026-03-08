@@ -1,3 +1,7 @@
+---
+name: gog-cli
+description: Google CLI (gog) reference for Gmail, Calendar, Drive, Sheets, Docs, Slides, Forms, Chat, and more. USE FOR: - Sending and searching email (Gmail) - Managing calendar events, scheduling, RSVP - Listing, uploading, downloading, sharing Drive files - Reading and writing Google Sheets data - Creating and editing Google Docs and Slides - Interacting with Forms, Chat, Groups, Classroom, Apps Script TRIGGERS: - "gmail", "email", "send email", "read email", "inbox" - "google calendar", "gcal", "calendar events", "schedule meeting", "list events" - "google drive", "drive files", "upload to drive", "download from drive" - "google sheets", "spreadsheet", "create spreadsheet" - "google docs", "google slides", "google workspace", "gog cli" - "google contacts", "google forms", "google keep", "google tasks"---
+
 # gog CLI — Google CLI (v0.11.0)
 
 Complete reference for `gog` (Google CLI) at `/opt/homebrew/bin/gog`.
