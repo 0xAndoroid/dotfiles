@@ -39,11 +39,8 @@ create_link ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 create_link ~/.dotfiles/codex/config.toml ~/.codex/config.toml
 create_link ~/.dotfiles/codex/instructions.md ~/.codex/instructions.md
 
-# Codex skills
-create_link ~/.dotfiles/codex/skills/commit ~/.codex/skills/commit
-create_link ~/.dotfiles/codex/skills/debug ~/.codex/skills/debug
-create_link ~/.dotfiles/codex/skills/code-review ~/.codex/skills/code-review
-create_link ~/.dotfiles/codex/skills/commit-push-pr ~/.codex/skills/commit-push-pr
+# Codex skills (symlinked to claude skills in repo, then linked to ~/.codex)
+create_link ~/.dotfiles/codex/skills ~/.codex/skills
 
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim

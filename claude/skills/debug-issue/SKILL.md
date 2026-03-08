@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(*), Read, Grep, Glob, mcp__pal__thinkdeep, mcp__pal__chat
-description: Debug an issue systematically
+name: debug-issue
+description: Systematically debug issues by gathering context, forming hypotheses, and iterating toward a fix. USE FOR: - Investigating bugs and unexpected behavior - Tracing root causes of errors and crashes - Fixing regressions from recent changes - Diagnosing complex multi-system issues TRIGGERS: - "debug", "troubleshoot", "investigate bug" - "fix error", "find bug", "why is this broken" - "error investigation", "crash analysis", "fix issue" - "not working", "broken", "failing"
 ---
 
 ## Context

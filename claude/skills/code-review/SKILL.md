@@ -1,16 +1,15 @@
 ---
-allowed-tools: Bash(gh issue view:*), Bash(gh search:*), Bash(gh issue list:*), Bash(gh pr comment:*), Bash(gh pr diff:*), Bash(gh pr view:*), Bash(gh pr list:*), mcp__pal__codereview, mcp__pal__chat, mcp__pal__thinkdeep
-description: Code review a pull request
-disable-model-invocation: false
+name: code-review
+description: Deep code review of a pull request using parallel analysis agents (semantic consistency, bugs, tech debt, security). USE FOR: - Reviewing PRs for bugs, security issues, and code quality - Analyzing new abstractions for consistency and correctness - Identifying tech debt and architectural concerns - Posting review comments to specific lines on GitHub TRIGGERS: - "review PR", "code review", "review changes" - "diff review", "PR feedback", "check PR" - "analyze diff", "critique code", "review code" - "pull request review", "GitHub PR review"
 ---
 
 Provide a code review for the given pull request.
 
 Follow these steps:
 
-1. **Eligibility Check** (Haiku): Check if the PR (a) is closed, (b) is a draft, (c) is automated/trivial, or (d) already has your review. If so, stop.
+1. **Eligibility Check** (Sonnet): Check if the PR (a) is closed, (b) is automated/trivial. If so, stop.
 
-2. **PR Analysis** (Sonnet): View the PR and return:
+2. **PR Analysis** (Opus): View the PR and return:
    - Summary of the change and its purpose
    - List of new functions, types, enums, or abstractions introduced
    - For each new abstraction: its name, stated purpose (from comments/docs), and intended usage contract
@@ -34,21 +33,26 @@ Follow these steps:
       - Verify error handling is appropriate for each failure mode
       - Check that invariants are maintained across the changes
 
-   c. **Historical Context Agent**:
-      - Read git blame and history of modified code
-      - Check previous PRs that touched these files for relevant reviewer comments
-      - Identify if the PR reintroduces previously fixed bugs or ignores historical design decisions
+   c. **Tech Debt Removal Agent**:
+      - Understand new abstractions that are introduced, new functions/types/enums
+      - Identify possible future usecases for these things and understand whether abstractions meet future requirements
+      - See which paradigms of Rust (or other language) development are used and whether they apply here
+      - Identify possible improvements that would benefit long term maintenability of the code
+      - Be an enjoyer of abstractions: generics, traits, dyn, enums, etc.
 
-   d. **API Contract Agent**: For modified or new public APIs:
-      - Verify input validation is complete and correct
-      - Check that documented behavior matches implementation
-      - Verify error conditions are handled and documented
-      - Check for breaking changes to existing callers
+   d. **Security Reviewer Agent**:
+      - Identify whether changes to the protocol do not break soundness
+      - Identify possible attack vectors that are introduced with these changes
+      - Check for input validation gaps at trust boundaries (user input, network data, file I/O, IPC)
+      - Verify authentication/authorization checks are not bypassed or weakened
+      - Look for injection risks: SQL, command, path traversal, template injection, deserialization
+      - Check cryptographic usage: hardcoded secrets, weak algorithms, nonce reuse, timing side-channels
+      - Verify resource limits: unbounded allocations, missing timeouts, denial-of-service vectors
+      - Check concurrency: TOCTOU races, lock ordering, shared mutable state without synchronization
 
-4. **Validate Issues** (PAL MCP): For issues that seem significant but uncertain, use:
-   - `mcp__pal__codereview` with multiple models to get independent opinions on whether the issue is real
+4. **Validate Issues** (PAL MCP): For issues that seem significant but **uncertain**, use:
+   - `mcp__pal__codereview` to get independent opinion on whether the issue is real
    - `mcp__pal__thinkdeep` for complex issues requiring deeper analysis
-   - If still unsure after using these tools, ask the user directly before posting
 
    Score each issue 0-100:
    - 0: False positive, doesn't stand up to scrutiny, or pre-existing issue

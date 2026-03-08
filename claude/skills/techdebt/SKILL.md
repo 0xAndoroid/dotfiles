@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(*), Read, Grep, Glob, Write, Edit, mcp__pal__thinkdeep
-description: Capture session learnings and address tech debt
+name: techdebt
+description: End-of-session sweep — persist learnings to CLAUDE.md, fix small debt, surface big debt. USE FOR: - Capturing non-obvious gotchas and session learnings - Updating CLAUDE.md with project-specific knowledge - Fixing small tech debt (dead imports, naming, constants) - Triaging larger architectural issues for user decision TRIGGERS: - "tech debt", "cleanup", "session review", "end of session" - "CLAUDE.md update", "document learnings", "session summary" - "wrap up", "code quality", "what did we learn"
 ---
 
 # /techdebt
@@ -33,17 +33,26 @@ If gotchas/learnings were found:
 ## Phase 3: Tech Debt Triage
 
 Scan the codebase areas touched this session for:
+
 - Code that should be restructured for maintainability/modularity
 - Repeated patterns that should be abstracted
 - Missing error handling at system boundaries
 - Dead code, unused dependencies, stale configs
 - Naming inconsistencies, leaky abstractions
 
-### Small fixes (< ~20 lines changed, no behavioral change)
+- Understand new abstractions that are introduced, new functions/types/enums
+- Identify possible future usecases for these things and understand whether abstractions meet future requirements
+- See which paradigms of Rust (or other language) development are used and whether they apply here
+- Identify possible improvements that would benefit long term maintenability of the code
+- Be an enjoyer of abstractions: generics, traits, dyn, enums, etc.
+
+### Small fixes (< ~100 lines changed, no behavioral change)
+
 - Fix immediately without asking
 - Examples: dead import removal, rename for clarity, extract obvious constant
 
 ### Big changes (architectural, multi-file, behavioral)
+
 - Present to user as a numbered list with:
   - What the issue is
   - Why it matters

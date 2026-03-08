@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*), mcp__pal__chat
-description: Create a git commit
+description: Create a git commit with conventional commit format. USE FOR: - Committing staged changes - Creating well-formatted commit messages - Checking for sensitive files before committing TRIGGERS: - "commit", "git commit", "save changes" - "commit this", "make a commit", "stage and commit"
 ---
 
 ## Context
