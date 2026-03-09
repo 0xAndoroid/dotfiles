@@ -631,5 +631,21 @@ themes {
             emphasis_2 109 202 232
             emphasis_3 248 152 96
         }
+        text_selected {
+            base 225 227 228
+            background 43 45 58
+            emphasis_0 158 208 108
+            emphasis_1 158 208 108
+            emphasis_2 109 202 232
+            emphasis_3 248 152 96
+        }
+        ribbon_selected {
+            base 43 45 58
+            background 158 208 108
+            emphasis_0 43 45 58
+            emphasis_1 43 45 58
+            emphasis_2 43 45 58
+            emphasis_3 43 45 58
+        }
     }
 }

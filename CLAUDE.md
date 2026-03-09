@@ -60,4 +60,10 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 
 ### Commit Workflow
 
-Unless otherwise instructed, commit to `main`: switch to main, commit, run `git pushall` (auto-rebases other branches on top of main), then switch back to the original branch.
+**Always commit to `main` unless explicitly told otherwise.** Steps:
+
+1. `git checkout main`
+2. Stage and commit changes on main
+3. `git checkout <original-branch> && git rebase main` — rebase the branch on top of main
+4. `git checkout main && git pushall` — pushes main, then force-with-lease pushes a16z/homeserver
+5. `git checkout <original-branch>` — return to the branch you started on
