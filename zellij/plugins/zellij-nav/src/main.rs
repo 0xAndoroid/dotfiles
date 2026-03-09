@@ -85,21 +85,20 @@ impl ZellijPlugin for State {
             }
             Event::TabUpdate(tabs) => {
                 self.tab_info = tabs.into_iter().find(|t| t.active);
-                self.pane_info = None;
             }
             Event::PaneUpdate(pane_manifest) => {
-                self.pane_info = None;
                 let active_tab_idx = self.tab_info.as_ref().map(|t| t.position);
                 if let Some(idx) = active_tab_idx {
                     if let Some(panes) = pane_manifest.panes.get(&idx) {
                         for pane in panes {
                             if pane.is_focused && !pane.is_plugin {
                                 self.pane_info = Some(pane.clone());
-                                break;
+                                return false;
                             }
                         }
                     }
                 }
+                self.pane_info = None;
             }
             Event::ListClients(clients) => {
                 self.clients = clients;

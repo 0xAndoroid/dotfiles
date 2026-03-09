@@ -10,13 +10,13 @@ User presses Ctrl+H
        ↓
    [skhd] checks Ghostty title
        ↓
-  title = "*zellij"?
+  title = "* | *"?  (zellij format: "session | pane_title")
     ├─ YES → Pass to zellij
     │           ↓
-    │    [vim-zellij-navigator plugin]
+    │    [zellij-nav plugin] (custom WASM, src in zellij/plugins/zellij-nav/)
     │           ↓
-    │      current pane is nvim?
-    │        ├─ YES → Forward Ctrl+h to nvim
+    │      current pane is nvim?  (checks client running_command + pane title)
+    │        ├─ YES → write_chars(Ctrl+h) to pane
     │        │           ↓
     │        │    [smart-splits.nvim]
     │        │        ↓
@@ -24,11 +24,13 @@ User presses Ctrl+H
     │        │     ├─ NO  → Move nvim split
     │        │     └─ YES → at_edge handler
     │        │                ↓
-    │        │         at zellij pane edge?
-    │        │           ├─ NO  → Move zellij pane
-    │        │           └─ YES → yabai focus window
+    │        │         zellij pipe → nvim_at_edge → plugin
+    │        │           ├─ at zellij edge → yabai focus window
+    │        │           └─ not at edge   → zellij MoveFocus
     │        │
-    │        └─ NO → zellij MoveFocus (stops at edge)
+    │        └─ NO → at zellij edge?
+    │                  ├─ YES → yabai focus window
+    │                  └─ NO  → zellij MoveFocus
     │
     └─ NO (title = "*- Nvim"?)
           ├─ YES → Pass to nvim (direct, no zellij)
@@ -41,43 +43,38 @@ User presses Ctrl+H
 ## Components
 
 1. **skhd** (`../.skhdrc`): OS-level hotkey daemon with title filtering
-2. **vim-zellij-navigator**: Zellij plugin for nvim detection (from GitHub releases)
-3. **zellij** (`../zellij/config.kdl`): Terminal multiplexer config
-4. **smart-splits.nvim** (`lua/plugins/smart-splits.lua`): Neovim split navigation with multiplexer + yabai integration
-
-## Known Limitation
-
-Non-nvim panes at zellij edge stop navigating (no yabai call). Full three-layer navigation only works from nvim panes.
+2. **zellij-nav**: Custom WASM plugin (`../zellij/plugins/zellij-nav/src/main.rs`), compiled to `zellij-nav.wasm`
+3. **zellij** (`../zellij/config.kdl`): `default_mode "normal"`, Ctrl+hjkl bound in both locked and `shared_except "locked"`
+4. **smart-splits.nvim** (`lua/plugins/smart-splits.lua`): `multiplexer_integration = false`, custom `at_edge` handler pipes back to zellij-nav
 
 ## Configuration Files
 
 ### skhd (`.skhdrc`)
 ```
 ctrl - h [
-    "Ghostty" title="*zellij" ~      # zellij: passthrough (title ends with "zellij")
+    "Ghostty" title="* | *" ~       # zellij: passthrough (session | pane_title format)
     "Ghostty" title="*- Nvim" ~      # nvim direct: passthrough
     * : yabai -m window --focus west # default: yabai
 ]
 ```
 
-### zellij (`zellij/config.kdl`)
-- `default_mode "locked"` - starts in locked mode for passthrough
-- zellij-nav plugin bindings in locked mode for Ctrl+hjkl
+### zellij-nav plugin
+- Nvim detection: `client.running_command` match → fallback to `pane.title` match
+- Edge detection: compares pane position against tab display area
+- Yabai invocation: `run_command` from WASM sandbox
 
 ### smart-splits.nvim
-- Detects multiplexer (zellij) automatically via `$ZELLIJ` env
-- Custom `at_edge` handler checks both nvim and zellij edges
-- Calls yabai only when at the outermost edge
+- `multiplexer_integration = false` — zellij-nav handles pane movement
+- Custom `at_edge` handler: if `$ZELLIJ` set → `zellij pipe --name nvim_at_edge`, else → yabai directly
 
 ## Shell Integration
 
-`.zshrc` sets window title to "zellij" when inside zellij (zellij prepends `session | `):
-```bash
-if [[ -n "$ZELLIJ" ]]; then
-  _zellij_title_precmd() {
-    print -Pn "\e]0;zellij\a"
-  }
-  precmd_functions+=(_zellij_title_precmd)
-fi
-```
-Result: title becomes `<session> | zellij`, matched by skhd pattern `*zellij`
+oh-my-zsh (via `lib/termsupport.zsh`) sets terminal title:
+- precmd: `user@host:path` (e.g., `andoroid@Mac:~/.dotfiles`)
+- preexec: includes command name (e.g., `nvim filename`)
+
+Zellij composes Ghostty window title as: `<session_name> | <pane_title>`
+
+## Known Limitation
+
+SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no IPC path). Ctrl+hjkl works for remote nvim splits, but edge→zellij/yabai navigation doesn't work over SSH.
