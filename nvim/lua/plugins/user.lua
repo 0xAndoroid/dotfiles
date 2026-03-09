@@ -1,107 +1,10 @@
 ---@type LazySpec
 return {
   {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
-  },
-  {
-    "folke/snacks.nvim",
-    opts = {
-      picker = {
-        sources = {
-          ["files"] = {
-            exclude = {
-              "node_modules",
-              ".git",
-              ".venv",
-              "target",
-              "dist",
-              "build",
-              ".next/",
-              ".cache",
-              "public",
-              "trees",
-            },
-          },
-          ["grep"] = {
-            exclude = {
-              "node_modules",
-              ".git",
-              ".venv",
-              "target",
-              "dist",
-              "build",
-              "*lock.yml",
-              ".next/",
-              ".cache",
-              "*lock.yaml",
-              "*.lock",
-              "public",
-              "trees",
-            },
-          },
-        },
-      },
-      dashboard = {
-        preset = {
-          header = table.concat({
-            "███    ██ ██    ██ ██ ███    ███",
-            "████   ██ ██    ██ ██ ████  ████",
-            "██ ██  ██ ██    ██ ██ ██ ████ ██",
-            "██  ██ ██  ██  ██  ██ ██  ██  ██",
-            "██   ████   ████   ██ ██      ██",
-          }, "\n"),
-        },
-      },
-      bigfile = { enabled = true },
-      explorer = {
-        enabled = true,
-        filters = {
-          always_show = {
-            ".env",
-            ".gitignore",
-            ".gitmodules",
-            ".gitattributes",
-            "out",
-          },
-        },
-      },
-      indent = { enabled = true },
-      input = { enabled = true },
-      image = {
-        enabled = true,
-        math = {
-          enabled = true,
-        },
-        doc = {
-          enabled = true,
-          inline = false,
-        },
-      },
-      notifier = {
-        enabled = true,
-        timeout = 3000,
-      },
-      -- Replace dressing.nvim functionality
-      select = { enabled = true },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-      scroll = {
-        enabled = true,
-        animate = {
-          duration = { step = 10, total = 100 },
-        },
-      },
-      statuscolumn = { enabled = true },
-      words = { enabled = true },
-    },
-  },
-  {
     "pocco81/auto-save.nvim",
     opts = {
       enabled = true,
-      debounce_delay = 1000, -- Wait 1 second after typing stops
+      debounce_delay = 1000,
       conditions = {
         exists = true,
         modifiable = true,
@@ -114,7 +17,6 @@ return {
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    event = "BufRead",
     build = function() vim.fn["mkdp#util#install"]() end,
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
@@ -132,6 +34,10 @@ return {
             ".gitignore",
             ".gitmodules",
             ".gitattributes",
+            ".zshrc",
+            ".rustfmt.toml",
+            ".skhdrc",
+            ".yabairc",
             "out",
           },
         },

@@ -17,6 +17,7 @@ return {
     },
   } end,
   dependencies = {
+    "nvim-lua/plenary.nvim",
     {
       "AstroNvim/astroui",
       ---@type AstroUIOpts

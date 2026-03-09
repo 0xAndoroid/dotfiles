@@ -22,8 +22,8 @@ if os.getenv("SSH_TTY") then
       ["*"] = osc52.copy("*"),
     },
     paste = {
-      ["+"] = function() return vim.fn.getreg("0") end,
-      ["*"] = function() return vim.fn.getreg("0") end,
+      ["+"] = function() return { vim.fn.getreg("0", true, true), vim.fn.getregtype("0") } end,
+      ["*"] = function() return { vim.fn.getreg("0", true, true), vim.fn.getregtype("0") } end,
     },
   }
 end
