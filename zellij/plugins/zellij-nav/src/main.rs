@@ -169,23 +169,28 @@ impl State {
 
     fn is_current_pane_vim(&self) -> bool {
         let Some(pane) = &self.pane_info else {
-            // No pane info, check any client for nvim
             return self.clients.iter().any(|c| Self::is_vim_command(&c.running_command));
         };
 
-        // Match focused pane with client by pane_id
         for client in &self.clients {
             let client_pane_id = match client.pane_id {
                 PaneId::Terminal(id) => id,
                 PaneId::Plugin(_) => continue,
             };
 
-            if client_pane_id == pane.id && Self::is_vim_command(&client.running_command) {
-                return true;
+            if client_pane_id == pane.id {
+                if Self::is_vim_command(&client.running_command) {
+                    return true;
+                }
+                // Only fall through to title check for pass-through commands
+                // where vim could be running inside (e.g. ssh, tmux)
+                if !Self::is_passthrough(&client.running_command) {
+                    return false;
+                }
+                break;
             }
         }
 
-        // Fallback: check pane title
         Self::is_vim_command(&pane.title)
     }
 
@@ -196,6 +201,12 @@ impl State {
         cmd_lower == "vim" ||
         cmd_lower.ends_with(" vim") ||
         cmd_lower.ends_with("/vim")
+    }
+
+    fn is_passthrough(cmd: &str) -> bool {
+        let cmd_lower = cmd.to_lowercase();
+        let basename = cmd_lower.rsplit('/').next().unwrap_or(&cmd_lower);
+        matches!(basename, "ssh" | "mosh" | "tmux" | "screen" | "zellij")
     }
 
     fn is_at_edge(&self, direction: Direction) -> bool {
