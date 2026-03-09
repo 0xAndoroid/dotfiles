@@ -23,6 +23,7 @@ return {
         signcolumn = "yes",
         wrap = false,
         mouse = "",
+        title = true,
       },
       g = {
         loaded_matchparen = 1,
