@@ -53,38 +53,22 @@ return {
         end,
         settings = {
           ["rust-analyzer"] = {
-            imports = {
-              granularity = {
-                group = "module",
-              },
-              prefix = "crate",
-            },
+            numThreads = 3,
             cargo = {
               buildScripts = {
                 enable = true,
               },
-              -- features = "all",
             },
             check = {
               command = "clippy",
               extraArgs = {
                 "--no-deps",
                 "--jobs",
-                "2",
+                "3",
               },
             },
             procMacro = {
               enable = true,
-            },
-            diagnostics = {
-              enable = true,
-              disabled = { "clippy::unnecessary_cast", "clippy::uninlined_format_args" },
-            },
-            rustfmt = {
-              rangeFormatting = {
-                enable = true,
-              },
-              extraArgs = { "+nightly" },
             },
             completion = {
               -- fullFunctionSignatures = {
@@ -171,7 +155,6 @@ return {
     on_attach = function(client, bufnr)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
-      
       -- Enable LSP document highlights to replace vim-illuminate
       if client.server_capabilities.documentHighlightProvider then
         vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
