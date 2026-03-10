@@ -25,9 +25,7 @@ return {
         mouse = "",
         title = true,
       },
-      g = {
-        loaded_matchparen = 1,
-      },
+      g = {},
     },
     mappings = {
       n = {

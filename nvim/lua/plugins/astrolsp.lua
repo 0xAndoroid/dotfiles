@@ -23,12 +23,6 @@ return {
     },
     ---@diagnostic disable: missing-fields
     config = {
-      clangd = {
-        filetypes = { "c", "cpp", "objc", "objcpp" },
-        capabilities = {
-          offsetEncoding = "utf-8",
-        },
-      },
       rust_analyzer = {
         on_new_config = function(config, root_dir)
           if root_dir and root_dir:match("jolt") then
@@ -57,8 +51,6 @@ return {
         },
       },
     },
-    handlers = {},
-    autocmds = {},
     mappings = {
       n = {
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },

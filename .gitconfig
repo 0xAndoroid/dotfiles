@@ -25,6 +25,6 @@
 [init]
 	defaultBranch = main
 [rebase]
-  autostash = true
+	autostash = true
 [merge]
 	autostash = true

@@ -65,12 +65,9 @@ fi
 
 # shellcheck disable=SC1090
 source <(fzf --zsh)
-# shellcheck disable=SC1090
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # shellcheck disable=SC1090
 [ -f ~/.keysrc ] && source ~/.keysrc
-
 
 # shellcheck disable=SC1091
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

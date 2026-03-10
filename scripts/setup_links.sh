@@ -45,7 +45,6 @@ create_link ~/.dotfiles/codex/skills ~/.codex/skills
 # Config directory dotfiles
 create_link ~/.dotfiles/nvim ~/.config/nvim
 create_link ~/.dotfiles/lazygit ~/.config/lazygit
-create_link ~/.dotfiles/alacritty ~/.config/alacritty
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
 create_link ~/.dotfiles/claude/skills ~/.claude/skills
 create_link ~/.dotfiles/claude/rules ~/.claude/rules

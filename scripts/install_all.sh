@@ -59,20 +59,7 @@ print_status "installed" "Neovim (stable)"
 echo "Checking for Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
-  # Backup existing .zshrc if it exists
-  if [ -f "$HOME/.zshrc" ]; then
-    echo "Backing up existing .zshrc to .zshrc.backup..."
-    cp "$HOME/.zshrc" "$HOME/.zshrc.backup"
-  fi
-
-  # Install Oh My Zsh without overriding .zshrc
   KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-  # Restore the original .zshrc if it was backed up
-  if [ -f "$HOME/.zshrc.backup" ]; then
-    mv "$HOME/.zshrc.backup" "$HOME/.zshrc"
-    echo -e "${GREEN}✓ Original .zshrc restored${NC}"
-  fi
 
   print_status "installed" "Oh My Zsh"
 else
@@ -127,7 +114,6 @@ install_npm_package() {
 # Install npm packages
 echo "Installing npm global packages..."
 install_npm_package @fsouza/prettierd
-install_npm_package @nomicfoundation/solidity-language-server
 install_npm_package ccusage
 install_npm_package eslint
 install_npm_package prettier

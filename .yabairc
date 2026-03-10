@@ -8,12 +8,12 @@ fi
 yabai -m config layout bsp
 
 # Space labels
-yabai -m space 1 --label terminal 
+yabai -m space 1 --label terminal
 yabai -m space 2 --label web
-yabai -m space 3 --label notes 
-yabai -m space 4 --label mail 
-yabai -m space 5 --label telegram 
-yabai -m space 6 --label discord 
+yabai -m space 3 --label notes
+yabai -m space 4 --label mail
+yabai -m space 5 --label telegram
+yabai -m space 6 --label discord
 yabai -m space 7 --label music
 yabai -m space 8 --label calendar
 yabai -m space 9 --label claude
@@ -49,10 +49,7 @@ yabai -m rule --add app="^Brave" manage=on
 yabai -m rule --add app="^Arc$" subrole="^AXSystemDialog$" title="^$" manage=off mouse_follows_focus=off
 
 # Arc Rabby fix
-# Don't manage popups
 yabai -m rule --add app="^Arc$" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Andrew$|^General$|^Profiles$|^Max$|^Links$|^Shortcuts$|^Icon$|^Advanced$|^Bitwarden$|^$" manage=off
-# yabai -m rule --add app="^Brave" title="^chrome-extension.*$|^Rabby Wallet Notification$|^Bitwarden$|^$" manage=off
-# Fix for mouse follow
 yabai -m signal --add app='^Arc$' event='window_created' \
     title='^$|^Rabby Wallet Notification$' \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
@@ -63,8 +60,6 @@ yabai -m signal --add app='^Arc$' event='window_title_changed' \
     title='^$|^Rabby Wallet Notification$' \
     action='subrole=$(yabai -m query --windows --window $YABAI_WINDOW_ID | jq -r .subrole); \
             if [ "$subrole" != "AXSystemDialog" ]; then \
-                # Used for debugging
-                # yabai -m query --windows --window $YABAI_WINDOW_ID >> /Users/andoroid/yabai_log_title_changed.txt; \
                 yabai -m config focus_follows_mouse off; \
             fi'
 yabai -m signal --add app='^Arc$' event='window_destroyed' \
@@ -76,21 +71,15 @@ yabai -m signal --add event=application_deactivated app="^zoom.us$" action="yaba
 yabai -m signal --add event=application_activated app="^Telegram$" action="yabai -m config focus_follows_mouse off"
 yabai -m signal --add event=application_deactivated app="^Telegram$" action="yabai -m config focus_follows_mouse autofocus"
 
-
 yabai -m config top_padding    0
 yabai -m config bottom_padding 0
 yabai -m config left_padding   0
 yabai -m config right_padding  0
-yabai -m config window_gap     10 
+yabai -m config window_gap     10
 
-# Useful optional stuff
 yabai -m config focus_follows_mouse autofocus
-# yabai -m config mouse_follows_focus on
 
 yabai -m config window_placement second_child
-# yabai -m config window_opacity               on
 yabai -m config window_shadow                on
-# yabai -m config active_window_opacity        1.0
-# yabai -m config normal_window_opacity        0.94 
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off

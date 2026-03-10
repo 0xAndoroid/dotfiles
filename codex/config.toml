@@ -1,13 +1,13 @@
 model = "gpt-5.3-codex"
 model_reasoning_effort = "xhigh"
 
-notify = ["~/.dotfiles/claude/hooks/notify-stop.sh", "codex"]
+notify = ["~/.dotfiles/claude/hooks/notify.sh", "codex"]
 personality = "pragmatic"
 
 [projects."/Users/atretyakov/Developer/jolt"]
 trust_level = "trusted"
 
-[projects."/Users/andoroid/dev/pika"]
+[projects."$HOME/dev/pika"]
 trust_level = "trusted"
 
 [tui]

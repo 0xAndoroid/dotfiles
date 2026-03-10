@@ -34,8 +34,6 @@ Both tools share the same MCP server ecosystem but use different config formats:
 - **Claude**: `claude/mcp.json` (JSON), `claude/settings.json` (permissions/hooks)
 - **Codex**: `codex/config.toml` (TOML with `[mcp_servers.*]` sections)
 
-MCP servers configured: PAL (reasoning via local Python server), Perplexity (search), Nanobanana (image gen), Ref (docs).
-
 PAL server installs to `~/.claude/mcp/pal-mcp-server/` — model definitions in `claude/pal_mcp_openai_models.json` get copied to its `conf/` dir.
 
 Claude skills live in `claude/skills/<name>/SKILL.md`, rules in `claude/rules/`. Codex skills mirror some of these in `codex/skills/`.
