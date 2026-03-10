@@ -19,9 +19,16 @@ zstyle ':omz:update' frequency 14
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # shellcheck disable=SC2034
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search zsh-defer)
+plugins=(git web-search zsh-defer)
+
+# docker completions must be in fpath before oh-my-zsh's compinit
+# shellcheck disable=SC2206
+fpath=("$HOME/.docker/completions" $fpath)
 
 source "$ZSH"/oh-my-zsh.sh
+
+zsh-defer source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+zsh-defer source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # shellcheck disable=SC1090
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -64,10 +71,6 @@ source <(fzf --zsh)
 # shellcheck disable=SC1090
 [ -f ~/.keysrc ] && source ~/.keysrc
 
-# shellcheck disable=SC2206
-fpath=("$HOME/.docker/completions" $fpath)
-autoload -Uz compinit
-compinit
 
 # shellcheck disable=SC1091
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
