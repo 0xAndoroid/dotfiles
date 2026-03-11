@@ -51,3 +51,7 @@ create_link ~/.dotfiles/claude/rules ~/.claude/rules
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij
+
+# Ensure skhd dynamic bindings file exists and is synced to current yabai capability.
+touch ~/.dotfiles/.skhdrc.space-bindings.active
+~/.dotfiles/scripts/sync_skhd_space_bindings.sh || true
