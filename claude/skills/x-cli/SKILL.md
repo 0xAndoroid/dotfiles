@@ -1,6 +1,7 @@
 ---
 name: x-cli
-description: X/Twitter CLI for posting tweets, searching, reading timelines, managing bookmarks, and user profiles via API v2. USE FOR: - Posting, replying, quoting, and deleting tweets - Searching recent tweets with query operators - Viewing user profiles, timelines, followers, and following - Managing bookmarks and mentions - Liking and retweeting TRIGGERS: - "tweet", "twitter", "x post", "post tweet", "send tweet" - "search twitter", "twitter search", "timeline" - "followers", "following", "retweet", "quote tweet" - "like tweet", "bookmark", "mentions", "twitter profile" - "delete tweet", "compose tweet", "x.com"---
+description: 'X/Twitter CLI for posting tweets, searching, reading timelines, managing bookmarks, and viewing user profiles via API v2. USE FOR: posting/replying/quoting/deleting tweets, search, timeline/profile/followers/following lookups, bookmarks, mentions, likes, and retweets. TRIGGERS: "tweet", "twitter", "x post", "search twitter", "timeline", "followers", "retweet", "quote tweet", "bookmark", "mentions", "twitter profile", "delete tweet", "x.com".'
+---
 
 # x-cli — X/Twitter CLI Reference
 
