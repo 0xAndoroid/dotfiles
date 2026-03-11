@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex"
+model = "gpt-5.4"
 model_reasoning_effort = "xhigh"
 
 notify = ["~/.dotfiles/claude/hooks/notify.sh", "codex"]
@@ -10,6 +10,9 @@ trust_level = "trusted"
 [projects."$HOME/dev/pika"]
 trust_level = "trusted"
 
+[projects."/Users/atretyakov/.dotfiles"]
+trust_level = "trusted"
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete"]
@@ -18,3 +21,6 @@ notifications = ["agent-turn-complete"]
 command = "npx"
 args = ["-y", "@perplexity-ai/mcp-server"]
 env_vars = ["PERPLEXITY_API_KEY"]
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"

@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Deep code review of a pull request using parallel analysis agents (semantic consistency, bugs, tech debt, security). USE FOR: - Reviewing PRs for bugs, security issues, and code quality - Analyzing new abstractions for consistency and correctness - Identifying tech debt and architectural concerns - Posting review comments to specific lines on GitHub TRIGGERS: - "review PR", "code review", "review changes" - "diff review", "PR feedback", "check PR" - "analyze diff", "critique code", "review code" - "pull request review", "GitHub PR review"
+description: 'Deep code review of a pull request using parallel analysis agents (semantic consistency, bugs, tech debt, security). USE FOR: - Reviewing PRs for bugs, security issues, and code quality - Analyzing new abstractions for consistency and correctness - Identifying tech debt and architectural concerns - Posting review comments to specific lines on GitHub TRIGGERS: - "review PR", "code review", "review changes" - "diff review", "PR feedback", "check PR" - "analyze diff", "critique code", "review code" - "pull request review", "GitHub PR review"'
 ---
 
 Provide a code review for the given pull request.

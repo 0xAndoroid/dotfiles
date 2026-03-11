@@ -1,6 +1,6 @@
 ---
 name: fix-github-comments
-description: Fix all unresolved GitHub PR review comments on the current branch. USE FOR: - Resolving PR review feedback in bulk - Implementing reviewer suggestions across files - Marking review threads as resolved after fixing TRIGGERS: - "fix PR comments", "resolve PR comments", "address review feedback" - "fix review comments", "PR feedback", "address PR comments" - "implement reviewer suggestions", "fix PR feedback"
+description: 'Fix all unresolved GitHub PR review comments on the current branch. USE FOR: - Resolving PR review feedback in bulk - Implementing reviewer suggestions across files - Marking review threads as resolved after fixing TRIGGERS: - "fix PR comments", "resolve PR comments", "address review feedback" - "fix review comments", "PR feedback", "address PR comments" - "implement reviewer suggestions", "fix PR feedback"'
 ---
 
 Fix all unresolved review comments on the current branch's PR.

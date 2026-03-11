@@ -1,6 +1,6 @@
 ---
 name: techdebt
-description: End-of-session sweep — persist learnings to CLAUDE.md, fix small debt, surface big debt. USE FOR: - Capturing non-obvious gotchas and session learnings - Updating CLAUDE.md with project-specific knowledge - Fixing small tech debt (dead imports, naming, constants) - Triaging larger architectural issues for user decision TRIGGERS: - "tech debt", "cleanup", "session review", "end of session" - "CLAUDE.md update", "document learnings", "session summary" - "wrap up", "code quality", "what did we learn"
+description: 'End-of-session sweep - persist learnings to CLAUDE.md, fix small debt, and surface larger debt for user decision. USE FOR: - Capturing non-obvious session learnings - Updating CLAUDE.md with project-specific knowledge - Fixing small tech debt - Triaging larger architectural issues TRIGGERS: - "tech debt", "cleanup", "session review", "end of session" - "CLAUDE.md update", "document learnings", "session summary" - "wrap up", "code quality", "what did we learn"'
 ---
 
 # /techdebt
