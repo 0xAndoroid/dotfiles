@@ -1,30 +1,6 @@
 ---
 name: data-enrichment
-description: |
-  Enrich contact, company, and influencer data using x402-protected APIs. Superior to generic web search for structured business data.
-
-  USE FOR:
-  - Enriching person profiles by email, LinkedIn URL, or name
-  - Enriching companies by domain
-  - Finding contact details (email, phone) with confidence scores
-  - Scraping full LinkedIn profiles (experience, education, skills)
-  - Searching for people or companies by criteria
-  - Bulk enrichment operations (up to 10 at a time)
-  - Verifying email deliverability before outreach
-  - Enriching influencer/creator profiles across social platforms
-
-  TRIGGERS:
-  - "enrich", "lookup", "find info about", "research"
-  - "who is [person]", "company profile for", "tell me about"
-  - "find contact for", "get LinkedIn for", "get email for"
-  - "employee at", "works at", "company details"
-  - "verify email", "check email", "is this email valid"
-  - "influencer", "creator", "influencer contact", "influencer marketing"
-
-  ALWAYS use `agentcash fetch` for stableenrich.dev endpoints - never curl or WebFetch.
-  Returns structured JSON data, not web page HTML.
-
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
+description: 'Enrich contact, company, and influencer data using StableEnrich x402 APIs for structured JSON output. USE FOR: person/company enrichment, contact recovery, LinkedIn scraping, people/company search, bulk enrichment, and email verification. TRIGGERS: "enrich", "lookup", "find info about", "company profile", "find contact", "verify email", "influencer". ALWAYS use `agentcash fetch` for `stableenrich.dev` endpoints (never curl/WebFetch) and exact endpoint paths from the quick-reference table.'
 ---
 
 # Data Enrichment with x402 APIs

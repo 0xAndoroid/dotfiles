@@ -1,29 +1,6 @@
 ---
 name: social-scraping
-description: |
-  Scrape social media profiles, posts, comments, followers, and search across 6 platforms via x402.
-
-  USE FOR:
-  - Getting TikTok, Instagram, X/Twitter, Facebook, Reddit, or LinkedIn profiles
-  - Fetching a user's posts, stories, highlights, or videos
-  - Getting comments, replies, and reactions on posts
-  - Listing followers and following for any account
-  - Searching posts, hashtags, profiles, jobs, and ads across platforms
-  - Cross-platform social media research and monitoring
-
-  TRIGGERS:
-  - "tiktok", "instagram", "facebook", "linkedin profile", "linkedin posts"
-  - "get followers", "who follows", "following list"
-  - "scrape profile", "get posts from", "social media data"
-  - "instagram stories", "tiktok videos", "facebook page"
-  - "linkedin company", "linkedin jobs", "linkedin ads"
-  - "cross-platform", "social media research"
-
-  IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
-
-  Use `agentcash fetch` for paid POST triggers. Use `agentcash fetch` for free GET polling.
-
-  IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
+description: 'Scrape social media profiles, posts, comments, followers, and search across TikTok, Instagram, X/Twitter, Facebook, Reddit, and LinkedIn via StableSocial x402 APIs. USE FOR: profile/post retrieval, comments/replies, followers/following, and cross-platform research. TRIGGERS: "tiktok", "instagram", "facebook", "linkedin", "twitter", "x post", "followers", "scrape profile", "social media research". IMPORTANT: StableSocial is async: paid POST trigger then free GET polling via /api/jobs?token=... using `agentcash fetch`; use exact endpoint paths from the quick-reference tables.'
 ---
 
 # Social Media Scraping with StableSocial
