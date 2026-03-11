@@ -414,7 +414,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"SessionEnd\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
+            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; _d=$(jq -c '. + {hook_event_name: \"SessionEnd\"}'); nohup curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d \"$_d\" >/dev/null 2>&1 &"
           }
         ]
       }
