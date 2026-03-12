@@ -1,11 +1,11 @@
-use std::collections::{BTreeMap, VecDeque};
+use std::collections::{BTreeMap, HashMap, VecDeque};
 use zellij_tile::prelude::*;
 
 #[derive(Default)]
 struct State {
     /// (direction, from_nvim_edge) - if from_nvim_edge, skip forwarding to nvim
     pending_commands: VecDeque<(Direction, bool)>,
-    pane_info: Option<PaneInfo>,
+    pane_manifest: HashMap<usize, Vec<PaneInfo>>,
     tab_info: Option<TabInfo>,
     clients: Vec<ClientInfo>,
     got_permissions: bool,
@@ -87,18 +87,7 @@ impl ZellijPlugin for State {
                 self.tab_info = tabs.into_iter().find(|t| t.active);
             }
             Event::PaneUpdate(pane_manifest) => {
-                let active_tab_idx = self.tab_info.as_ref().map(|t| t.position);
-                if let Some(idx) = active_tab_idx {
-                    if let Some(panes) = pane_manifest.panes.get(&idx) {
-                        for pane in panes {
-                            if pane.is_focused && !pane.is_plugin {
-                                self.pane_info = Some(pane.clone());
-                                return false;
-                            }
-                        }
-                    }
-                }
-                self.pane_info = None;
+                self.pane_manifest = pane_manifest.panes;
             }
             Event::ListClients(clients) => {
                 self.clients = clients;
@@ -167,8 +156,16 @@ impl State {
         }
     }
 
+    fn focused_pane(&self) -> Option<&PaneInfo> {
+        let idx = self.tab_info.as_ref()?.position;
+        self.pane_manifest
+            .get(&idx)?
+            .iter()
+            .find(|p| p.is_focused && !p.is_plugin)
+    }
+
     fn is_current_pane_vim(&self) -> bool {
-        let Some(pane) = &self.pane_info else {
+        let Some(pane) = self.focused_pane() else {
             return self.clients.iter().any(|c| Self::is_vim_command(&c.running_command));
         };
 
@@ -210,7 +207,7 @@ impl State {
     }
 
     fn is_at_edge(&self, direction: Direction) -> bool {
-        let (Some(pane), Some(tab)) = (&self.pane_info, &self.tab_info) else {
+        let (Some(pane), Some(tab)) = (self.focused_pane(), &self.tab_info) else {
             return false;
         };
 
