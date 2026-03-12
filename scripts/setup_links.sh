@@ -52,6 +52,9 @@ create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij
 
+# Build and install NvimEdit.app (opens text/code files in Ghostty+Neovim)
+~/.dotfiles/scripts/install_nvimedit.sh
+
 # Ensure skhd dynamic bindings file exists and is synced to current yabai capability.
 touch ~/.dotfiles/.skhdrc.space-bindings.active
 ~/.dotfiles/scripts/sync_skhd_space_bindings.sh || true
