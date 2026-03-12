@@ -46,6 +46,9 @@ palette = 14=#6DCAE8
 palette = 15=#5A5E7A
 
 # cursor-color = "#BB97EE"
+selection-background = #3f445b
+selection-foreground = #e1e3e4
+
 macos-option-as-alt = left
 
 keybind = alt+left=unbind
