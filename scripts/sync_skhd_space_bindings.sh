@@ -6,17 +6,6 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TEMPLATE_FILE="$DOTFILES_DIR/.skhdrc.space-bindings"
 ACTIVE_FILE="$DOTFILES_DIR/.skhdrc.space-bindings.active"
 
-supports_yabai_space_bindings() {
-  command -v yabai >/dev/null 2>&1 || return 1
-  command -v jq >/dev/null 2>&1 || return 1
-
-  local current_space
-  current_space="$(yabai -m query --spaces --space 2>/dev/null | jq -r '.index // empty')"
-  [[ -n "$current_space" ]] || return 1
-
-  yabai -m space --focus "$current_space" >/dev/null 2>&1
-}
-
 write_active_file() {
   local source_file="$1"
   local tmp_file
@@ -30,7 +19,7 @@ if [[ ! -f "$TEMPLATE_FILE" ]]; then
   exit 1
 fi
 
-if supports_yabai_space_bindings; then
+if csrutil status | grep -q "disabled"; then
   write_active_file "$TEMPLATE_FILE"
   state="enabled"
 else
