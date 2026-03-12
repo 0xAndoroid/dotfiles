@@ -16,9 +16,7 @@ git:
   commit:
     signOff: true
   pagers:
-    - colorArg: always
-      # pager: cat
-      # pager: delta --paging=never
+    - externalDiffCommand: "difft --color=always"
 update:
   method: never
 quitOnTopLevelReturn: false
