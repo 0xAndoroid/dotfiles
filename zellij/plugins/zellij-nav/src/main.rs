@@ -166,29 +166,25 @@ impl State {
 
     fn is_current_pane_vim(&self) -> bool {
         let Some(pane) = self.focused_pane() else {
-            return self.clients.iter().any(|c| Self::is_vim_command(&c.running_command));
+            return self
+                .clients
+                .iter()
+                .any(|c| Self::is_vim_command(&c.running_command));
         };
 
-        for client in &self.clients {
-            let client_pane_id = match client.pane_id {
-                PaneId::Terminal(id) => id,
-                PaneId::Plugin(_) => continue,
-            };
+        // Title-first: nvim sets the terminal title, which propagates through
+        // SSH/mosh, so this catches both local and remote nvim.
+        if Self::is_vim_command(&pane.title) {
+            return true;
+        }
 
-            if client_pane_id == pane.id {
-                if Self::is_vim_command(&client.running_command) {
-                    return true;
-                }
-                // Only fall through to title check for pass-through commands
-                // where vim could be running inside (e.g. ssh, tmux)
-                if !Self::is_passthrough(&client.running_command) {
-                    return false;
-                }
-                break;
+        for client in &self.clients {
+            if matches!(client.pane_id, PaneId::Terminal(id) if id == pane.id) {
+                return Self::is_vim_command(&client.running_command);
             }
         }
 
-        Self::is_vim_command(&pane.title)
+        false
     }
 
     fn is_vim_command(cmd: &str) -> bool {
@@ -198,12 +194,6 @@ impl State {
         cmd_lower == "vim" ||
         cmd_lower.ends_with(" vim") ||
         cmd_lower.ends_with("/vim")
-    }
-
-    fn is_passthrough(cmd: &str) -> bool {
-        let cmd_lower = cmd.to_lowercase();
-        let basename = cmd_lower.rsplit('/').next().unwrap_or(&cmd_lower);
-        matches!(basename, "ssh" | "mosh" | "tmux" | "screen" | "zellij")
     }
 
     fn is_at_edge(&self, direction: Direction) -> bool {

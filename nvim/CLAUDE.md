@@ -77,4 +77,4 @@ Zellij composes Ghostty window title as: `<session_name> | <pane_title>`
 
 ## Known Limitation
 
-SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no IPC path). Ctrl+hjkl works for remote nvim splits, but edge→zellij/yabai navigation doesn't work over SSH.
+SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no `$ZELLIJ` / IPC path on remote). Ctrl+hjkl navigates remote nvim splits (detected via terminal title propagation), but edge→zellij/yabai navigation doesn't work over SSH.
