@@ -59,7 +59,8 @@ ctrl - h [
 ```
 
 ### zellij-nav plugin
-- Nvim detection: `client.running_command` match → fallback to `pane.title` match
+- Local nvim: detected via `client.running_command`
+- SSH nvim: `running_command` matches ssh/mosh → async `yabai -m query --windows --window` to check Ghostty window title for "nvim" (`PaneInfo.title` is pane name, not terminal title)
 - Edge detection: compares pane position against tab display area
 - Yabai invocation: `run_command` from WASM sandbox
 
@@ -77,4 +78,4 @@ Zellij composes Ghostty window title as: `<session_name> | <pane_title>`
 
 ## Known Limitation
 
-SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no `$ZELLIJ` / IPC path on remote). Ctrl+hjkl navigates remote nvim splits (detected via terminal title propagation), but edge→zellij/yabai navigation doesn't work over SSH.
+SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no `$ZELLIJ` / IPC path on remote). Ctrl+hjkl navigates remote nvim splits (detected via yabai window title query), but edge→zellij/yabai navigation doesn't work over SSH.
