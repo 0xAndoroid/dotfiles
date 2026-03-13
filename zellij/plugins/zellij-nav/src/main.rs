@@ -3,8 +3,9 @@ use zellij_tile::prelude::*;
 
 #[derive(Default)]
 struct State {
-    /// (direction, from_nvim_edge) - if from_nvim_edge, skip forwarding to nvim
     pending_commands: VecDeque<(Direction, bool)>,
+    /// SSH panes need async window-title check via yabai to detect remote nvim
+    pending_ssh: VecDeque<(Direction, bool)>,
     pane_manifest: HashMap<usize, Vec<PaneInfo>>,
     tab_info: Option<TabInfo>,
     clients: Vec<ClientInfo>,
@@ -73,6 +74,7 @@ impl ZellijPlugin for State {
             EventType::PaneUpdate,
             EventType::TabUpdate,
             EventType::ListClients,
+            EventType::RunCommandResult,
         ]);
     }
 
@@ -93,6 +95,11 @@ impl ZellijPlugin for State {
                 self.clients = clients;
                 self.process_pending_commands();
             }
+            Event::RunCommandResult(_exit_code, stdout, _stderr, context) => {
+                if context.get("source").map(|s| s.as_str()) == Some("ssh_vim_check") {
+                    self.handle_ssh_title_result(&stdout);
+                }
+            }
             _ => {}
         }
         false
@@ -109,12 +116,10 @@ impl ZellijPlugin for State {
 
         match pipe_message.name.as_str() {
             "move_focus" => {
-                // From keybinding: queue navigation
                 self.pending_commands.push_back((direction, false));
                 list_clients();
             }
             "nvim_at_edge" => {
-                // From nvim at_edge: handle zellij/yabai (nvim already handled its splits)
                 self.pending_commands.push_back((direction, true));
                 list_clients();
             }
@@ -131,29 +136,67 @@ impl State {
         }
     }
 
-    fn handle_navigation(&self, direction: Direction, from_nvim_edge: bool) {
-        let is_vim = self.is_current_pane_vim();
+    fn handle_navigation(&mut self, direction: Direction, from_nvim_edge: bool) {
         let at_edge = self.is_at_edge(direction);
 
         if from_nvim_edge {
-            // Called from nvim's at_edge handler - nvim already handled its splits
-            // Just do zellij/yabai based on zellij edge
             if at_edge {
                 self.call_yabai(direction);
             } else {
                 move_focus(direction.to_zellij());
             }
-        } else if is_vim {
-            // Nvim pane from keybinding: only forward to nvim
-            // nvim's at_edge will call back via nvim_at_edge if needed
+            return;
+        }
+
+        match self.check_current_pane() {
+            PaneKind::Vim => {
+                write_chars(direction.to_ctrl_char());
+            }
+            PaneKind::Ssh => {
+                // Can't detect remote nvim from plugin API — query the
+                // Ghostty window title (which reflects terminal titles
+                // propagated through SSH) via yabai.
+                self.pending_ssh.push_back((direction, at_edge));
+                let mut ctx = BTreeMap::new();
+                ctx.insert("source".to_string(), "ssh_vim_check".to_string());
+                run_command(
+                    &["yabai", "-m", "query", "--windows", "--window"],
+                    ctx,
+                );
+            }
+            PaneKind::Other => {
+                if at_edge {
+                    self.call_yabai(direction);
+                } else {
+                    move_focus(direction.to_zellij());
+                }
+            }
+        }
+    }
+
+    fn handle_ssh_title_result(&mut self, stdout: &[u8]) {
+        let Some((direction, at_edge)) = self.pending_ssh.pop_front() else {
+            return;
+        };
+
+        let output = String::from_utf8_lossy(stdout);
+        let title = Self::extract_json_title(&output).unwrap_or("");
+
+        if Self::is_vim_command(title) {
             write_chars(direction.to_ctrl_char());
         } else if at_edge {
-            // Non-nvim at zellij edge -> yabai
             self.call_yabai(direction);
         } else {
-            // Non-nvim not at edge -> move zellij focus
             move_focus(direction.to_zellij());
         }
+    }
+
+    /// Extract "title" value from yabai JSON without a JSON library.
+    fn extract_json_title<'a>(json: &'a str) -> Option<&'a str> {
+        let marker = "\"title\":\"";
+        let start = json.find(marker)? + marker.len();
+        let end = start + json[start..].find('"')?;
+        Some(&json[start..end])
     }
 
     fn focused_pane(&self) -> Option<&PaneInfo> {
@@ -164,36 +207,50 @@ impl State {
             .find(|p| p.is_focused && !p.is_plugin)
     }
 
-    fn is_current_pane_vim(&self) -> bool {
+    fn check_current_pane(&self) -> PaneKind {
         let Some(pane) = self.focused_pane() else {
-            return self
+            return if self
                 .clients
                 .iter()
-                .any(|c| Self::is_vim_command(&c.running_command));
+                .any(|c| Self::is_vim_command(&c.running_command))
+            {
+                PaneKind::Vim
+            } else {
+                PaneKind::Other
+            };
         };
-
-        // Title-first: nvim sets the terminal title, which propagates through
-        // SSH/mosh, so this catches both local and remote nvim.
-        if Self::is_vim_command(&pane.title) {
-            return true;
-        }
 
         for client in &self.clients {
             if matches!(client.pane_id, PaneId::Terminal(id) if id == pane.id) {
-                return Self::is_vim_command(&client.running_command);
+                if Self::is_vim_command(&client.running_command) {
+                    return PaneKind::Vim;
+                }
+                if Self::is_ssh_command(&client.running_command) {
+                    return PaneKind::Ssh;
+                }
+                return PaneKind::Other;
             }
         }
 
-        false
+        PaneKind::Other
     }
 
     fn is_vim_command(cmd: &str) -> bool {
         let cmd_lower = cmd.to_lowercase();
-        cmd_lower.contains("nvim") ||
-        cmd_lower.contains("/vim") ||
-        cmd_lower == "vim" ||
-        cmd_lower.ends_with(" vim") ||
-        cmd_lower.ends_with("/vim")
+        cmd_lower.contains("nvim")
+            || cmd_lower.contains("/vim")
+            || cmd_lower == "vim"
+            || cmd_lower.ends_with(" vim")
+    }
+
+    fn is_ssh_command(cmd: &str) -> bool {
+        let cmd_lower = cmd.to_lowercase();
+        let first_word = cmd_lower
+            .split_whitespace()
+            .next()
+            .unwrap_or(&cmd_lower);
+        let basename = first_word.rsplit('/').next().unwrap_or(first_word);
+        matches!(basename, "ssh" | "mosh")
     }
 
     fn is_at_edge(&self, direction: Direction) -> bool {
@@ -219,4 +276,10 @@ impl State {
             BTreeMap::new(),
         );
     }
+}
+
+enum PaneKind {
+    Vim,
+    Ssh,
+    Other,
 }
