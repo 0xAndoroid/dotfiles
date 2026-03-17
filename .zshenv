@@ -11,3 +11,5 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+export PATH="$PATH:$HOME/.config/.foundry/bin"
