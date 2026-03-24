@@ -4,23 +4,29 @@ description: |
   Search and monitor social media using X/Twitter (via twit.sh) and Reddit APIs.
 
   USE FOR:
+  - Looking up a specific tweet by ID or URL
   - Searching X/Twitter posts by keywords or hashtags
   - Finding X/Twitter users by criteria
-  - Getting a user's recent posts
+  - Getting a user's recent posts, replies, quote tweets
+  - Reading tweet replies and retweets
+  - Posting and deleting tweets
   - Searching Reddit posts and discussions
   - Getting comments from Reddit threads
   - Social media monitoring and research
 
   TRIGGERS:
   - "twitter", "X", "tweets", "posts on X"
+  - "read this tweet", "x.com/", "tweet by"
+  - "post a tweet", "tweet this", "reply on X"
   - "reddit", "subreddit", "reddit discussion"
   - "what are people saying", "social media", "sentiment"
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use `agentcash fetch` for twit.sh (X) and Reddit endpoints. X endpoints $0.005–$0.01/call; Reddit $0.02/call.
+  Use `agentcash fetch` for twit.sh (X) and Reddit endpoints. X endpoints $0.0025–$0.01/call; Reddit $0.02/call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+  KEY ENDPOINT: `GET https://twit.sh/tweets/by/id?id=<tweet_id>` ($0.0025) — use this to read any tweet by ID/URL.
 ---
 
 # Social Intelligence with x402 APIs
@@ -35,12 +41,23 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| Search X posts | `https://twit.sh/tweets/search` | $0.01 | Search tweets (GET; use `words`, `phrase`, `from`, etc.) |
-| Find X users | `https://twit.sh/users/search` | $0.01 | Search users by keyword (GET; `query`) |
-| Get user posts | `https://twit.sh/tweets/user` | $0.01 | User timeline (GET; `username`) |
-| Look up user | `https://twit.sh/users/by/username` | $0.005 | User profile by handle (GET; `username`) |
-| Search Reddit | `https://stableenrich.dev/api/reddit/search` | $0.02 | Search Reddit posts |
-| Get comments | `https://stableenrich.dev/api/reddit/post-comments` | $0.02 | Comments on a post |
+| **Look up tweet** | `GET https://twit.sh/tweets/by/id?id=<id>` | $0.0025 | Single tweet by ID |
+| Bulk look up tweets | `GET https://twit.sh/tweets?ids=<id1>,<id2>` | $0.01 | Multiple tweets by IDs |
+| Search X posts | `GET https://twit.sh/tweets/search` | $0.01 | Search tweets (`words`, `phrase`, `from`, etc.) |
+| Get user posts | `GET https://twit.sh/tweets/user?username=<handle>` | $0.01 | User timeline |
+| Get replies | `GET https://twit.sh/tweets/replies?id=<tweet_id>` | $0.01 | Replies to a tweet |
+| Get quote tweets | `GET https://twit.sh/tweets/quote_tweets?id=<tweet_id>` | $0.01 | Quote tweets of a tweet |
+| Get retweets | `GET https://twit.sh/tweets/retweeted_by?id=<tweet_id>` | $0.01 | Users who retweeted |
+| Look up user | `GET https://twit.sh/users/by/username?username=<handle>` | $0.005 | User profile by handle |
+| Look up user by ID | `GET https://twit.sh/users/by/id?id=<id>` | $0.005 | User profile by numeric ID |
+| Find X users | `GET https://twit.sh/users/search?query=<keyword>` | $0.01 | Search users by keyword |
+| Get followers | `GET https://twit.sh/users/followers?username=<handle>` | $0.01 | User's followers |
+| Get following | `GET https://twit.sh/users/following?username=<handle>` | $0.01 | Who user follows |
+| Post tweet | `POST https://twit.sh/tweets` | $0.0025 | Create a tweet or reply |
+| Delete tweet | `DELETE https://twit.sh/tweets?id=<id>` | $0.0025 | Delete a tweet |
+| Get article | `GET https://twit.sh/articles/by/id?id=<tweet_id>` | $0.01 | Full X Article content |
+| Search Reddit | `POST https://stableenrich.dev/api/reddit/search` | $0.02 | Search Reddit posts |
+| Get comments | `POST https://stableenrich.dev/api/reddit/post-comments` | $0.02 | Comments on a post |
 
 See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
