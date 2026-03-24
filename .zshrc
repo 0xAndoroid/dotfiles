@@ -1,12 +1,6 @@
 # shellcheck disable=SC1091
 source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-defer/zsh-defer.plugin.zsh
 
-# shellcheck disable=SC2296
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  # shellcheck disable=SC1090,SC2296
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export ZSH="$HOME/.oh-my-zsh"
 
 # shellcheck disable=SC2034
