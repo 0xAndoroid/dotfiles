@@ -7,15 +7,15 @@
         "${HOME}/.claude/mcp/pal-mcp-server/server.py"
       ],
       "env": {
-        "DEFAULT_MODEL": "gpt-5.3-codex",
+        "DEFAULT_MODEL": "gpt-5.4",
         "DEFAULT_THINKING_MODE_THINKDEEP": "max",
-        "OPENAI_ALLOWED_MODELS": "gpt-5.3-codex",
+        "OPENAI_ALLOWED_MODELS": "gpt-5.4",
         "GEMINI_API_KEY": "",
         "CONVERSATION_TIMEOUT_HOURS": "24",
         "MAX_CONVERSATION_TURNS": "40",
         "LOG_LEVEL": "INFO",
         "LOG_MAX_SIZE": "10MB",
-        "DISABLED_TOOLS": "analyze,refactor,testgen,secaudit,docgen,tracer,consensus,precommit,clink,apilookup,version,debug"
+        "DISABLED_TOOLS": "analyze,testgen,docgen,tracer,consensus,precommit,clink,apilookup,debug"
       }
     },
     "perplexity": {

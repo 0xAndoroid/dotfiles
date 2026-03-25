@@ -236,19 +236,16 @@
       "use_openai_response_api": true
     },
     {
-      "model_name": "gpt-5.2",
-      "friendly_name": "OpenAI (GPT-5.2)",
+      "model_name": "gpt-5.4",
+      "friendly_name": "OpenAI (GPT-5.4)",
       "aliases": [
-        "gpt5.2",
-        "gpt-5.2",
-        "5.2",
-        "gpt5.1",
-        "gpt-5.1",
-        "5.1"
+        "gpt5.4",
+        "gpt-5.4",
+        "5.4"
       ],
-      "intelligence_score": 18,
-      "description": "GPT-5.2 (400K context, 128K output) - Flagship reasoning model with configurable thinking effort and vision support.",
-      "context_window": 400000,
+      "intelligence_score": 20,
+      "description": "GPT-5.4 (1M context, 128K output) - Flagship reasoning model with configurable thinking effort and vision support.",
+      "context_window": 1050000,
       "max_output_tokens": 128000,
       "supports_extended_thinking": true,
       "supports_system_prompts": true,
@@ -258,7 +255,7 @@
       "supports_images": true,
       "supports_temperature": true,
       "max_image_size_mb": 20.0,
-      "default_reasoning_effort": "medium",
+      "default_reasoning_effort": "xhigh",
       "allow_code_generation": true,
       "temperature_constraint": "fixed"
     },
