@@ -27,6 +27,14 @@ return {
       },
       g = {},
     },
+    treesitter = {
+      ensure_installed = {
+        "lua",
+        "solidity",
+        "yaml",
+        "rust",
+      },
+    },
     mappings = {
       n = {
         ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },

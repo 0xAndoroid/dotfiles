@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   {
-    "okuuuu/auto-save.nvim",
+    "okuuva/auto-save.nvim",
     opts = {
       enabled = true,
       debounce_delay = 1000,
