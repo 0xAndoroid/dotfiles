@@ -15,7 +15,7 @@
         "MAX_CONVERSATION_TURNS": "40",
         "LOG_LEVEL": "INFO",
         "LOG_MAX_SIZE": "10MB",
-        "DISABLED_TOOLS": "analyze,testgen,docgen,tracer,consensus,precommit,clink,apilookup,debug"
+        "DISABLED_TOOLS": "analyze,testgen,secaudit,planner,docgen,tracer,consensus,precommit,apilookup,debug"
       }
     },
     "perplexity": {
