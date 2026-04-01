@@ -63,11 +63,37 @@ Follow these steps:
 
 5. **List issues to user for double check**: List all the issues and their scores to user.
 
-6. **Post comments to PR**: For each issue that is approved by user, post a comment to PR in
-   specific lines of code. THE COMMENT MUST BE POSTED TO A SPECIFIC LINES OF CODE.
-   Optionally, if the issue is small enough with a trivial fix, post
-   a fix note using ```suggestions diff in comments body.
-   Or if no issues, do not post a comments.
+6. **Post comments to PR**: For each issue that is approved by user, post a review to the PR
+   with comments on specific lines of code. Or if no issues, do not post comments.
+
+   Build a JSON file and use the GitHub review API:
+   ```bash
+   # Write review JSON to a unique temp file (use $$ for PID to avoid collisions)
+   cat > "/tmp/pr-review-${PR_NUMBER}-$$.json" << 'EOF'
+   {
+     "commit_id": "<HEAD_SHA>",
+     "event": "COMMENT",
+     "body": "Review summary text",
+     "comments": [
+       {
+         "path": "relative/path/to/file.rs",
+         "line": 42,
+         "body": "**[Score N/100 — Severity]** Title.\n\nExplanation.\n\nOptional suggestion:\n```rust\n// suggested fix\n```"
+       }
+     ]
+   }
+   EOF
+
+   # Post the review (all comments appear as a single review)
+   gh api repos/{owner}/{repo}/pulls/{number}/reviews --method POST --input "/tmp/pr-review-${PR_NUMBER}-$$.json"
+   ```
+
+   Key points:
+   - Use a heredoc with `'EOF'` (quoted) to prevent shell interpolation of `$`, backticks, etc.
+   - The `line` field refers to the NEW file line number (right side of diff) for added/modified lines.
+   - Get the head SHA via `gh api repos/{owner}/{repo}/pulls/{number} --jq '.head.sha'`.
+   - Get changed files via `gh api repos/{owner}/{repo}/pulls/{number}/files`.
+   - Do NOT use `--raw-field` for the comments array — it doesn't handle nested JSON. Always use `--input` with a file.
 
 ## False Positives (skip these)
 
