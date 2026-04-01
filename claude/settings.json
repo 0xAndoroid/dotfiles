@@ -1,6 +1,6 @@
 {
   "env": {
-    "ANTHROPIC_MODEL": "opus",
+    "ANTHROPIC_MODEL": "opus[1m]",
     "CLAUDE_CODE_EFFORT_LEVEL": "max",
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_BUG_COMMAND": "1",
