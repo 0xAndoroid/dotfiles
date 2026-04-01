@@ -2,9 +2,11 @@
 
 # Project-specific folders
 .worktrees/
+.omc/
 
 # Project-specific files
 RESULTS.md
+project-memories.json
 
 # OS generated files
 .DS_Store

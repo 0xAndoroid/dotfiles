@@ -348,15 +348,6 @@
     ],
     "Stop": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Task completed'",
-            "async": true
-          }
-        ]
-      },
-      {
         "matcher": "",
         "hooks": [
           {
@@ -367,26 +358,6 @@
       }
     ],
     "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Needs approval'",
-            "async": true
-          }
-        ]
-      },
-      {
-        "matcher": "elicitation_dialog",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.dotfiles/claude/hooks/notify.sh 'Has a question'",
-            "async": true
-          }
-        ]
-      },
       {
         "matcher": "",
         "hooks": [
