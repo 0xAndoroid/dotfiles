@@ -113,12 +113,10 @@ install_npm_package() {
 
 # Install npm packages
 echo "Installing npm global packages..."
-install_npm_package @fsouza/prettierd
 install_npm_package ccusage
-install_npm_package eslint
+install_npm_package oh-my-claude-sisyphus
 install_npm_package prettier
 install_npm_package tsc
-install_npm_package typescript-language-server
 install_npm_package wscat
 echo -e "${GREEN}✓ npm packages installed${NC}"
 
