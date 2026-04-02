@@ -80,3 +80,11 @@ _dotfiles_daily_pull() {
 if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
 fi
+
+# --- Zellij-tmux-shim (Claude Code agent teams in zellij) ---
+if [[ -n "$ZELLIJ" ]]; then
+    _shim="${XDG_DATA_HOME:-$HOME/.local/share}/zellij-tmux-shim/activate.sh"
+    # shellcheck disable=SC1090
+    [[ -f "$_shim" ]] && source "$_shim"
+    unset _shim
+fi
