@@ -73,12 +73,12 @@ Follow these steps:
    {
      "commit_id": "<HEAD_SHA>",
      "event": "COMMENT",
-     "body": "Review summary text",
+     "body": "Short review summary (1-2 sentences)",
      "comments": [
        {
          "path": "relative/path/to/file.rs",
          "line": 42,
-         "body": "**[Score N/100 — Severity]** Title.\n\nExplanation.\n\nOptional suggestion:\n```rust\n// suggested fix\n```"
+         "body": "Comment text — see tone guidelines below"
        }
      ]
    }
@@ -94,6 +94,26 @@ Follow these steps:
    - Get the head SHA via `gh api repos/{owner}/{repo}/pulls/{number} --jq '.head.sha'`.
    - Get changed files via `gh api repos/{owner}/{repo}/pulls/{number}/files`.
    - Do NOT use `--raw-field` for the comments array — it doesn't handle nested JSON. Always use `--input` with a file.
+
+   **Comment tone**: Write like a senior engineer — concise, direct, no ceremony.
+   - NO scores, severity labels, or `**[Score X]**` prefixes
+   - NO "Title + Explanation" structure — just say the thing
+   - Lead with what's wrong or what to consider, then why in 1-2 sentences max
+   - When the fix is obvious, use a GitHub suggestion block in the comment body. Pick the lines
+     to replace via `line` (end) and `start_line` (start) on the comment object, then put a
+     ` ```suggestion ` fenced block in the body — its content replaces those lines:
+     ```
+     Poisoned mutex will panic all future callers.
+
+     ```suggestion
+     _guard: mutex.lock().unwrap_or_else(|e| e.into_inner()),
+     ```
+     ```
+     For single-line suggestions, omit `start_line` (defaults to `line`).
+   - Examples of good comments:
+     - `"If only one of the three openings is missing, the dummy all-zero r_address hits this assert before take_missing_opening_error() runs. Consider a fallible check here."`
+     - `"This leaves the original opening accessible after recording MalformedProof. Removing it too would prevent the verifier from using a stale claim within the stage."`
+     - `"Poisoned mutex will panic all future callers."` (with a ` ```suggestion ` block for the fix)
 
 ## False Positives (skip these)
 
