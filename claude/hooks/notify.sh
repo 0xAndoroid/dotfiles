@@ -30,7 +30,14 @@ printf '%s' "$now" > "$cooldown_file"
 project=$(basename "$cwd")
 
 notify() {
-    osascript -e "display notification \"$message\" with title \"$tool: $project\" sound name \"Glass\"" 2>/dev/null || true
+    if command -v terminal-notifier >/dev/null 2>&1; then
+        terminal-notifier \
+            -title "$tool: $project" \
+            -message "$message" \
+            -activate "${TERM_PROGRAM_BUNDLE_ID:-com.mitchellh.ghostty}" &
+    else
+        osascript -e "display notification \"$message\" with title \"$tool: $project\"" 2>/dev/null || true
+    fi
 
     [[ "$tool" == "Claude" ]] && return
 
