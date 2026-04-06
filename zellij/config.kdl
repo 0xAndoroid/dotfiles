@@ -302,6 +302,7 @@ load_plugins {
 }
 
 theme "sonokai"
+default_layout "default"
 default_mode "normal"
 pane_frames false
 copy_on_select false

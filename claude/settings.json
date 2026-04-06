@@ -78,98 +78,6 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"SessionStart\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"UserPromptSubmit\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PreToolUse\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PermissionRequest\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"Stop\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"Notification\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; jq -c '. + {hook_event_name: \"PreCompact\"}' | curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d @-"
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[[ \"${NO_NOTIFY:-}\" == \"1\" ]] && exec cat > /dev/null; _d=$(jq -c '. + {hook_event_name: \"SessionEnd\"}'); nohup curl -s -X POST https://webhook.getagentfy.com -H \"Authorization: Bearer $AGENTFY_API_KEY\" -H 'Content-Type: application/json' -d \"$_d\" >/dev/null 2>&1 &"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [],
-    "PostToolUseFailure": []
-  },
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/statusline.sh"
@@ -189,5 +97,127 @@
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/atretyakov/.config/zellij/plugins/zellaude-hook.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
 }
