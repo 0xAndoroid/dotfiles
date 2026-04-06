@@ -38,6 +38,7 @@ create_link ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 # Codex configuration
 create_link ~/.dotfiles/codex/config.toml ~/.codex/config.toml
 create_link ~/.dotfiles/codex/instructions.md ~/.codex/instructions.md
+create_link ~/.dotfiles/codex/hooks.json ~/.codex/hooks.json
 
 # Codex skills (symlinked to claude skills in repo, then linked to ~/.codex)
 create_link ~/.dotfiles/codex/skills ~/.codex/skills

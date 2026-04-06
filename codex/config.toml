@@ -1,8 +1,10 @@
 model = "gpt-5.4"
 model_reasoning_effort = "xhigh"
 
-notify = ["~/.dotfiles/claude/hooks/notify.sh", "codex"]
 personality = "pragmatic"
+
+[features]
+codex_hooks = true
 
 [projects."/Users/atretyakov/Developer/jolt"]
 trust_level = "trusted"
@@ -11,6 +13,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/atretyakov/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/atretyakov/dev/jolt"]
 trust_level = "trusted"
 
 [tui]
