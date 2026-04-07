@@ -1,54 +1,58 @@
 # dotfiles
 
-Personal dotfiles for macOS with Zsh, Neovim, Yabai, and other tools.
+Personal macOS dotfiles — Zsh, Neovim, Zellij, Yabai, Ghostty, Claude Code, Codex.
 
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/.dotfiles.git ~/.dotfiles
+git clone https://github.com/0xAndoroid/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./install_stuff.sh
-./create_links.sh
+./scripts/install_all.sh   # Rust, Homebrew, packages, Neovim, Zsh plugins, Claude Code, Bun
+./scripts/setup_links.sh   # Symlink configs into system locations
+./scripts/install_mcp.sh   # PAL MCP server for Claude/Codex
+./scripts/setup_macos.sh   # macOS system preferences
 ```
-
-## Font Decryption
-
-The Berkeley Mono Nerd Font is encrypted. To decrypt:
-
-```bash
-./decrypt_font.sh
-# Enter password when prompted
-```
-
-This uses OpenSSL with AES-256-CBC encryption and PBKDF2 key derivation.
 
 ## Components
 
-- **Shell**: Zsh with Oh My Zsh and Powerlevel10k
-- **Editor**: Neovim with AstroNvim
-- **Window Manager**: Yabai with SKHD
-- **Terminal**: Ghostty
-- **Package Manager**: Homebrew
-- **Version Control**: Git with SSH signing
-- **AI Assistant**: Claude integration
+- **Shell**: Zsh + Oh My Zsh + Powerlevel10k (`zsh-defer` for fast startup)
+- **Editor**: Neovim via `bob`, custom Lua config
+- **Multiplexer**: Zellij with custom WASM plugins (`zellij-nav`, `zellaude`)
+- **Window Manager**: Yabai + skhd
+- **Terminal**: Ghostty with Iosevka Custom Nerd Font
+- **AI**: Claude Code (MCP servers, hooks, skills, rules) + Codex
+- **Git**: SSH signing, difftastic diffs, mergiraf merge driver, global Rust pre-commit hook
+- **Packages**: Homebrew (`Brewfile`), Cargo, npm
 
-## Key Features
+## Navigation
 
-- Modern CLI tools (eza, bat, dust, zoxide, fzf)
-- Custom git hooks for Rust formatting
-- Automated macOS preferences
-- Window management with space labels
-- Claude permissions system for safe AI assistance
+Ctrl+hjkl navigates seamlessly across Neovim splits → Zellij panes → Yabai windows. See `nvim/CLAUDE.md` for the full flow diagram.
 
-## Requirements
+skhd intercepts keypresses → routes based on Ghostty window title → `zellij-nav` WASM plugin detects Neovim → `smart-splits.nvim` handles edge cascading back through the stack.
 
-- macOS
-- Homebrew
-- Git
-- Zsh
+## Structure
 
-## Custom Scripts
+```
+.zshrc / .zshenv / .zprofile   Shell config (aliases, zoxide, fzf, daily auto-pull)
+.gitconfig                      Git config (SSH signing, difftastic, pushall alias)
+.skhdrc / .yabairc              Window management
+nvim/                           Neovim config (Lua)
+zellij/                         Zellij config + WASM plugins (zellij-nav, zellaude)
+ghostty/                        Ghostty terminal config
+lazygit/                        Lazygit config
+claude/                         Claude Code settings, MCP, hooks, skills, rules
+codex/                          Codex config (shares skills with Claude)
+git-hooks/                      Global pre-commit (Rust fmt + typos) and post-commit
+scripts/                        Install, setup, and update scripts
+IosevkaCustom/                  Custom Iosevka Nerd Font family
+wallpapers/                     Desktop wallpapers
+Brewfile                        Homebrew package manifest
+```
 
-- `install_stuff.sh`: Installs dependencies and sets macOS defaults
-- `create_links.sh`: Creates symlinks for dotfiles
-- `is_nvim_window.sh`: Helper for Yabai to detect Neovim windows
+## Maintenance
+
+```bash
+./scripts/update_all.sh   # Update Homebrew, npm, Cargo, Zsh plugins
+```
+
+The shell auto-pulls this repo daily on interactive login (`_dotfiles_daily_pull` in `.zshrc`).
