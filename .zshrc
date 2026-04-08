@@ -74,7 +74,7 @@ _dotfiles_daily_pull() {
   today=$(date +%Y-%m-%d)
   [[ -f "$stamp" ]] && [[ "$(< "$stamp")" == "$today" ]] && return
   mkdir -p "$(dirname "$stamp")"
-  git -C "$HOME/.dotfiles" pull --ff-only --quiet &>/dev/null & disown
+  (git -C "$HOME/.dotfiles" pull --ff-only --quiet &>/dev/null &)
   echo "$today" > "$stamp"
 }
 if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
