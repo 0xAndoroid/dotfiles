@@ -50,11 +50,22 @@ Follow these steps:
       - Verify resource limits: unbounded allocations, missing timeouts, denial-of-service vectors
       - Check concurrency: TOCTOU races, lock ordering, shared mutable state without synchronization
 
-4. **Validate Issues** (PAL MCP): For issues that seem significant but **uncertain**, use:
-   - `mcp__pal__codereview` to get independent opinion on whether the issue is real
-   - `mcp__pal__thinkdeep` for complex issues requiring deeper analysis
+4. **Validate Issues via PAL MCP** (MANDATORY — do not skip):
 
-   Score each issue 0-100:
+   After collecting all issues from the 4 agents, YOU (the main orchestrator) MUST validate
+   every issue scored >= 50 using PAL MCP tools. Sub-agents do NOT have PAL access — only
+   you can call these tools, so this step cannot be delegated.
+
+   For each issue from the agents:
+   - Run `mcp__pal__codereview` with the relevant file paths and a description of the
+     claimed issue. Use `review_type: "security"` for security findings. Ask PAL to
+     confirm or refute the issue.
+   - For complex logic/semantic issues, use `mcp__pal__thinkdeep` to reason through
+     whether the bug is real and exploitable.
+   - For issues you can verify mechanically (e.g., a failing test), prefer direct
+     verification (run the test) over PAL.
+
+   Score each issue 0-100 AFTER PAL validation:
    - 0: False positive, doesn't stand up to scrutiny, or pre-existing issue
    - 25: Might be real, but couldn't verify. Stylistic issues without explicit guidance.
    - 50: Verified real issue, but minor/nitpick. Not important relative to PR scope.
