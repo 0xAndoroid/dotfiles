@@ -50,6 +50,9 @@ if ! command -v yabai &> /dev/null; then
     cd "$HOME"
     rm -rf "$YABAI_TEMP_DIR"
 
+    echo "Configuring sudoers for yabai scripting addition (requires sudo)..."
+    echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+
     print_status "installed" "yabai"
   fi
 else
