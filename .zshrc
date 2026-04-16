@@ -77,6 +77,9 @@ _dotfiles_daily_pull() {
   (git -C "$HOME/.dotfiles" pull --ff-only --quiet &>/dev/null &)
   echo "$today" > "$stamp"
 }
+
+export CLAUDE_CODE_EFFORT_LEVEL=max
+
 if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
 fi
