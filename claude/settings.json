@@ -79,26 +79,6 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.dotfiles/claude/statusline.sh"
-  },
-  "enabledPlugins": {
-    "worktrunk@worktrunk": true,
-    "oh-my-claudecode@omc": true
-  },
-  "extraKnownMarketplaces": {
-    "omc": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/Yeachan-Heo/oh-my-claudecode.git"
-      }
-    }
-  },
-  "forceLoginMethod": "claudeai",
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true,
   "hooks": {
     "PreToolUse": [
       {
@@ -220,5 +200,25 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.dotfiles/claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "worktrunk@worktrunk": true,
+    "oh-my-claudecode@omc": true
+  },
+  "extraKnownMarketplaces": {
+    "omc": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/Yeachan-Heo/oh-my-claudecode.git"
+      }
+    }
+  },
+  "forceLoginMethod": "claudeai",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }
