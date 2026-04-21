@@ -9,6 +9,22 @@ description: "Process a PokerNow online session: extract ledger → Mega blub Go
 >
 > **Outputs:** (1) New column in "Mega blub" sheet with player nets. (2) Hand file at `~/dev/pokernow/hands/YYYY-MM-DD.json`. (3) Updated `~/dev/pokernow/hands/config.toml` with file prepended + new aliases.
 
+## Execution model — READ FIRST
+
+**You are the executor.** Every step below is something YOU run yourself with your own tools in this same session.
+
+**DO NOT:**
+- Spawn a subagent, background task, or worker.
+- Invoke the `Agent` / `Task` tool to hand this off.
+- Re-invoke this skill (`/pokernow-save-hands-and-ledger`) or any "chrome-enabled" wrapper.
+- Treat the URL as something to dispatch. The URL is input to `curl` / `python3` calls YOU make.
+
+If you notice yourself about to call `Agent` or launch a background task to "process the pokernow session", STOP — you already are the agent that processes it. Run the steps inline.
+
+**Tools you use directly:** `Bash` (`curl`, `python3`, `gws`), `Read` / `Write` / `Edit` (hand JSON + `config.toml`), `Grep` (alias lookup), `mcp__chrome-devtools__*` (fallback only — you already have Chrome access, use it directly, do not spawn a chrome-enabled agent).
+
+The HTTP paths below cover ~100% of sessions without touching Chrome. Run them yourself.
+
 ## Constants
 
 | Thing | Value |
@@ -365,7 +381,16 @@ mcp__chrome-devtools__close_page pageId=<replayer-tab>
 
 ## Final report template
 
+**You (the agent that ran this skill) MUST emit this message to the user at the end.** The `Summary` block is required — the user reads these five fields first.
+
 ```
+Summary:
+  Date:        YYYY-MM-DD ET
+  Players:     <N>
+  Hands:       <N>
+  Andrew net:  ±$<amt>   (or "did not play" if Andrew wasn't at the table)
+  File:        ~/dev/pokernow/hands/YYYY-MM-DD.json
+
 Date of latest hand: YYYY-MM-DD ET (hand #<N> @ <H:MM> AM/PM ET)
 
 Player nets:
