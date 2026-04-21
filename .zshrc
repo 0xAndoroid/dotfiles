@@ -132,4 +132,4 @@ export GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND=file
 
 alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
 alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
-alias reload-pika='sudo launchctl kickstart -k system/com.pika.assistant'
+alias reload-pika='launchctl kickstart -k gui/$(id -u)/com.pika.assistant'
