@@ -7,9 +7,9 @@
         "${HOME}/.claude/mcp/pal-mcp-server/server.py"
       ],
       "env": {
-        "DEFAULT_MODEL": "gpt-5.4",
+        "DEFAULT_MODEL": "gpt-5.5",
         "DEFAULT_THINKING_MODE_THINKDEEP": "max",
-        "OPENAI_ALLOWED_MODELS": "gpt-5.4",
+        "OPENAI_ALLOWED_MODELS": "gpt-5.5",
         "GEMINI_API_KEY": "",
         "CONVERSATION_TIMEOUT_HOURS": "24",
         "MAX_CONVERSATION_TURNS": "40",
