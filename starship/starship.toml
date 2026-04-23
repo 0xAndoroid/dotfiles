@@ -1,0 +1,222 @@
+add_newline = true
+command_timeout = 500
+scan_timeout = 30
+palette = "p10k"
+
+format = """
+[╭─](fg:frame)\
+$os\
+${custom.path}\
+$git_branch\
+$git_commit\
+$git_status\
+$git_state\
+[](fg:seg_bg)\
+$fill\
+[](fg:seg_bg)\
+$status\
+$cmd_duration\
+$jobs\
+$direnv\
+$kubernetes\
+$terraform\
+$aws\
+$gcloud\
+$azure\
+$nix_shell\
+$username\
+$hostname\
+$time\
+[─╮](fg:frame)
+[╰─ ](fg:frame)"""
+
+[palettes.p10k]
+frame = "#585858"
+subsep = "#808080"
+seg_bg = "black"
+os_fg = "white"
+dir_fg = "blue"
+dir_sh = "#8787af"
+vcs_meta = "white"
+vcs_clean = "green"
+vcs_mod = "yellow"
+vcs_untracked = "blue"
+vcs_conflict = "red"
+status_ok = "green"
+status_err = "red"
+duration = "blue"
+jobs_fg = "#00afaf"
+direnv_fg = "#d7af00"
+time_fg = "blue"
+prompt_ok = "#5fd700"
+prompt_err = "#ff0000"
+
+[fill]
+symbol = " "
+style = ""
+
+[os]
+disabled = false
+format = "[ $symbol  ](fg:os_fg bg:seg_bg)"
+
+[os.symbols]
+Macos = ""
+Linux = ""
+Ubuntu = ""
+Debian = ""
+Arch = ""
+Fedora = ""
+Alpine = ""
+Windows = ""
+
+[directory]
+disabled = true
+
+[custom.path]
+description = "Home icon when PWD is $HOME, folder icon otherwise"
+when = "true"
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+case "$PWD" in
+  "$HOME") printf ' ~' ;;
+  "$HOME"/*) printf ' ~%s' "${PWD#$HOME}" ;;
+  *) printf ' %s' "$PWD" ;;
+esac
+'''
+format = "[](fg:subsep bg:seg_bg)[ $output ](fg:dir_fg bold bg:seg_bg)"
+
+[git_branch]
+symbol = " "
+style = "fg:vcs_clean bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $symbol$branch ]($style)"
+truncation_length = 32
+truncation_symbol = "…"
+
+[git_commit]
+only_detached = true
+format = "[](fg:subsep bg:seg_bg)[ @$hash ]($style)"
+style = "fg:vcs_clean bg:seg_bg"
+commit_hash_length = 8
+
+[git_status]
+format = "([~$conflicted ](fg:vcs_conflict bg:seg_bg))([+$staged ](fg:vcs_mod bg:seg_bg))([!$modified ](fg:vcs_mod bg:seg_bg))([?$untracked ](fg:vcs_untracked bg:seg_bg))([$stashed ](fg:vcs_clean bg:seg_bg))([$ahead_behind ](fg:vcs_clean bg:seg_bg))([»$renamed ](fg:vcs_mod bg:seg_bg))([✘$deleted ](fg:vcs_conflict bg:seg_bg))"
+conflicted = "${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇣${behind_count}⇡${ahead_count}"
+up_to_date = ""
+untracked = "${count}"
+stashed = "*${count}"
+modified = "${count}"
+staged = "${count}"
+renamed = "${count}"
+deleted = "${count}"
+
+[git_state]
+style = "fg:vcs_conflict bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $state( $progress_current/$progress_total) ]($style)"
+
+[status]
+disabled = false
+format = "[ $symbol ](bg:seg_bg)"
+success_symbol = "[✔](fg:status_ok bg:seg_bg)"
+symbol = "[✘](fg:status_err bg:seg_bg)"
+signal_symbol = "[✘](fg:status_err bg:seg_bg)"
+not_found_symbol = "[✘](fg:status_err bg:seg_bg)"
+not_executable_symbol = "[✘](fg:status_err bg:seg_bg)"
+recognize_signal_code = true
+map_symbol = false
+
+[cmd_duration]
+min_time = 3000
+show_milliseconds = false
+style = "fg:duration bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $duration ]($style)"
+
+[jobs]
+symbol = "✦"
+style = "fg:jobs_fg bg:seg_bg"
+number_threshold = 1
+format = "[](fg:subsep bg:seg_bg)[ $symbol$number ]($style)"
+
+[direnv]
+disabled = false
+style = "fg:direnv_fg bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ direnv ]($style)"
+symbol = ""
+loaded_msg = ""
+unloaded_msg = ""
+allowed_msg = ""
+not_allowed_msg = ""
+denied_msg = ""
+
+[kubernetes]
+disabled = false
+style = "fg:#81a1c1 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ⎈ $context ]($style)"
+
+[terraform]
+disabled = false
+style = "fg:#af87d7 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ◆ $workspace ]($style)"
+
+[aws]
+disabled = false
+style = "fg:#d79921 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ☁ $profile ]($style)"
+
+[gcloud]
+disabled = false
+style = "fg:#458588 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[  $account ]($style)"
+
+[azure]
+disabled = false
+style = "fg:#0078d4 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[  $subscription ]($style)"
+
+[nix_shell]
+disabled = false
+style = "fg:#4a90e2 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ❄ $state ]($style)"
+
+[username]
+show_always = false
+style_user = "fg:#aaaa80 bg:seg_bg"
+style_root = "fg:#d7af00 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $user ]($style)"
+
+[hostname]
+ssh_only = true
+style = "fg:#aaaa80 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ @$hostname ]($style)"
+trim_at = "."
+
+[time]
+disabled = false
+time_format = "%T"
+style = "fg:time_fg bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $time ]($style)"
+utc_time_offset = "local"
+
+[character]
+disabled = true
+
+[package]
+disabled = true
+[nodejs]
+disabled = true
+[python]
+disabled = true
+[rust]
+disabled = true
+[golang]
+disabled = true
+[java]
+disabled = true
+[ruby]
+disabled = true
+[php]
+disabled = true
+[docker_context]
+disabled = true

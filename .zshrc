@@ -1,31 +1,40 @@
 # shellcheck disable=SC1091
-source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-defer/zsh-defer.plugin.zsh
+ZSH_PLUGINS="${XDG_DATA_HOME:-$HOME/.local/share}/zsh-plugins"
 
-export ZSH="$HOME/.oh-my-zsh"
-
-# shellcheck disable=SC2034
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 14
-
-# shellcheck disable=SC2034
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# shellcheck disable=SC2034
-plugins=(git web-search zsh-defer)
-
-# docker completions must be in fpath before oh-my-zsh's compinit
-# shellcheck disable=SC2206
 fpath=("$HOME/.docker/completions" $fpath)
 
-source "$ZSH"/oh-my-zsh.sh
+autoload -Uz compinit
+() {
+  local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -n "$zcd"(#qN.mh+24) ]] || [[ ! -f "$zcd" ]]; then
+    compinit -d "$zcd"
+    touch "$zcd"
+  else
+    compinit -C -d "$zcd"
+  fi
+}
 
-zsh-defer source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-zsh-defer source "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+# shellcheck disable=SC1091
+source "$ZSH_PLUGINS/zsh-defer/zsh-defer.plugin.zsh"
 
-# shellcheck disable=SC1090
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(starship init zsh)"
+
+autoload -Uz add-zsh-hook
+_zsh_title_precmd() { print -Pn "\e]0;%n@%m:%~\a" }
+_zsh_title_preexec() { print -Pn "\e]0;%n@%m:%~ > ${1%% *}\a" }
+add-zsh-hook precmd _zsh_title_precmd
+add-zsh-hook preexec _zsh_title_preexec
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt APPEND_HISTORY SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
+setopt AUTO_CD INTERACTIVE_COMMENTS EXTENDED_GLOB NO_BEEP
+
+# shellcheck disable=SC1091
+zsh-defer source "$ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# shellcheck disable=SC1091
+zsh-defer source "$ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 alias ls='eza --icons'
 alias ll='eza --icons -l'
@@ -60,7 +69,7 @@ fi
 # shellcheck disable=SC1090
 source <(fzf --zsh)
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 [ -f ~/.keysrc ] && source ~/.keysrc
 
 # shellcheck disable=SC1091
@@ -84,7 +93,6 @@ if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
 fi
 
-# --- Zellij-tmux-shim (Claude Code agent teams in zellij) ---
 if [[ -n "$ZELLIJ" ]]; then
     _shim="${XDG_DATA_HOME:-$HOME/.local/share}/zellij-tmux-shim/activate.sh"
     # shellcheck disable=SC1090

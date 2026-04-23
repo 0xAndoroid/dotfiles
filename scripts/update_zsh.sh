@@ -6,29 +6,21 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${GREEN}Updating Oh My Zsh and plugins...${NC}"
+ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zsh-plugins"
 
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo -e "${RED}Oh My Zsh not found${NC}"
+if [ ! -d "$ZSH_PLUGINS_DIR" ]; then
+  echo -e "${RED}Zsh plugin dir not found at $ZSH_PLUGINS_DIR${NC}"
   exit 1
 fi
 
-echo "Updating Oh My Zsh..."
-(cd "$HOME/.oh-my-zsh" && git pull)
+echo -e "${GREEN}Updating zsh plugins...${NC}"
 
-ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-
-if [ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
-  echo -e "\nUpdating Powerlevel10k..."
-  (cd "$ZSH_CUSTOM/themes/powerlevel10k" && git pull)
-fi
-
-for plugin in zsh-autosuggestions zsh-syntax-highlighting zsh-defer; do
-  plugin_dir="$ZSH_CUSTOM/plugins/$plugin"
+for plugin in zsh-defer zsh-autosuggestions zsh-syntax-highlighting; do
+  plugin_dir="$ZSH_PLUGINS_DIR/$plugin"
   if [ -d "$plugin_dir" ]; then
     echo -e "\nUpdating $plugin..."
     (cd "$plugin_dir" && git pull)
   fi
 done
 
-echo -e "${GREEN}Oh My Zsh update complete${NC}"
+echo -e "${GREEN}Zsh plugin update complete${NC}"

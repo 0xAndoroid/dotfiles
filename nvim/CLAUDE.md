@@ -70,9 +70,9 @@ ctrl - h [
 
 ## Shell Integration
 
-oh-my-zsh (via `lib/termsupport.zsh`) sets terminal title:
+`.zshrc` sets terminal title via `add-zsh-hook` + OSC `\e]0;...\a`:
 - precmd: `user@host:path` (e.g., `andoroid@Mac:~/.dotfiles`)
-- preexec: includes command name (e.g., `nvim filename`)
+- preexec: includes command name (e.g., `andoroid@Mac:~/.dotfiles > nvim`)
 
 Zellij composes Ghostty window title as: `<session_name> | <pane_title>`
 

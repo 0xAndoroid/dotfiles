@@ -28,7 +28,6 @@ create_link() {
 create_link ~/.dotfiles/.zshrc ~/.zshrc
 create_link ~/.dotfiles/.zshenv ~/.zshenv
 create_link ~/.dotfiles/.zprofile ~/.zprofile
-create_link ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
 create_link ~/.dotfiles/.gitconfig ~/.gitconfig
 create_link ~/.dotfiles/.skhdrc ~/.skhdrc
 create_link ~/.dotfiles/.yabairc ~/.yabairc
@@ -52,6 +51,7 @@ create_link ~/.dotfiles/claude/rules ~/.claude/rules
 create_link ~/.dotfiles/git-hooks ~/.git-hooks
 create_link ~/.dotfiles/wallpapers ~/Pictures/wallpaper
 create_link ~/.dotfiles/zellij ~/.config/zellij
+create_link ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
 
 # Build and install NvimEdit.app (opens text/code files in Ghostty+Neovim)
 ~/.dotfiles/scripts/install_nvimedit.sh
