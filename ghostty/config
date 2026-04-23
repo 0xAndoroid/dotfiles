@@ -7,8 +7,8 @@ background-blur = true
 # background-opacity = 0.94
 window-save-state = always
 
-font-family = "IosevkaCustomSemi Nerd Font"
-font-size = 14
+font-family = "BerkeleyMono Nerd Font"
+font-size = 15
 font-feature = liga
 font-feature = calt
 font-feature = dlig

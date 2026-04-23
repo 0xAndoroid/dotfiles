@@ -19,7 +19,7 @@ cd ~/.dotfiles
 - **Editor**: Neovim via `bob`, custom Lua config
 - **Multiplexer**: Zellij with custom WASM plugins (`zellij-nav`, `zellaude`)
 - **Window Manager**: Yabai + skhd
-- **Terminal**: Ghostty with Iosevka Custom Nerd Font
+- **Terminal**: Ghostty with Berkeley Mono Nerd Font
 - **AI**: Claude Code (MCP servers, hooks, skills, rules) + Codex
 - **Git**: SSH signing, difftastic diffs, mergiraf merge driver, global Rust pre-commit hook
 - **Packages**: Homebrew (`Brewfile`), Cargo, npm
