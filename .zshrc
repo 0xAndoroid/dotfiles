@@ -37,6 +37,7 @@ zsh-defer source "$ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh"
 zsh-defer source "$ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 alias ls='eza --icons'
+alias l='eza --icons -la'
 alias ll='eza --icons -l'
 alias la='eza --icons -la'
 alias vim=nvim
