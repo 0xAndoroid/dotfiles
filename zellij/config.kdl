@@ -182,7 +182,7 @@ keybinds clear-defaults=true {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt f" { ToggleFloatingPanes; }
-        bind "Ctrl g" { SwitchToMode "locked"; }
+        bind "Ctrl Shift g" { SwitchToMode "locked"; }
         bind "Alt x" { CloseFocus; }
         bind "Alt |" { NewPane "right"; }
         bind "Alt \\" { NewPane "down"; }
