@@ -5,6 +5,7 @@ palette = "p10k"
 
 format = """
 [╭─](fg:frame)\
+$hostname\
 $os\
 ${custom.path}\
 $git_branch\
@@ -18,14 +19,13 @@ $status\
 $cmd_duration\
 $jobs\
 $direnv\
-$kubernetes\
+${custom.kubernetes}\
 $terraform\
-$aws\
-$gcloud\
+${custom.aws}\
+${custom.gcloud}\
 $azure\
 $nix_shell\
 $username\
-$hostname\
 $time\
 [─╮](fg:frame)
 [╰─ ](fg:frame)"""
@@ -73,15 +73,27 @@ Windows = ""
 disabled = true
 
 [custom.path]
-description = "Home icon when PWD is $HOME, folder icon otherwise"
+description = "Home/folder icon; path shortens by dropping leading components when it exceeds COLUMNS/3."
 when = "true"
 shell = ["sh", "--noprofile", "--norc"]
 command = '''
 case "$PWD" in
-  "$HOME") printf ' ~' ;;
-  "$HOME"/*) printf ' ~%s' "${PWD#$HOME}" ;;
-  *) printf ' %s' "$PWD" ;;
+  "$HOME") icon=''; disp='~' ;;
+  "$HOME"/*) icon=''; disp="~${PWD#$HOME}" ;;
+  *) icon=''; disp="$PWD" ;;
 esac
+cols=${COLUMNS:-100}
+max=$(( cols / 3 ))
+[ "$max" -lt 12 ] && max=12
+[ "$max" -gt 60 ] && max=60
+if [ ${#disp} -gt "$max" ]; then
+  tail=$disp
+  while [ ${#tail} -gt "$max" ] && [ "${tail#*/}" != "$tail" ]; do
+    tail=${tail#*/}
+  done
+  disp="…/$tail"
+fi
+printf '%s %s' "$icon" "$disp"
 '''
 format = "[](fg:subsep bg:seg_bg)[ $output ](fg:dir_fg bold bg:seg_bg)"
 
@@ -151,9 +163,7 @@ not_allowed_msg = ""
 denied_msg = ""
 
 [kubernetes]
-disabled = false
-style = "fg:#81a1c1 bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[ ⎈ $context ]($style)"
+disabled = true
 
 [terraform]
 disabled = false
@@ -161,14 +171,69 @@ style = "fg:#af87d7 bg:seg_bg"
 format = "[](fg:subsep bg:seg_bg)[ ◆ $workspace ]($style)"
 
 [aws]
-disabled = false
-style = "fg:#d79921 bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[ ☁ $profile ]($style)"
+disabled = true
 
 [gcloud]
-disabled = false
+disabled = true
+
+[custom.kubernetes]
+description = "Kubernetes current-context; hidden below 100 cols."
+when = '''
+[ "${COLUMNS:-100}" -ge 100 ] || exit 1
+cfg=${KUBECONFIG:-$HOME/.kube/config}
+oldifs=$IFS; IFS=:
+for f in $cfg; do
+  IFS=$oldifs
+  [ -f "$f" ] && awk '/^current-context:/{print $2}' "$f" | grep -q . && exit 0
+  IFS=:
+done
+exit 1
+'''
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+cfg=${KUBECONFIG:-$HOME/.kube/config}
+oldifs=$IFS; IFS=:
+for f in $cfg; do
+  IFS=$oldifs
+  [ -f "$f" ] || { IFS=:; continue; }
+  ctx=$(awk '/^current-context:/{print $2; exit}' "$f")
+  [ -n "$ctx" ] && { printf '%s' "$ctx"; exit; }
+  IFS=:
+done
+'''
+style = "fg:#81a1c1 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ⎈ $output ]($style)"
+
+[custom.aws]
+description = "AWS profile; hidden below 100 cols."
+when = '''
+[ "${COLUMNS:-100}" -ge 100 ] || exit 1
+[ -n "${AWS_VAULT:-${AWS_PROFILE:-$AWS_DEFAULT_PROFILE}}" ]
+'''
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+printf '%s' "${AWS_VAULT:-${AWS_PROFILE:-$AWS_DEFAULT_PROFILE}}"
+'''
+style = "fg:#d79921 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ ☁ $output ]($style)"
+
+[custom.gcloud]
+description = "GCP account (local-part); hidden below 100 cols."
+when = '''
+[ "${COLUMNS:-100}" -ge 100 ] || exit 1
+cfg=$(cat "$HOME/.config/gcloud/active_config" 2>/dev/null) || exit 1
+[ -z "$cfg" ] && exit 1
+f="$HOME/.config/gcloud/configurations/config_$cfg"
+[ -f "$f" ] && grep -q '^account' "$f"
+'''
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+cfg=$(cat "$HOME/.config/gcloud/active_config" 2>/dev/null)
+f="$HOME/.config/gcloud/configurations/config_$cfg"
+awk -F' *= *' '/^account/{print $2; exit}' "$f" 2>/dev/null | cut -d@ -f1
+'''
 style = "fg:#458588 bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[  $account ]($style)"
+format = "[](fg:subsep bg:seg_bg)[  $output ]($style)"
 
 [azure]
 disabled = false
@@ -189,7 +254,7 @@ format = "[](fg:subsep bg:seg_bg)[ $user ]($style)"
 [hostname]
 ssh_only = true
 style = "fg:#aaaa80 bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[ @$hostname ]($style)"
+format = "[ @$hostname ]($style)[](fg:subsep bg:seg_bg)"
 trim_at = "."
 
 [time]

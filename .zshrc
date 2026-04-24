@@ -25,6 +25,10 @@ _zsh_title_preexec() { print -Pn "\e]0;%n@%m:%~ > ${1%% *}\a" }
 add-zsh-hook precmd _zsh_title_precmd
 add-zsh-hook preexec _zsh_title_preexec
 
+export COLUMNS
+_starship_reprompt_on_resize() { zle && zle reset-prompt }
+TRAPWINCH() { _starship_reprompt_on_resize }
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
