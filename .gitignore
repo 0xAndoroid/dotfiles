@@ -2,3 +2,9 @@ BerkeleyMonoNerdFont-Regular.ttf
 lazygit/state.yml
 .skhdrc.space-bindings.active
 claude/skills/.system
+claude/skills/agentcash
+claude/skills/twit*
+claude/skills/dune
+claude/skills/gws-*
+claude/skills/nansen-*
+claude/skills/recipe-*
