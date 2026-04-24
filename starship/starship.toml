@@ -5,8 +5,8 @@ palette = "p10k"
 
 format = """
 [╭─](fg:frame)\
-$hostname\
 $os\
+$hostname\
 ${custom.path}\
 $git_branch\
 $git_commit\
@@ -25,7 +25,7 @@ ${custom.aws}\
 ${custom.gcloud}\
 $azure\
 $nix_shell\
-$username\
+${custom.username}\
 $time\
 [─╮](fg:frame)
 [╰─ ](fg:frame)"""
@@ -246,15 +246,29 @@ style = "fg:#4a90e2 bg:seg_bg"
 format = "[](fg:subsep bg:seg_bg)[ ❄ $state ]($style)"
 
 [username]
-show_always = false
-style_user = "fg:#aaaa80 bg:seg_bg"
-style_root = "fg:#d7af00 bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[ $user ]($style)"
+disabled = true
+
+[custom.username]
+description = "Login user on SSH or root; hidden below 100 cols."
+when = '''
+[ "${COLUMNS:-100}" -ge 100 ] || exit 1
+[ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ "$(id -u)" = 0 ]
+'''
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+if [ "$(id -u)" = 0 ]; then
+  printf '%s' "${USER:-root}"
+else
+  printf '%s' "${USER:-$LOGNAME}"
+fi
+'''
+style = "fg:#aaaa80 bg:seg_bg"
+format = "[](fg:subsep bg:seg_bg)[ $output ]($style)"
 
 [hostname]
 ssh_only = true
 style = "fg:#aaaa80 bg:seg_bg"
-format = "[ @$hostname ]($style)[](fg:subsep bg:seg_bg)"
+format = "[](fg:subsep bg:seg_bg)[ @$hostname ]($style)"
 trim_at = "."
 
 [time]
