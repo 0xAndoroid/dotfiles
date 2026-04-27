@@ -3,6 +3,8 @@ lazygit/state.yml
 .skhdrc.space-bindings.active
 claude/skills/.system
 claude/skills/agentcash
+claude/skills/zapper*
+claude/skills/stable*
 claude/skills/twit*
 claude/skills/dune
 claude/skills/gws-*
