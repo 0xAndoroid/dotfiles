@@ -9,7 +9,8 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "sonnet",
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
-    "TASK_MAX_OUTPUT_LENGTH": "64000"
+    "TASK_MAX_OUTPUT_LENGTH": "64000",
+    "CLAUDE_CODE_NO_FLICKER": "1"
   },
   "includeCoAuthoredBy": false,
   "permissions": {
