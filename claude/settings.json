@@ -220,7 +220,6 @@
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "verbose": true,
   "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": false
 }
