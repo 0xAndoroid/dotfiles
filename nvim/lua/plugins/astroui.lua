@@ -6,7 +6,7 @@ return {
     colorscheme = "sonokai",
     highlights = {
       init = {
-        CodeiumSuggestion = { fg = "#7f8490" },
+        CopilotSuggestion = { fg = "#7f8490" },
       },
     },
     icons = {
