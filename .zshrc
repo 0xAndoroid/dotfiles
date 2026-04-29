@@ -65,7 +65,17 @@ alias coffee='caffeinate -d'
 alias z='zellij'
 
 alias cld='caffeinate -i command claude --dangerously-skip-permissions --mcp-config ~/.dotfiles/claude/mcp.json'
-alias cdx='caffeinate -i command codex --dangerously-bypass-approvals-and-sandbox'
+# `cdx` is a function (not an alias) so it can fire synthetic SessionStart /
+# SessionEnd events to the zellaude plugin around the codex run — codex has
+# no SessionEnd hook of its own, so the marker would otherwise linger.
+cdx() {
+  local helper="$HOME/.config/zellij/plugins/codex-session-event.sh"
+  "$helper" SessionStart 2>/dev/null
+  caffeinate -i command codex --dangerously-bypass-approvals-and-sandbox "$@"
+  local rc=$?
+  "$helper" SessionEnd 2>/dev/null
+  return $rc
+}
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
