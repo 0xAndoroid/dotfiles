@@ -215,7 +215,6 @@
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
-  "editorMode": "vim",
   "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": false
 }
