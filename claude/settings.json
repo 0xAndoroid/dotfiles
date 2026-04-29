@@ -79,6 +79,22 @@
   },
   "model": "opus[1m]",
   "enableAllProjectMcpServers": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.dotfiles/claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "worktrunk@worktrunk": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {},
+  "forceLoginMethod": "claudeai",
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "preferredNotifChannel": "ghostty",
+  "autoCompactEnabled": false,
   "hooks": {
     "PreToolUse": [
       {
@@ -200,21 +216,5 @@
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.dotfiles/claude/statusline.sh"
-  },
-  "enabledPlugins": {
-    "worktrunk@worktrunk": true,
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {},
-  "forceLoginMethod": "claudeai",
-  "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "preferredNotifChannel": "ghostty",
-  "autoCompactEnabled": false
+  }
 }

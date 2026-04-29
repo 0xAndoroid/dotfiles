@@ -21,6 +21,9 @@ trust_level = "trusted"
 [projects."/Users/atretyakov/dev/bolt"]
 trust_level = "trusted"
 
+[projects."/Users/atretyakov/dev/dory"]
+trust_level = "trusted"
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete"]
