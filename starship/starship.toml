@@ -8,7 +8,7 @@ format = """
 $os\
 $hostname\
 ${custom.path}\
-$git_branch\
+${custom.git_branch}\
 $git_commit\
 $git_status\
 $git_state\
@@ -98,11 +98,25 @@ printf '%s %s' "$icon" "$disp"
 format = "[](fg:subsep bg:seg_bg)[ $output ](fg:dir_fg bold bg:seg_bg)"
 
 [git_branch]
-symbol = " "
+disabled = true
+
+[custom.git_branch]
+description = "Git branch; hidden below 80 cols or in detached HEAD."
+when = '''
+[ "${COLUMNS:-100}" -ge 80 ] || exit 1
+git rev-parse --is-inside-work-tree >/dev/null 2>&1
+'''
+shell = ["sh", "--noprofile", "--norc"]
+command = '''
+ref=$(git symbolic-ref --short HEAD 2>/dev/null) || exit 0
+max=32
+if [ ${#ref} -gt $max ]; then
+  ref="$(printf '%s' "$ref" | cut -c1-$((max-1)))…"
+fi
+printf '%s' "$ref"
+'''
 style = "fg:vcs_clean bg:seg_bg"
-format = "[](fg:subsep bg:seg_bg)[ $symbol$branch ]($style)"
-truncation_length = 32
-truncation_symbol = "…"
+format = "[](fg:subsep bg:seg_bg)[  $output ]($style)"
 
 [git_commit]
 only_detached = true
