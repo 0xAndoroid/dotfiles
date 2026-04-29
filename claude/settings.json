@@ -206,17 +206,9 @@
     "command": "~/.dotfiles/claude/statusline.sh"
   },
   "enabledPlugins": {
-    "worktrunk@worktrunk": true,
-    "oh-my-claudecode@omc": true
+    "worktrunk@worktrunk": true
   },
-  "extraKnownMarketplaces": {
-    "omc": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/Yeachan-Heo/oh-my-claudecode.git"
-      }
-    }
-  },
+  "extraKnownMarketplaces": {},
   "forceLoginMethod": "claudeai",
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
