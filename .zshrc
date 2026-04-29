@@ -14,6 +14,8 @@ autoload -Uz compinit
   fi
 }
 
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
 # shellcheck disable=SC1091
 source "$ZSH_PLUGINS/zsh-defer/zsh-defer.plugin.zsh"
 
