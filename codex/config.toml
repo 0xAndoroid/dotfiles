@@ -2,6 +2,9 @@ model = "gpt-5.5"
 model_reasoning_effort = "xhigh"
 
 personality = "pragmatic"
+service_tier = "fast"
+
+include_permissions_instructions = false
 
 [projects."/Users/atretyakov/Developer/jolt"]
 trust_level = "trusted"
@@ -23,12 +26,15 @@ alternate_screen = "never"
 notifications = ["agent-turn-complete"]
 
 [tui.model_availability_nux]
-"gpt-5.5" = 3
+"gpt-5.5" = 4
 
 [mcp_servers.perplexity]
 command = "npx"
 args = ["-y", "@perplexity-ai/mcp-server"]
 env_vars = ["PERPLEXITY_API_KEY"]
+
+[notice]
+fast_default_opt_out = true
 
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
