@@ -69,11 +69,27 @@ alias cld='caffeinate -i command claude --dangerously-skip-permissions --mcp-con
 # SessionEnd events to the zellaude plugin around the codex run — codex has
 # no SessionEnd hook of its own, so the marker would otherwise linger.
 cdx() {
+  emulate -L zsh
+  setopt localtraps
+
   local helper="$HOME/.config/zellij/plugins/codex-session-event.sh"
-  "$helper" SessionStart 2>/dev/null
-  caffeinate -i command codex --dangerously-bypass-approvals-and-sandbox "$@"
-  local rc=$?
-  "$helper" SessionEnd 2>/dev/null
+  local rc=0
+  local session_ended=0
+  "$helper" SessionStart >/dev/null 2>&1 &!
+  trap 'trap "" INT TERM HUP; if (( ! session_ended )); then session_ended=1; "$helper" SessionEnd >/dev/null 2>&1 &!; fi; return 130' INT
+  trap 'trap "" INT TERM HUP; if (( ! session_ended )); then session_ended=1; "$helper" SessionEnd >/dev/null 2>&1 &!; fi; return 143' TERM HUP
+
+  {
+    caffeinate -i command codex --dangerously-bypass-approvals-and-sandbox "$@"
+  } always {
+    rc=$?
+    trap '' INT TERM HUP
+    if (( ! session_ended )); then
+      session_ended=1
+      "$helper" SessionEnd >/dev/null 2>&1 &!
+    fi
+  }
+
   return $rc
 }
 export VISUAL=nvim

@@ -58,3 +58,4 @@ if [ "$HOOK_EVENT" = "PermissionRequest" ]; then
 fi
 
 zellij pipe --name "zellaude" -- "$PAYLOAD"
+

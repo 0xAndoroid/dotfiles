@@ -50,30 +50,30 @@ codex_hooks = true
 matcher = "startup|resume"
 [[hooks.SessionStart.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
 [[hooks.UserPromptSubmit]]
 [[hooks.UserPromptSubmit.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
 [[hooks.PreToolUse]]
 [[hooks.PreToolUse.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
 [[hooks.PostToolUse]]
 [[hooks.PostToolUse.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
 [[hooks.PermissionRequest]]
 [[hooks.PermissionRequest.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
 [[hooks.Stop]]
 [[hooks.Stop.hooks]]
 type = "command"
-command = "/Users/atretyakov/.config/zellij/plugins/codex-hook.sh"
+command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 # END ZELLAUDE HOOKS

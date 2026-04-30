@@ -39,3 +39,4 @@ else
 fi
 
 zellij pipe --name "zellaude" -- "$PAYLOAD" 2>/dev/null || true
+
