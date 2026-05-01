@@ -5,6 +5,8 @@ personality = "pragmatic"
 service_tier = "fast"
 
 include_permissions_instructions = false
+suppress_unstable_features_warning = true
+project_doc_fallback_filenames = ["CLAUDE.md"]
 
 [projects."/Users/atretyakov/Developer/jolt"]
 trust_level = "trusted"
@@ -39,11 +41,11 @@ env_vars = ["PERPLEXITY_API_KEY"]
 [notice]
 fast_default_opt_out = true
 
-[notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.4"
-
 [features]
+apps = false
 codex_hooks = true
+goals = true
+multi_agent_v2 = true
 
 # BEGIN ZELLAUDE HOOKS
 [[hooks.SessionStart]]
