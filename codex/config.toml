@@ -7,6 +7,13 @@ service_tier = "fast"
 include_permissions_instructions = false
 suppress_unstable_features_warning = true
 project_doc_fallback_filenames = ["CLAUDE.md"]
+commit_attribution = ""
+
+[analytics]
+enabled = false
+
+[feedback]
+enabled = false
 
 [projects."/Users/atretyakov/Developer/jolt"]
 trust_level = "trusted"
