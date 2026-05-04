@@ -2,6 +2,13 @@ return {
   "folke/snacks.nvim",
   opts = {
     picker = {
+      win = {
+        input = {
+          wo = {
+            virtualedit = "all",
+          },
+        },
+      },
       sources = {
         ["files"] = {
           exclude = {
