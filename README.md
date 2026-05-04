@@ -52,7 +52,8 @@ Brewfile                        Homebrew package manifest
 ## Maintenance
 
 ```bash
-./scripts/update_all.sh   # Update Homebrew, npm, Cargo, Zsh plugins
+./scripts/update_all.sh        # Update Homebrew, npm, Cargo, Zsh plugins
+./scripts/update_yabai_skhd.sh # Rebuild and reinstall Yabai + skhd from source repos
 ```
 
 The shell auto-pulls this repo daily on interactive login (`_dotfiles_daily_pull` in `.zshrc`).
