@@ -47,12 +47,47 @@ return {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
-    config = true,
     opts = {
       disable_diagnostics = true,
       highlights = {
         current = "DiffChange",
       },
     },
+    config = function(_, opts)
+      local disable_diagnostics = opts.disable_diagnostics
+      local plugin_opts = vim.deepcopy(opts)
+
+      -- git-conflict.nvim v2.1.0 still calls the removed pre-0.12
+      -- diagnostic API, so keep its internal toggle off and handle it here.
+      plugin_opts.disable_diagnostics = false
+      require("git-conflict").setup(plugin_opts)
+
+      if disable_diagnostics then
+        local group = vim.api.nvim_create_augroup(
+          "user_git_conflict_diagnostics",
+          { clear = true }
+        )
+        vim.api.nvim_create_autocmd("User", {
+          group = group,
+          pattern = "GitConflictDetected",
+          callback = function()
+            vim.diagnostic.enable(
+              false,
+              { bufnr = vim.api.nvim_get_current_buf() }
+            )
+          end,
+        })
+        vim.api.nvim_create_autocmd("User", {
+          group = group,
+          pattern = "GitConflictResolved",
+          callback = function()
+            vim.diagnostic.enable(
+              true,
+              { bufnr = vim.api.nvim_get_current_buf() }
+            )
+          end,
+        })
+      end
+    end,
   },
 }
