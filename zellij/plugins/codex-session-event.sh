@@ -7,10 +7,10 @@
 # helper before and after invoking the binary:
 #
 #   cdx() {
-#     "$HOME/.config/zellij/plugins/codex-session-event.sh" SessionStart
+#     "$HOME/.config/zellij/plugins/codex-session-event.sh" SessionStart 2>/dev/null &
 #     caffeinate -i command codex --dangerously-bypass-approvals-and-sandbox "$@"
 #     local rc=$?
-#     "$HOME/.config/zellij/plugins/codex-session-event.sh" SessionEnd
+#     "$HOME/.config/zellij/plugins/codex-session-event.sh" SessionEnd 2>/dev/null &
 #     return $rc
 #   }
 #

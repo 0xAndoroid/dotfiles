@@ -1,22 +1,28 @@
+commit_attribution = ""
+include_permissions_instructions = false
 model = "gpt-5.5"
 model_reasoning_effort = "xhigh"
-
 personality = "pragmatic"
-service_tier = "fast"
-
-include_permissions_instructions = false
-suppress_unstable_features_warning = true
 project_doc_fallback_filenames = ["CLAUDE.md"]
-commit_attribution = ""
+service_tier = "fast"
+suppress_unstable_features_warning = true
 
 [analytics]
 enabled = false
 
+[features]
+codex_hooks = true
+apps = false
+goals = true
+multi_agent_v2 = true
+
 [feedback]
 enabled = false
 
-[projects."/Users/atretyakov/Developer/jolt"]
-trust_level = "trusted"
+[mcp_servers.perplexity]
+args = ["-y", "@perplexity-ai/mcp-server"]
+command = "npx"
+env_vars = ["PERPLEXITY_API_KEY"]
 
 [projects."$HOME/dev/pika"]
 trust_level = "trusted"
@@ -46,20 +52,6 @@ status_line = [
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
-
-[mcp_servers.perplexity]
-command = "npx"
-args = ["-y", "@perplexity-ai/mcp-server"]
-env_vars = ["PERPLEXITY_API_KEY"]
-
-[notice]
-fast_default_opt_out = true
-
-[features]
-apps = false
-codex_hooks = true
-goals = true
-multi_agent_v2 = true
 
 # BEGIN ZELLAUDE HOOKS
 [[hooks.SessionStart]]
