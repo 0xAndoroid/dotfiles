@@ -42,6 +42,8 @@ Code should be self-documenting. If you need a comment to explain WHAT the code 
 - Add `-q` flag to: cargo clippy, run, build, fmt, doc, clean ONLY
 - Add `--message-format=short` to: cargo clippy, check, run, build, fmt, doc, clean ONLY
 
+Doo not run cargo commands in parallel. Always run them sequentially, one at a time. This is to avoid issues with file locks and to ensure that output is not interleaved.
+
 ### PR Reviews
 
 Unless otherwise prompted, DO NOT run tests, clippy, build, fmt, etc. These are embedded in CI checks.
