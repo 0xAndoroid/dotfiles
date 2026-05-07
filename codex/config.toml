@@ -39,6 +39,18 @@ trust_level = "trusted"
 [projects."/Users/atretyakov/dev/dory"]
 trust_level = "trusted"
 
+[projects."/Users/andoroid/dev/pokernow-autorange"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/dev/yabai"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/dev/jolt"]
+trust_level = "trusted"
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete"]
