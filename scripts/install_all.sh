@@ -69,26 +69,6 @@ install_zsh_plugin "zsh-defer" "https://github.com/romkatv/zsh-defer.git"
 install_zsh_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
 install_zsh_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 
-install_npm_package() {
-  local package=$1
-  echo "Checking for $package..."
-  if npm list -g --depth=0 "$package" &> /dev/null; then
-    print_status "exists" "$package"
-  else
-    echo "Installing $package..."
-    npm install -g "$package"
-    print_status "installed" "$package"
-  fi
-}
-
-echo "Installing npm global packages..."
-install_npm_package ccusage
-install_npm_package oh-my-claude-sisyphus
-install_npm_package prettier
-install_npm_package tsc
-install_npm_package wscat
-echo -e "${GREEN}✓ npm packages installed${NC}"
-
 echo "Checking for Claude Code..."
 if ! command -v claude &> /dev/null; then
   echo "Installing Claude Code..."
