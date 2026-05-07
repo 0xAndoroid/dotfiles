@@ -1,23 +1,5 @@
 {
   "mcpServers": {
-    "pal": {
-      "type": "stdio",
-      "command": "${HOME}/.claude/mcp/pal-mcp-server/.pal_venv/bin/python",
-      "args": [
-        "${HOME}/.claude/mcp/pal-mcp-server/server.py"
-      ],
-      "env": {
-        "DEFAULT_MODEL": "gpt-5.5",
-        "DEFAULT_THINKING_MODE_THINKDEEP": "max",
-        "OPENAI_ALLOWED_MODELS": "gpt-5.5",
-        "GEMINI_API_KEY": "",
-        "CONVERSATION_TIMEOUT_HOURS": "24",
-        "MAX_CONVERSATION_TURNS": "40",
-        "LOG_LEVEL": "INFO",
-        "LOG_MAX_SIZE": "10MB",
-        "DISABLED_TOOLS": "analyze,testgen,secaudit,planner,docgen,tracer,consensus,precommit,apilookup,debug"
-      }
-    },
     "perplexity": {
       "type": "stdio",
       "command": "npx",

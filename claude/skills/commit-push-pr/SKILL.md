@@ -9,7 +9,6 @@ allowed-tools:
   - Bash(git diff:*)
   - Bash(gh pr create:*)
   - Bash(gh pr list:*)
-  - mcp__pal__chat
 description: 'Commit changes, push to remote, and open a GitHub pull request. USE FOR: - Creating a branch, committing, pushing, and opening a PR in one step - Updating an existing PR with new changes - Creating draft PRs for work in progress TRIGGERS: - "open a PR", "create PR", "push and PR" - "commit and push", "send PR", "pull request" - "submit for review", "push changes"'
 ---
 
@@ -48,7 +47,6 @@ description: 'Commit changes, push to remote, and open a GitHub pull request. US
 
      Closes #<issue> (if applicable)
      ```
-   - Use `mcp__pal__chat` if unsure about PR description
    - Add `--draft` flag if user indicates work is incomplete
 
 Execute steps 3-7 in a single message with parallel tool calls where possible.

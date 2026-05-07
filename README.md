@@ -9,7 +9,6 @@ git clone https://github.com/0xAndoroid/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./scripts/install_all.sh   # Rust, Homebrew, packages, Neovim, Zsh plugins, Claude Code, Bun
 ./scripts/setup_links.sh   # Symlink configs into system locations
-./scripts/install_mcp.sh   # PAL MCP server for Claude/Codex
 ./scripts/setup_macos.sh   # macOS system preferences
 ```
 
@@ -20,7 +19,7 @@ cd ~/.dotfiles
 - **Multiplexer**: Zellij with custom WASM plugins (`zellij-nav`, `zellaude`)
 - **Window Manager**: Yabai + skhd
 - **Terminal**: Ghostty with Berkeley Mono Nerd Font
-- **AI**: Claude Code (MCP servers, hooks, skills, rules) + Codex
+- **AI**: Claude Code (Perplexity MCP, hooks, skills, rules) + Codex
 - **Git**: SSH signing, difftastic diffs, mergiraf merge driver, global Rust pre-commit hook
 - **Packages**: Homebrew (`Brewfile`), Cargo, npm
 

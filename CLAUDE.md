@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 ./scripts/install_all.sh        # Rust, Homebrew, packages, Neovim, Zsh plugins, Claude Code, Bun
 ./scripts/setup_links.sh        # Symlink configs into system locations
-./scripts/install_mcp.sh        # PAL MCP server (BeehiveInnovations/pal-mcp-server)
 ./scripts/setup_macos.sh        # macOS system preferences
 ./scripts/install_yabai_skhd.sh # Yabai + skhd window management
 ./scripts/update_all.sh         # Update Homebrew, npm, Cargo, Zsh plugins
@@ -21,12 +20,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### AI Tool Configuration (Claude + Codex)
 
-Both tools share the same MCP server ecosystem but use different config formats:
+Both tools configure MCP servers separately, with Perplexity enabled in each tool:
 
 - **Claude**: `claude/mcp.json` (JSON), `claude/settings.json` (permissions/hooks), `claude/hooks/` (hook scripts)
 - **Codex**: `codex/config.toml` (TOML with `[mcp_servers.*]` sections), `codex/hooks.json`
-
-PAL server installs to `~/.claude/mcp/pal-mcp-server/` — model definitions in `claude/pal_mcp_openai_models.json` get copied to its `conf/` dir.
 
 Claude skills live in `claude/skills/<name>/SKILL.md`, rules in `claude/rules/`. Codex skills symlink to `claude/skills/`.
 

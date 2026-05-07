@@ -16,10 +16,6 @@ Follow these steps:
 
 3. **Parallel Deep Review** (4 Opus agents): Pass the PR summary and new abstractions list to each agent.
 
-   **All agents**: When uncertain about an issue, use PAL MCP tools:
-   - `mcp__pal__thinkdeep` for complex semantic analysis
-   - `mcp__pal__chat` to reason through edge cases
-
    a. **Semantic Consistency Agent**: For each new function/type/enum introduced:
       - Read its definition, documentation, and any comments describing when/how it should be used
       - Find ALL usages of that abstraction within the PR
@@ -50,31 +46,29 @@ Follow these steps:
       - Verify resource limits: unbounded allocations, missing timeouts, denial-of-service vectors
       - Check concurrency: TOCTOU races, lock ordering, shared mutable state without synchronization
 
-4. **Validate Issues via PAL MCP** (MANDATORY — do not skip):
+4. **Validate Issues** (MANDATORY — do not skip):
 
    After collecting all issues from the 4 agents, YOU (the main orchestrator) MUST validate
-   every issue scored >= 50 using PAL MCP tools. Sub-agents do NOT have PAL access — only
-   you can call these tools, so this step cannot be delegated.
+   every issue scored >= 50 before presenting it to the user.
 
    For each issue from the agents:
-   - Run `mcp__pal__codereview` with the relevant file paths and a description of the
-     claimed issue. Use `review_type: "security"` for security findings. Ask PAL to
-     confirm or refute the issue.
-   - For complex logic/semantic issues, use `mcp__pal__thinkdeep` to reason through
-     whether the bug is real and exploitable.
-   - For issues you can verify mechanically (e.g., a failing test), prefer direct
-     verification (run the test) over PAL.
+   - Re-read the relevant files and diff hunks yourself.
+   - Prefer direct verification when possible: run the targeted test, reproduce the failing path,
+     inspect generated output, or trace the relevant control/data flow.
+   - For security findings, verify the trust boundary, attacker-controlled inputs, and exploitability
+     from the code, not just from pattern matching.
+   - Drop issues that do not survive this validation pass.
 
-   Score each issue 0-100 AFTER PAL validation:
+   Score each issue 0-100 AFTER validation:
    - 0: False positive, doesn't stand up to scrutiny, or pre-existing issue
    - 25: Might be real, but couldn't verify. Stylistic issues without explicit guidance.
    - 50: Verified real issue, but minor/nitpick. Not important relative to PR scope.
    - 75: Verified real issue that will impact functionality. Insufficient existing approach.
    - 100: Confirmed real issue that will happen frequently. Direct evidence confirms it.
 
-   **CRITICAL: PAL validation is a WAYPOINT, not a stopping point. After scoring all
+   **CRITICAL: validation is a WAYPOINT, not a stopping point. After scoring all
    issues, IMMEDIATELY continue to step 5. Do NOT wait for user input. Do NOT treat
-   the PAL response as the end of the review.**
+   validation notes as the end of the review.**
 
 5. **List issues to user for double check** (IMMEDIATELY after step 4 — do not pause):
 
