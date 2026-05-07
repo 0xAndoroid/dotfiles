@@ -1,16 +1,55 @@
 #!/bin/bash
+set -u
+
 repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
 [[ "$repo_root" != "$HOME/.dotfiles" ]] && exit 0
 
 branch=$(git branch --show-current)
 [[ "$branch" != "main" ]] && exit 0
 
-for b in a16z homeserver; do
-  git show-ref --verify --quiet "refs/heads/$b" || continue
-  git rebase main "$b" --quiet 2>/dev/null || {
-    git rebase --abort 2>/dev/null
-    echo "⚠ $b rebase conflict - manual resolution needed"
-  }
-done
+# Hook-time Git env vars can make nested `git -C <temp-worktree>` commands
+# operate on the original checkout. Clear them before managing worktrees.
+unset $(git rev-parse --local-env-vars)
 
-git checkout main --quiet
+rebase_branch_detached() {
+  local b=$1
+  local old_ref
+  local new_ref
+  local tmp
+
+  git -C "$repo_root" show-ref --verify --quiet "refs/heads/$b" || return 0
+
+  old_ref=$(git -C "$repo_root" rev-parse "refs/heads/$b") || return 1
+  tmp=$(mktemp -d "${TMPDIR:-/tmp}/dotfiles-${b}.XXXXXX") || return 1
+
+  if ! git -C "$repo_root" worktree add --detach --quiet "$tmp" "$old_ref" 2>/dev/null; then
+    rm -rf "$tmp"
+    echo "⚠ $b rebase setup failed - manual resolution needed"
+    return 1
+  fi
+
+  if ! git -C "$tmp" rebase main --quiet 2>/dev/null; then
+    git -C "$tmp" rebase --abort 2>/dev/null
+    git -C "$repo_root" worktree remove --force "$tmp" 2>/dev/null
+    echo "⚠ $b rebase conflict - manual resolution needed"
+    return 1
+  fi
+
+  new_ref=$(git -C "$tmp" rev-parse HEAD) || {
+    git -C "$repo_root" worktree remove --force "$tmp" 2>/dev/null
+    echo "⚠ $b rebase result unreadable - manual resolution needed"
+    return 1
+  }
+
+  if ! git -C "$repo_root" update-ref "refs/heads/$b" "$new_ref" "$old_ref"; then
+    git -C "$repo_root" worktree remove --force "$tmp" 2>/dev/null
+    echo "⚠ $b changed during rebase - manual resolution needed"
+    return 1
+  fi
+
+  git -C "$repo_root" worktree remove --force "$tmp" 2>/dev/null
+}
+
+for b in a16z homeserver; do
+  rebase_branch_detached "$b" || true
+done
