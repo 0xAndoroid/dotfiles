@@ -42,7 +42,9 @@ Code should be self-documenting. If you need a comment to explain WHAT the code 
 - Add `-q` flag to: cargo clippy, run, build, fmt, doc, clean ONLY
 - Add `--message-format=short` to: cargo clippy, check, run, build, fmt, doc, clean ONLY
 
-Doo not run cargo commands in parallel. Always run them sequentially, one at a time. This is to avoid issues with file locks and to ensure that output is not interleaved.
+Never run cargo commands in parallel. Always run them sequentially, one at a time.
+This includes `multi_tool_use.parallel`, background shells, separate terminal sessions,
+and concurrent agents. Cargo can contend on file locks and interleave output.
 
 ### PR Reviews
 
