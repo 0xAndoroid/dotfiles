@@ -4,3 +4,5 @@ lazygit/state.yml
 claude/skills/.system
 claude/skills/agentcash
 claude/skills/twit*
+claude/skills/stable*
+claude/skills/zapper*
