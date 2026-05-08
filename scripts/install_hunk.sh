@@ -55,18 +55,16 @@ fi
 git pull --ff-only origin "$BRANCH"
 
 echo "Installing hunk dependencies..."
-bun install
-
-echo "Building hunk..."
-bun run build:npm
-
-echo "Linking hunk globally..."
-bun link
+SKIP_INSTALL_SIMPLE_GIT_HOOKS=1 bun install --frozen-lockfile
 
 BUN_BIN_DIR="${BUN_INSTALL:-$HOME/.bun}/bin"
-if ! command -v hunk &> /dev/null && [ -x "$BUN_BIN_DIR/hunk" ]; then
-  export PATH="$BUN_BIN_DIR:$PATH"
-fi
+mkdir -p "$BUN_BIN_DIR"
+
+echo "Installing hunk binary..."
+rm -f "$BUN_BIN_DIR/hunk"
+HUNK_INSTALL_DIR="$BUN_BIN_DIR" bun run install:bin
+
+export PATH="$BUN_BIN_DIR:$PATH"
 
 command -v hunk
 hunk --version
