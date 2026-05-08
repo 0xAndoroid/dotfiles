@@ -133,8 +133,3 @@ export GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND=file
 alias reload-coingecko='sudo launchctl kickstart -k system/com.coingecko.server'
 alias reload-cloudflare='sudo launchctl kickstart -k system/com.cloudflare.cloudflared'
 alias reload-pika='launchctl kickstart -k gui/$(id -u)/com.pika.assistant'
-
-if [ -n "$SSH_CONNECTION" ]; then
-    security unlock-keychain -p "$(cat ~/.keychain-password)" \
-        ~/Library/Keychains/login.keychain-db 2>/dev/null
-fi
