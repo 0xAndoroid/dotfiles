@@ -43,7 +43,7 @@ ctrl + shift - a : yabai -m window --display 1 --focus # main monitor
 ctrl + shift - o : yabai -m window --display 2 --focus # second monitor
 
 # Load cmd/cmd+alt space bindings only when supported (managed by sync script).
-.load ".skhdrc.space-bindings.active"
+.load ".dotfiles/.skhdrc.space-bindings.active"
 
 # Resize windows
 ctrl + alt - left : yabai -m window --resize left:-100:0 ; yabai -m window --resize right:-100:0
