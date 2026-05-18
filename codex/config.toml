@@ -124,4 +124,7 @@ trusted_hash = "sha256:2f8a650153ff45318f685df8216c4aeb1db09a485815ed50100d0b42b
 
 [hooks.state."/Users/andoroid/.codex/config.toml:user_prompt_submit:0:0"]
 trusted_hash = "sha256:2a3ddb77c46e5656cde20151b60183b00e2f3bdfb074860de14ad33ec37573d0"
+
+[plugins."github@openai-curated"]
+enabled = true
 # END ZELLAUDE HOOKS

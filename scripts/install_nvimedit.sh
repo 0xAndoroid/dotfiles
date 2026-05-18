@@ -70,8 +70,6 @@ cat > "$APP_DIR/Contents/Info.plist" << 'PLIST'
                 <string>public.json</string>
                 <string>public.xml</string>
                 <string>public.yaml</string>
-                <string>public.html</string>
-                <string>public.xhtml</string>
                 <string>public.comma-separated-values-text</string>
                 <string>com.apple.property-list</string>
             </array>
@@ -129,8 +127,6 @@ UTIS=(
     public.json
     public.xml
     public.yaml
-    public.html
-    public.xhtml
     public.c-source
     public.c-header
     public.c-plus-plus-source
