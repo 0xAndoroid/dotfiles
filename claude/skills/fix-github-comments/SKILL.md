@@ -32,7 +32,12 @@ gh api graphql -f query='
 
 3. **Fix each comment**: Read the referenced file, understand the reviewer's request, and implement the fix.
 
-4. **Resolve threads** after fixing — use the thread `id` from step 2:
+4. **Validate before resolving**
+   - Re-read the changed hunk and the original review comment.
+   - Run the narrowest relevant test, typecheck, lint, or parser check when available.
+   - If the comment is ambiguous, stale, on a deleted line, or asks for a product decision, do not resolve it silently. Report the blocker and ask the user.
+
+5. **Resolve threads** after fixing and validating -- use the thread `id` from step 2:
 
 ```bash
 gh api graphql -f query='
@@ -43,4 +48,13 @@ mutation {
 }'
 ```
 
-5. **Commit and push** the fixes.
+6. **Commit and push** the fixes.
+
+## Completion Report
+
+Always include:
+
+- Threads fixed and resolved
+- Threads left unresolved, with reason
+- Validation run
+- Commit and push status

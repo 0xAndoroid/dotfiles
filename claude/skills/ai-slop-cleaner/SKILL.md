@@ -1,7 +1,6 @@
 ---
 name: ai-slop-cleaner
-description: Clean AI-generated code slop with a regression-safe, deletion-first workflow and optional reviewer-only mode
-level: 3
+description: 'Clean up, refactor, and simplify AI-generated or overgrown code without changing behavior. Use when the user says "AI slop", "deslop", "anti-slop", "clean up this code", "remove bloat", "simplify generated code", "delete dead code", "collapse wrappers", "reduce duplication", or asks for a reviewer-only cleanup pass. Removes dead code, duplicate logic, speculative abstractions, noisy comments, weak tests, and boundary leaks with regression checks after each focused pass.'
 ---
 
 # AI Slop Cleaner
@@ -34,8 +33,6 @@ Do not use this skill when:
 - Reuse existing utilities and patterns before introducing new ones.
 - Avoid new dependencies unless the user explicitly requests them.
 - Keep diffs small, reversible, and smell-focused.
-- Stay concise and evidence-dense: inspect, edit, verify, and report.
-- Treat new user instructions as local scope updates without dropping earlier non-conflicting constraints.
 
 ## Scoped File-List Usage
 
@@ -62,18 +59,7 @@ A persistence loop or driver workflow can invoke this skill as a bounded post-re
 - **Writer pass**: make the cleanup changes with behavior locked by tests.
 - **Reviewer pass**: inspect the cleanup plan, changed files, and verification evidence.
 - The same pass must not both write and self-approve high-impact cleanup without a separate review step.
-
-In review mode:
-1. Do **not** start by editing files.
-2. Review the cleanup plan, changed files, and regression coverage.
-3. Check specifically for:
-   - leftover dead code or unused exports
-   - duplicate logic that should have been consolidated
-   - needless wrappers or abstractions that still blur boundaries
-   - missing tests or weak verification for preserved behavior
-   - cleanup that appears to have changed behavior without intent
-4. Produce a reviewer verdict with required follow-ups.
-5. Hand needed changes back to a separate writer pass instead of fixing and approving in one step.
+- Read `references/review-mode.md` before producing the reviewer verdict.
 
 ## Workflow
 
@@ -88,11 +74,11 @@ In review mode:
    - Order the work from safest deletion to riskier consolidation.
 
 3. **Classify the slop before editing**
-   - **Duplication** — repeated logic, copy-paste branches, redundant helpers
-   - **Dead code** — unused code, unreachable branches, stale flags, debug leftovers
-   - **Needless abstraction** — pass-through wrappers, speculative indirection, single-use helper layers
-   - **Boundary violations** — hidden coupling, misplaced responsibilities, wrong-layer imports or side effects
-   - **Missing tests** — behavior not locked, weak regression coverage, edge-case gaps
+   - **Duplication** -- repeated logic, copy-paste branches, redundant helpers
+   - **Dead code** -- unused code, unreachable branches, stale flags, debug leftovers
+   - **Needless abstraction** -- pass-through wrappers, speculative indirection, single-use helper layers
+   - **Boundary violations** -- hidden coupling, misplaced responsibilities, wrong-layer imports or side effects
+   - **Missing tests** -- behavior not locked, weak regression coverage, edge-case gaps
 
 4. **Run one smell-focused pass at a time**
    - **Pass 1: Dead code deletion**
@@ -114,6 +100,40 @@ In review mode:
    - **Simplifications**
    - **Behavior lock / verification run**
    - **Remaining risks**
+
+## Common Transformations
+
+Read `references/cleanup-patterns.md` when choosing what to delete, inline, merge, or move.
+
+Inline examples of good cleanup targets:
+
+- Delete unused functions, exports, debug branches, and stale comments.
+- Inline pass-through wrappers that only rename arguments or forward calls.
+- Merge duplicate branches that differ only by labels or formatting.
+- Move logic back to the layer that owns the state or side effect.
+
+```ts
+// Before: generated wrapper adds no behavior.
+export function getUserNameForDisplay(user: User): string {
+  return formatUserNameForDisplay(user);
+}
+
+// After: callers use the existing formatter directly.
+formatUserNameForDisplay(user);
+```
+
+## Report Template
+
+```markdown
+Changed files:
+- <file>: <what was simplified>
+
+Verification:
+- <command>: <result>
+
+Remaining risks:
+- <risk or "none known">
+```
 
 ## Usage
 

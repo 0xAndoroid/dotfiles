@@ -14,39 +14,14 @@ Follow these steps:
    - List of new functions, types, enums, or abstractions introduced
    - For each new abstraction: its name, stated purpose (from comments/docs), and intended usage contract
 
-3. **Parallel Deep Review** (4 Opus agents): Pass the PR summary and new abstractions list to each agent.
+3. **Parallel Deep Review** (4 Opus agents): Pass the PR summary and new abstractions list to each agent. Use `references/review-agents.md` for the exact prompts.
 
-   a. **Semantic Consistency Agent**: For each new function/type/enum introduced:
-      - Read its definition, documentation, and any comments describing when/how it should be used
-      - Find ALL usages of that abstraction within the PR
-      - Verify each usage matches the documented intent
-      - Flag misuse: e.g., error-handling functions called for wrong error types, validation functions bypassed, enums used inconsistently
-      - Pay special attention to: panic/error functions (when should they trigger?), unsafe blocks, security-sensitive operations
+   - **Semantic Consistency Agent**: verify each new abstraction is used according to its contract.
+   - **Deep Bug Analysis Agent**: read full modified-file context and trace data/control flow.
+   - **Tech Debt Removal Agent**: judge whether new abstractions fit actual call sites and project patterns.
+   - **Security Reviewer Agent**: focus on changed trust boundaries, protocol soundness, auth, resource limits, concurrency, and external process/file access.
 
-   b. **Deep Bug Analysis Agent**: Read the full context of modified files (not just diff lines).
-      - Understand the data flow and control flow around changes
-      - Check for logic errors, edge cases, off-by-one errors, resource leaks
-      - Verify error handling is appropriate for each failure mode
-      - Check that invariants are maintained across the changes
-
-   c. **Tech Debt Removal Agent**:
-      - Understand new abstractions that are introduced, new functions/types/enums
-      - Identify possible future usecases for these things and understand whether abstractions meet future requirements
-      - See which paradigms of Rust (or other language) development are used and whether they apply here
-      - Identify possible improvements that would benefit long term maintainability of the code
-      - Be an enjoyer of abstractions: generics, traits, dyn, enums, etc.
-
-   d. **Security Reviewer Agent**:
-      - Identify whether changes to the protocol do not break soundness
-      - Identify possible attack vectors that are introduced with these changes
-      - Check for input validation gaps at trust boundaries (user input, network data, file I/O, IPC)
-      - Verify authentication/authorization checks are not bypassed or weakened
-      - Look for injection risks: SQL, command, path traversal, template injection, deserialization
-      - Check cryptographic usage: hardcoded secrets, weak algorithms, nonce reuse, timing side-channels
-      - Verify resource limits: unbounded allocations, missing timeouts, denial-of-service vectors
-      - Check concurrency: TOCTOU races, lock ordering, shared mutable state without synchronization
-
-4. **Validate Issues** (MANDATORY — do not skip):
+4. **Validate Issues** (MANDATORY -- do not skip):
 
    After collecting all issues from the 4 agents, YOU (the main orchestrator) MUST validate
    every issue scored >= 50 before presenting it to the user.
@@ -70,7 +45,7 @@ Follow these steps:
    issues, IMMEDIATELY continue to step 5. Do NOT wait for user input. Do NOT treat
    validation notes as the end of the review.**
 
-5. **List issues to user for double check** (IMMEDIATELY after step 4 — do not pause):
+5. **List issues to user for double check** (IMMEDIATELY after step 4 -- do not pause):
 
    Present ALL issues in a single message, formatted as a numbered list with scores.
    Include: file path, line number, one-line description, score, and 1-2 sentence rationale.
@@ -91,7 +66,7 @@ Follow these steps:
        {
          "path": "relative/path/to/file.rs",
          "line": 42,
-         "body": "Comment text — see tone guidelines below"
+         "body": "Comment text -- see tone guidelines below"
        }
      ]
    }
@@ -106,27 +81,9 @@ Follow these steps:
    - The `line` field refers to the NEW file line number (right side of diff) for added/modified lines.
    - Get the head SHA via `gh api repos/{owner}/{repo}/pulls/{number} --jq '.head.sha'`.
    - Get changed files via `gh api repos/{owner}/{repo}/pulls/{number}/files`.
-   - Do NOT use `--raw-field` for the comments array — it doesn't handle nested JSON. Always use `--input` with a file.
+   - Do NOT use `--raw-field` for the comments array -- it doesn't handle nested JSON. Always use `--input` with a file.
 
-   **Comment tone**: Write like a senior engineer — concise, direct, no ceremony.
-   - NO scores, severity labels, or `**[Score X]**` prefixes
-   - NO "Title + Explanation" structure — just say the thing
-   - Lead with what's wrong or what to consider, then why in 1-2 sentences max
-   - When the fix is obvious, use a GitHub suggestion block in the comment body. Pick the lines
-     to replace via `line` (end) and `start_line` (start) on the comment object, then put a
-     ` ```suggestion ` fenced block in the body — its content replaces those lines:
-     ```
-     Poisoned mutex will panic all future callers.
-
-     ```suggestion
-     _guard: mutex.lock().unwrap_or_else(|e| e.into_inner()),
-     ```
-     ```
-     For single-line suggestions, omit `start_line` (defaults to `line`).
-   - Examples of good comments:
-     - `"If only one of the three openings is missing, the dummy all-zero r_address hits this assert before take_missing_opening_error() runs. Consider a fallible check here."`
-     - `"This leaves the original opening accessible after recording MalformedProof. Removing it too would prevent the verifier from using a stale claim within the stage."`
-     - `"Poisoned mutex will panic all future callers."` (with a ` ```suggestion ` block for the fix)
+   Read `references/comment-style.md` before composing GitHub review comments.
 
 ## False Positives (skip these)
 
