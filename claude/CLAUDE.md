@@ -77,3 +77,21 @@ When introducing new features, think whether there's a nice way to refactor the 
 that would simplify the code, even if it breaks backwards compatibility.
 
 Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
+
+## Default Coding Posture
+
+- State assumptions when they affect the implementation; ask only when ambiguity would make the change risky or likely wrong.
+- Prefer the smallest idiomatic change that satisfies the request. Do not add speculative features, configuration, generality, or abstraction.
+- Keep edits traceable to the requested outcome. Do not refactor, reformat, rename, or rewrite unrelated code.
+- If the requested change exposes a simpler design inside the touched boundary, refactor deliberately and explain the tradeoff.
+- For bug fixes, reproduce or define the failing behavior before changing code when practical.
+- For non-trivial work, name the verification target early and loop until the targeted check passes or the blocker is clear.
+
+## Git Handoff
+
+- Default after edits: stage only the intended changes for handoff. Do not commit, push, rebase, or switch branches unless the user explicitly asks.
+- Inspect `git status --short` and the relevant diff before staging.
+- Use explicit paths when staging. Avoid `git add -A` or broad staging when unrelated user changes may exist.
+- Screen staged scope for secrets, generated noise, debug output, and unrelated files.
+- Preserve pre-existing staged changes. Do not unstage or rewrite another person's work unless explicitly asked.
+- Final reports should say what is staged, what verification ran, and whether anything relevant remains unstaged.

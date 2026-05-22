@@ -54,9 +54,19 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 - Merges: mergiraf merge driver, `diff3` conflict style
 - `.gitconfig` alias `pushall` — force-with-lease pushes main + a16z + homeserver branches
 
+### Change Handoff Workflow
+
+**Default: stage intended changes, do not commit or push unless explicitly asked.**
+
+1. Work on the current branch unless the user asks for a branch change
+2. Inspect `git status --short` and the relevant diff
+3. Stage only the files that belong to the requested task, using explicit paths
+4. Report staged files and verification performed
+5. Do not commit, push, rebase, or switch branches unless explicitly asked
+
 ### Commit Workflow
 
-**Always commit to `main` unless explicitly told otherwise.** Steps:
+**Only when explicitly asked to commit:** commit to `main` unless explicitly told otherwise. Steps:
 
 1. `git checkout main`
 2. Stage and commit changes on main
