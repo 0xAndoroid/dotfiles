@@ -3,3 +3,6 @@ lazygit/state.yml
 .skhdrc.space-bindings.active
 claude/skills/.system
 claude/skills/agentcash
+claude/skills/poker-hand-grid
+claude/skills/personal-finance-report
+claude/skills/portfolio-weekly-news*
