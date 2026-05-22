@@ -47,7 +47,12 @@ case "$NOTIFY_MODE" in
         fi
         ;;
     esac
-    [ "$TERM_FOCUSED" = false ] && SHOULD_NOTIFY=true
+    if [ "$TERM_FOCUSED" = false ]; then
+      SHOULD_NOTIFY=true
+    else
+      FOCUSED_PANE=$(zellij action list-clients 2>/dev/null | awk 'NR==2 {print $2}')
+      [ "$FOCUSED_PANE" != "terminal_$ZELLIJ_PANE_ID" ] && SHOULD_NOTIFY=true
+    fi
     ;;
 esac
 

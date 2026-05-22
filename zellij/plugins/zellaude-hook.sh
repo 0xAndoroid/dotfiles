@@ -55,5 +55,17 @@ if [ "$HOOK_EVENT" = "PermissionRequest" ]; then
     "Permission requested${TOOL_SUFFIX}"
 fi
 
+if [ "$HOOK_EVENT" = "Stop" ]; then
+  TAB_NAME=$(zellij action list-panes --json --tab 2>/dev/null \
+    | jq -r --arg pane_id "$ZELLIJ_PANE_ID" '.[] | select(.is_plugin == false and (.id | tostring) == $pane_id) | .tab_name // empty' \
+    | head -n 1)
+  PROJECT=$(basename "${CWD:-.}")
+  TITLE="Claude Code"
+  [ -n "$TAB_NAME" ] && TITLE="Claude Code tab: $TAB_NAME"
+  "$HOME/.config/zellij/plugins/zellaude-notify.sh" \
+    "$TITLE" \
+    "Agent turn completed in the $PROJECT folder"
+fi
+
 # Send to plugin (hook is already async, no need to background)
 zellij pipe --name "zellaude" -- "$PAYLOAD"

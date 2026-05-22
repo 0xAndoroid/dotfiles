@@ -57,5 +57,16 @@ if [ "$HOOK_EVENT" = "PermissionRequest" ]; then
     "Permission requested${TOOL_SUFFIX}"
 fi
 
-zellij pipe --name "zellaude" -- "$PAYLOAD"
+if [ "$HOOK_EVENT" = "Stop" ]; then
+  TAB_NAME=$(zellij action list-panes --json --tab 2>/dev/null \
+    | jq -r --arg pane_id "$ZELLIJ_PANE_ID" '.[] | select(.is_plugin == false and (.id | tostring) == $pane_id) | .tab_name // empty' \
+    | head -n 1)
+  PROJECT=$(basename "${CWD:-.}")
+  TITLE="Codex"
+  [ -n "$TAB_NAME" ] && TITLE="Codex tab: $TAB_NAME"
+  "$HOME/.config/zellij/plugins/zellaude-notify.sh" \
+    "$TITLE" \
+    "Agent turn completed in the $PROJECT folder"
+fi
 
+zellij pipe --name "zellaude" -- "$PAYLOAD"
