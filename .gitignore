@@ -6,3 +6,6 @@ claude/skills/agentcash
 claude/skills/twit*
 claude/skills/stable*
 claude/skills/zapper*
+claude/skills/poker-hand-grid
+claude/skills/personal-finance-report
+claude/skills/portfolio-weekly-news*

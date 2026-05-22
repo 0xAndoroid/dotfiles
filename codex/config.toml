@@ -73,6 +73,21 @@ trust_level = "trusted"
 [projects."/Users/andoroid/dev/calorie-tracker"]
 trust_level = "trusted"
 
+[projects."/private/tmp/pika-codex-appserver-smoke-m5zzjfke"]
+trust_level = "trusted"
+
+[projects."/private/tmp/corne-zmk"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/dev/corne-view-zmk"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/dev/settle-poker-now"]
+trust_level = "trusted"
+
+[projects."/Users/andoroid/dev/poker-cli"]
+trust_level = "trusted"
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete"]
