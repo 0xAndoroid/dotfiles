@@ -4,8 +4,8 @@ model = "gpt-5.5"
 model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 project_doc_fallback_filenames = ["CLAUDE.md"]
-service_tier = "fast"
 suppress_unstable_features_warning = true
+service_tier = "fast"
 
 [analytics]
 enabled = false
@@ -15,6 +15,8 @@ hooks = true
 apps = false
 goals = true
 multi_agent_v2 = true
+js_repl = false
+workspace_dependencies = false
 
 [feedback]
 enabled = false
@@ -145,15 +147,3 @@ trusted_hash = "sha256:2f8a650153ff45318f685df8216c4aeb1db09a485815ed50100d0b42b
 
 [hooks.state."/Users/atretyakov/.codex/config.toml:user_prompt_submit:0:0"]
 trusted_hash = "sha256:2a3ddb77c46e5656cde20151b60183b00e2f3bdfb074860de14ad33ec37573d0"
-
-[plugins."github@openai-curated"]
-enabled = true
-
-[plugins."browser@openai-bundled"]
-enabled = true
-
-[marketplaces.openai-bundled]
-last_updated = "2026-05-19T14:59:27Z"
-source_type = "local"
-source = "/Users/atretyakov/.codex/.tmp/bundled-marketplaces/openai-bundled"
-# END ZELLAUDE HOOKS
