@@ -25,6 +25,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 
 - Default after edits: stage only the intended changes for handoff. Do not commit, push, rebase, or switch branches unless the user explicitly asks.
 - Inspect `git status --short` and the relevant diff before staging.
+- Use plain unified diffs for agent review: `git diff --no-ext-diff --no-color`.
 - Use explicit paths when staging. Avoid `git add -A` or broad staging when unrelated user changes may exist.
 - Screen staged scope for secrets, generated noise, debug output, and unrelated files.
 - Preserve pre-existing staged changes. Do not unstage or rewrite another person's work unless explicitly asked.

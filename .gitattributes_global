@@ -1,3 +1,0 @@
-* merge=mergiraf
-*.toml !merge
-Cargo.lock !merge

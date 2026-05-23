@@ -50,8 +50,8 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 - `git-hooks/pre-commit` — universal Rust hook (fmt check + typos), configurable per-repo via `pre-commit-config.toml`
 - `git-hooks/post-commit` — post-commit hook
 - Applied globally via `.gitconfig` `core.hooksPath = ~/.git-hooks`
-- Diffs: difftastic (`diff.external = difft`)
-- Merges: mergiraf merge driver, `diff3` conflict style
+- Diffs: plain unified Git diffs by default; use `git diff --no-ext-diff --no-color` for agent review
+- Merges: standard Git merges with `diff3` conflict style
 - `.gitconfig` alias `pushall` — force-with-lease pushes main + a16z + homeserver branches
 
 ### Change Handoff Workflow

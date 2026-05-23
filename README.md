@@ -20,7 +20,7 @@ cd ~/.dotfiles
 - **Window Manager**: Yabai + skhd
 - **Terminal**: Ghostty with Berkeley Mono Nerd Font
 - **AI**: Claude Code (Perplexity MCP, hooks, skills, rules) + Codex
-- **Git**: SSH signing, difftastic diffs, mergiraf merge driver, global Rust pre-commit hook
+- **Git**: SSH signing, plain Git diffs, standard Git merges, global Rust pre-commit hook
 - **Packages**: Homebrew (`Brewfile`), Cargo, npm
 
 ## Navigation
@@ -33,7 +33,7 @@ skhd intercepts keypresses → routes based on Ghostty window title → `zellij-
 
 ```
 .zshrc / .zshenv / .zprofile   Shell config (aliases, zoxide, fzf, daily auto-pull)
-.gitconfig                      Git config (SSH signing, difftastic, pushall alias)
+.gitconfig                      Git config (SSH signing, pushall alias)
 .skhdrc / .yabairc              Window management
 nvim/                           Neovim config (Lua)
 zellij/                         Zellij config + WASM plugins (zellij-nav, zellaude)

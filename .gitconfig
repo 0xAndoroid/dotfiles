@@ -8,7 +8,6 @@
 	editor = nvim
 	hooksPath = ~/.git-hooks
 	excludesfile = ~/.dotfiles/.gitignore_global
-	attributesfile = ~/.dotfiles/.gitattributes_global
 [commit]
 	gpgsign = true
 [gpg]
@@ -23,8 +22,6 @@
 	autostash = true
 [alias]
 	pushall = "!f() { git push \"$@\" || exit 1; repo=$(git rev-parse --show-toplevel); [ \"$repo\" = \"$HOME/.dotfiles\" ] || exit 0; for b in homeserver; do git show-ref --verify --quiet refs/heads/$b && git push origin refs/heads/$b:refs/heads/$b --force-with-lease; done; :; }; f"
-[diff]
-	external = difft
 [init]
 	defaultBranch = main
 [rebase]
@@ -32,9 +29,6 @@
 [merge]
 	autostash = true
 	conflictStyle = "diff3"
-[merge "mergiraf"]
-	name = mergiraf
-	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
