@@ -14,7 +14,7 @@ enabled = false
 hooks = true
 apps = false
 goals = true
-multi_agent_v2 = true
+multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 10 }
 js_repl = false
 workspace_dependencies = false
 
