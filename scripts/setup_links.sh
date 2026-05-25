@@ -46,6 +46,7 @@ create_link ~/.dotfiles/codex/skills ~/.codex/skills
 create_link ~/.dotfiles/nvim ~/.config/nvim
 create_link ~/.dotfiles/lazygit ~/.config/lazygit
 create_link ~/.dotfiles/ghostty ~/.config/ghostty
+create_link ~/.dotfiles/hunk/config.toml ~/.config/hunk/config.toml
 create_link ~/.dotfiles/claude/skills ~/.claude/skills
 create_link ~/.dotfiles/claude/rules ~/.claude/rules
 create_link ~/.dotfiles/git-hooks ~/.git-hooks

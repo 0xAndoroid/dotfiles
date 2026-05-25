@@ -38,6 +38,7 @@ skhd intercepts keypresses → routes based on Ghostty window title → `zellij-
 nvim/                           Neovim config (Lua)
 zellij/                         Zellij config + WASM plugins (zellij-nav, zellaude)
 ghostty/                        Ghostty terminal config
+hunk/                           Hunk diff viewer config
 lazygit/                        Lazygit config
 claude/                         Claude Code settings, MCP, hooks, skills, rules
 codex/                          Codex config (shares skills with Claude)

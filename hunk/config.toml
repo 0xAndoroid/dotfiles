@@ -1,0 +1,67 @@
+# Custom themes require hunkdiff 0.14.0-beta.1 or newer.
+theme = "custom"
+mode = "auto"
+watch = false
+exclude_untracked = false
+line_numbers = true
+wrap_lines = false
+hunk_headers = true
+agent_notes = false
+copy_decorations = false
+
+[diff]
+watch = true
+exclude_untracked = false
+
+[pager]
+hunk_headers = false
+copy_decorations = false
+
+[show]
+mode = "split"
+
+[custom_theme]
+base = "graphite"
+label = "Sonokai Andromeda"
+background = "#2b2d3a"
+panel = "#333648"
+panelAlt = "#363a4e"
+border = "#3f445b"
+accent = "#77d5f0"
+accentMuted = "#354157"
+text = "#e1e3e4"
+muted = "#7e8294"
+addedBg = "#394634"
+removedBg = "#55393d"
+contextBg = "#2b2d3a"
+addedContentBg = "#394634"
+removedContentBg = "#55393d"
+contextContentBg = "#2b2d3a"
+addedSignColor = "#9ed06c"
+removedSignColor = "#fb617e"
+lineNumberBg = "#2b2d3a"
+lineNumberFg = "#7e8294"
+selectedHunk = "#354157"
+badgeAdded = "#9ed06c"
+badgeRemoved = "#fb617e"
+badgeNeutral = "#e1e3e4"
+fileNew = "#9ed06c"
+fileDeleted = "#fb617e"
+fileRenamed = "#edc763"
+fileModified = "#6dcae8"
+fileUntracked = "#f89860"
+noteBorder = "#bb97ee"
+noteBackground = "#423f59"
+noteTitleBackground = "#3f445b"
+noteTitleText = "#e1e3e4"
+
+[custom_theme.syntax]
+default = "#e1e3e4"
+keyword = "#fb617e"
+string = "#edc763"
+comment = "#7e8294"
+number = "#bb97ee"
+function = "#9ed06c"
+property = "#f89860"
+type = "#6dcae8"
+punctuation = "#e1e3e4"
