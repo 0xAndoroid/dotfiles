@@ -46,9 +46,9 @@ ctrl + shift - o : yabai -m window --display 2 --focus # second monitor
 .load ".dotfiles/.skhdrc.space-bindings.active"
 
 # Input sources on Dvorak punctuation keys
-ctrl - 0x0C : issw com.apple.keylayout.Ukrainian-PC
+ctrl - 0x0E : issw com.apple.keylayout.Ukrainian-PC
 ctrl - 0x0D : issw com.apple.keylayout.RussianWin
-ctrl - 0x0E : issw com.apple.keylayout.Dvorak
+ctrl - 0x0C : issw com.apple.keylayout.Dvorak
 
 # Resize windows
 ctrl + alt - left : yabai -m window --resize left:-100:0 ; yabai -m window --resize right:-100:0
