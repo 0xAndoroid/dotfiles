@@ -1,6 +1,8 @@
 .blacklist [
      "Counter-Strike 2"
      "Civilization VI"
+     "GeForceNOW"
+     "GeForceNOWStreamer"
 ]
 
 # Navigation - passthrough to zellij/nvim, otherwise yabai handles it

@@ -62,6 +62,9 @@ trust_level = "trusted"
 [projects."/Users/andoroid/dev/issw"]
 trust_level = "trusted"
 
+[projects."/Users/andoroid/dev/calorie-tracker"]
+trust_level = "trusted"
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete"]
