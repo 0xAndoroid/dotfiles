@@ -26,6 +26,11 @@ args = ["-y", "@perplexity-ai/mcp-server"]
 command = "npx"
 env_vars = ["PERPLEXITY_API_KEY"]
 
+[mcp_servers.pika]
+url = "http://100.81.62.125:7479/mcp"
+bearer_token_env_var = "PIKA_DELEGATION_TOKEN"
+tool_timeout_sec = 360
+
 [projects."$HOME/dev/pika"]
 trust_level = "trusted"
 

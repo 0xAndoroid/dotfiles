@@ -31,6 +31,18 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Preserve pre-existing staged changes. Do not unstage or rewrite another person's work unless explicitly asked.
 - Final reports should say what is staged, what verification ran, and whether anything relevant remains unstaged.
 
+## Pika (personal assistant bridge)
+
+`pika` bridges to **Pika**, my personal AI assistant on my Mac (Telegram bot, Obsidian vault memory, calendar/email integrations, background agents, dashboard at https://me.andrew.ee).
+
+**`send_to_pika(text, attachment_handles?)`** — synchronous: returns Pika's reply inline. SILENT to my Telegram unless Pika decides to push. Delegate freely.
+
+Use it to: notify me on Telegram, publish reports to me.andrew.ee, log vault notes, add calendar events/reminders, or hand off research.
+
+**Attach files:**
+1. `curl -s -X POST http://100.81.62.125:7479/upload -H "Authorization: Bearer $PIKA_DELEGATION_TOKEN" -F "file=@/path"`
+2. `send_to_pika(text="...", attachment_handles=["att_..."])`
+
 ## Comment Policy
 
 ### Unacceptable Comments
