@@ -1,13 +1,26 @@
 # Report Templates
 
-Two output formats for an architecture spec review. **Markdown is the default**; use HTML when richer formatting or color-coded cost badges help. Fill every `<...>` placeholder and delete sections that genuinely don't apply.
+Two output formats for an architecture **spec** (design reconstruction + future-pressure map). **Markdown is the default**; use HTML when richer formatting or color-coded cost badges help. Fill every `<...>` placeholder and delete sections that genuinely don't apply.
+
+The spec stays neutral: it ends at the future-pressure map and hands off. It does **not** contain a verdict, abstraction diagnosis, ranked risks, or recommendations — those are the human reviewer's. Do not add an "Assessment" section.
+
+Write it for a reader who will **not** open the code: lead with a one-sentence summary and a short primer of the load-bearing jargon, use plain concepts instead of identifiers, and never cite `file.rs:line`.
 
 ## Markdown skeleton
 
 ```markdown
-# Architecture Review — <branch / PR title>
+# Architecture Spec — <branch / PR title>
 
-> Diff: `<base>...<head>` · <N files, +X / −Y lines> · Generated <date>
+> <N files, +X / −Y lines> · <N commits> · Generated <date>
+> Neutral spec for review — verdict, risks, and recommendations are the reviewer's.
+
+## In one sentence
+
+<plain-English summary of the whole change: what it replaces, and with what>
+
+## Primer
+
+<3–8 load-bearing terms, one plain line each — only the jargon the rest of the spec leans on>
 
 ## 1. Reconstructed Spec
 
@@ -19,26 +32,21 @@ Two output formats for an architecture spec review. **Markdown is the default**;
 
 **Boundaries & seams.** <where this plugs into the existing system>
 
-**Key decisions & tradeoffs.** <decisions made, alternatives not taken, and why>
+**Key decisions & tradeoffs.** <each decision + the tension it trades off; alternatives not taken. Neutral — don't crown a winner. Factual observations OK; verdicts not.>
 
-## 2. Future-Feature Stress Test
+## 2. Future-Pressure Map
+
+> Facts for the reviewer: what each plausible future would touch and how far the edit spreads. No diagnosis or conclusions.
 
 | Future feature | Blast radius | Cost | Why |
 |----------------|--------------|------|-----|
-| <concrete, domain-specific feature> | <modules / interfaces touched> | Low / Med / High | <localized vs cross-cutting, what breaks> |
+| <concrete, domain-specific feature> | <areas / components touched, in plain concepts — no code paths> | Low / Med / High | <localized vs cross-cutting — a fact, not a verdict> |
 
-**Abstraction diagnosis.** <name the specific leaky abstractions, missing extension points, rigid seams, and over-engineering revealed by the cost pattern above>
+**Open questions (optional).** <genuinely neutral questions the map raises, phrased as questions — never answered or prescribed>
 
-## 3. Assessment
+---
 
-**Verdict.** <do the abstractions fit the spec? commit to a position>
-
-**Top risks.**
-1. <risk>
-2. <risk>
-3. <risk>
-
-**Recommendations.** <specific seams to add / move / remove, each tied to the future(s) that justify it — including abstractions to delete>
+*Spec ends here. Verdict, abstraction diagnosis, ranked risks, and recommendations are the reviewer's call.*
 ```
 
 ## HTML template
@@ -77,17 +85,18 @@ Standalone single file: inline `<style>`, no external assets, prints cleanly. Ad
 </style>
 </head>
 <body>
-  <h1>Architecture Review — <TITLE></h1>
-  <p class="meta">Diff <code><BASE>...<HEAD></code> · <N files, +X / −Y> · Generated <DATE></p>
+  <h1>Architecture Spec — <TITLE></h1>
+  <p class="meta">Diff <code><BASE>...<HEAD></code> · <N files, +X / −Y> · Generated <DATE> · Neutral spec for review — verdict, risks &amp; recommendations are the reviewer's</p>
 
   <h2>1. Reconstructed Spec</h2>
   <p><strong>Problem &amp; requirements.</strong> <…></p>
   <p><strong>Components &amp; abstractions.</strong> <…></p>
   <p><strong>Data &amp; control flow.</strong> <…></p>
   <p><strong>Boundaries &amp; seams.</strong> <…></p>
-  <p><strong>Key decisions &amp; tradeoffs.</strong> <…></p>
+  <p><strong>Key decisions &amp; tradeoffs.</strong> <each decision + the tension it trades off; neutral, no winner crowned></p>
 
-  <h2>2. Future-Feature Stress Test</h2>
+  <h2>2. Future-Pressure Map</h2>
+  <blockquote>Facts for the reviewer: what each plausible future would touch and how far the edit spreads. No diagnosis or conclusions.</blockquote>
   <table>
     <thead><tr><th>Future feature</th><th>Blast radius</th><th>Cost</th><th>Why</th></tr></thead>
     <tbody>
@@ -96,13 +105,10 @@ Standalone single file: inline `<style>`, no external assets, prints cleanly. Ad
       <tr><td><…></td><td><…></td><td><span class="badge cost-high">High</span></td><td><…></td></tr>
     </tbody>
   </table>
-  <p><strong>Abstraction diagnosis.</strong> <leaky abstractions, missing extension points, rigid seams, over-engineering></p>
+  <p><strong>Open questions (optional).</strong> <neutral questions the map raises, phrased as questions — never answered or prescribed></p>
 
-  <h2>3. Assessment</h2>
-  <p><strong>Verdict.</strong> <…></p>
-  <p><strong>Top risks.</strong></p>
-  <ol><li><…></li><li><…></li><li><…></li></ol>
-  <p><strong>Recommendations.</strong> <seams to add/move/remove, tied to justifying futures></p>
+  <hr>
+  <p class="meta"><em>Spec ends here. Verdict, abstraction diagnosis, ranked risks, and recommendations are the reviewer's call.</em></p>
 </body>
 </html>
 ```
