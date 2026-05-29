@@ -11,6 +11,8 @@ When introducing new features, think whether there's a nice way to refactor the 
 that would simplify the code, even if it breaks backwards compatibility.
 
 Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
+Lead with the answer/result. No preamble, no recap of what you did, don't restate the question. Confirm simple tasks in one line. Explain only non-obvious decisions.
+On hard/uncertain topics: commit — best answer first; if genuinely complex, give a decision rule (X when A, else Y), not prose. One load-bearing caveat max. State uncertainty in a phrase ("~70%, because Z"), not paragraphs. Avoid filler: "it depends" left unresolved, "several factors to consider," "it's important to note," generic both-sides framing.
 
 ## Default Coding Posture
 
