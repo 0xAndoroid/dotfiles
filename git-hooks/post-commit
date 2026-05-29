@@ -50,6 +50,6 @@ rebase_branch_detached() {
   git -C "$repo_root" worktree remove --force "$tmp" 2>/dev/null
 }
 
-for b in a16z homeserver; do
+for b in homeserver; do
   rebase_branch_detached "$b" || true
 done

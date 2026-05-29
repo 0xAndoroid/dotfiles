@@ -52,7 +52,7 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 - Applied globally via `.gitconfig` `core.hooksPath = ~/.git-hooks`
 - Diffs: plain unified Git diffs by default; use `git diff --no-ext-diff --no-color` for agent review
 - Merges: standard Git merges with `diff3` conflict style
-- `.gitconfig` alias `pushall` — force-with-lease pushes main + a16z + homeserver branches
+- `.gitconfig` alias `pushall` — force-with-lease pushes main + homeserver branches
 
 ### Change Handoff Workflow
 
@@ -71,5 +71,5 @@ Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai win
 1. `git checkout main`
 2. Stage and commit changes on main
 3. `git checkout <original-branch> && git rebase main` — rebase the branch on top of main
-4. `git checkout main && git pushall` — pushes main, then force-with-lease pushes a16z/homeserver
+4. `git checkout main && git pushall` — pushes main, then force-with-lease pushes homeserver
 5. `git checkout <original-branch>` — return to the branch you started on
