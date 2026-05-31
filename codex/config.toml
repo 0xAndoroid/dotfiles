@@ -31,9 +31,6 @@ url = "http://100.81.62.125:7479/mcp"
 bearer_token_env_var = "PIKA_DELEGATION_TOKEN"
 tool_timeout_sec = 360
 
-[mcp_servers.exa]
-url = "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa"
-
 [projects."$HOME/dev/pika"]
 trust_level = "trusted"
 
