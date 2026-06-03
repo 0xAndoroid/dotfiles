@@ -146,30 +146,6 @@ keybinds clear-defaults=true {
         bind "Ctrl 8" { GoToTab 8; }
         bind "Ctrl 9" { GoToTab 9; }
         bind "Ctrl 0" { GoToTab 10; }
-        bind "Ctrl h" {
-            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
-                name "move_focus";
-                payload "left";
-            };
-        }
-        bind "Ctrl j" {
-            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
-                name "move_focus";
-                payload "down";
-            };
-        }
-        bind "Ctrl k" {
-            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
-                name "move_focus";
-                payload "up";
-            };
-        }
-        bind "Ctrl l" {
-            MessagePlugin "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm" {
-                name "move_focus";
-                payload "right";
-            };
-        }
     }
     shared_except "locked" {
         bind "Alt left" { MoveFocusOrTab "left"; }
@@ -295,10 +271,6 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
-}
-
-load_plugins {
-    "file:~/.dotfiles/zellij/plugins/zellij-nav.wasm"
 }
 
 theme "sonokai"

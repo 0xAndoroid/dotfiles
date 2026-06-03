@@ -5,26 +5,29 @@
      "GeForceNOWStreamer"
 ]
 
-# Navigation - passthrough to zellij/nvim, otherwise yabai handles it
-# Priority: zellij (matches "session | tab" format) > nvim direct > yabai
+# Navigation - cmux handles its own panes; skhd handles macOS windows.
 ctrl - h [
-    "Ghostty" title="* | *" ~
-    "Ghostty" title="*- Nvim" ~
+    "cmux" ~
+    "CMUX" ~
+    "Cmux" ~
     * : yabai -m window --focus west
 ]
 ctrl - j [
-    "Ghostty" title="* | *" ~
-    "Ghostty" title="*- Nvim" ~
+    "cmux" ~
+    "CMUX" ~
+    "Cmux" ~
     * : yabai -m window --focus south
 ]
 ctrl - k [
-    "Ghostty" title="* | *" ~
-    "Ghostty" title="*- Nvim" ~
+    "cmux" ~
+    "CMUX" ~
+    "Cmux" ~
     * : yabai -m window --focus north
 ]
 ctrl - l [
-    "Ghostty" title="* | *" ~
-    "Ghostty" title="*- Nvim" ~
+    "cmux" ~
+    "CMUX" ~
+    "Cmux" ~
     * : yabai -m window --focus east
 ]
 

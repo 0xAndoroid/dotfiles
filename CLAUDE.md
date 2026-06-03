@@ -27,17 +27,16 @@ Both tools configure MCP servers separately, with Perplexity enabled in each too
 
 Claude skills live in `claude/skills/<name>/SKILL.md`, rules in `claude/rules/`. Codex skills symlink to `claude/skills/`.
 
-### 3-Layer Navigation System (skhd → Zellij → Neovim → Yabai)
+### Navigation System (skhd -> cmux/Yabai)
 
-Ctrl+hjkl navigates seamlessly across Neovim splits, Zellij panes, and Yabai windows. See `nvim/CLAUDE.md` for the full flow diagram. Key files:
+Ctrl+hjkl no longer cascades through Neovim or Zellij. cmux owns pane focus when it is frontmost; skhd owns Yabai window focus everywhere else. Key files:
 
-- `.skhdrc` — routes keypresses based on Ghostty window title
-- `zellij/config.kdl` — locked default mode, `zellij-nav` WASM plugin for Nvim detection
-- `nvim/lua/plugins/smart-splits.lua` — edge detection cascades to Zellij then Yabai
+- `.skhdrc` — passes Ctrl+hjkl through for cmux and sends the same chords to Yabai otherwise
+- `cmux/cmux.json` — binds native cmux pane focus to Ctrl+hjkl
+- `nvim/lua/plugins/astrocore.lua` — Nvim split focus uses Alt+hjkl
 
 ### Zellij Plugins
 
-- `zellij-nav` — custom WASM plugin for Ctrl+hjkl navigation across Neovim/Zellij/Yabai
 - `zellaude` — Zellij plugin for Claude Code agent team support (with `zellaude-hook.sh`)
 - `zellij-tmux-shim` — sourced in `.zshrc` when inside Zellij, enables tmux-dependent tools
 

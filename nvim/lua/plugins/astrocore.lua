@@ -41,6 +41,10 @@ return {
         ["<Leader>xp"] = { ":TypstPreview<cr>", desc = "Typst preview start" },
         ["<Leader>xs"] = { ":TypstPreviewStop<cr>", desc = "Typst preview stop" },
         ["<Leader>xf"] = { ":TypstPreviewFollowCursorToggle<cr>", desc = "Typst follow cursor toggle" },
+        ["<M-h>"] = { "<cmd>wincmd h<cr>", desc = "Focus left window" },
+        ["<M-j>"] = { "<cmd>wincmd j<cr>", desc = "Focus lower window" },
+        ["<M-k>"] = { "<cmd>wincmd k<cr>", desc = "Focus upper window" },
+        ["<M-l>"] = { "<cmd>wincmd l<cr>", desc = "Focus right window" },
       },
       t = {
         ["<C-w>"] = { "<C-\\><C-n><C-w>", desc = "Exit terminal mode" },

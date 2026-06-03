@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal macOS dotfiles — Zsh, Neovim, Zellij, Yabai, Ghostty, Claude Code, Codex.
+Personal macOS dotfiles — Zsh, Neovim, Zellij, Yabai, Ghostty, cmux, Claude Code, Codex.
 
 ## Installation
 
@@ -16,7 +16,7 @@ cd ~/.dotfiles
 
 - **Shell**: Zsh + Oh My Zsh + Powerlevel10k (`zsh-defer` for fast startup)
 - **Editor**: Neovim via `bob`, custom Lua config
-- **Multiplexer**: Zellij with custom WASM plugins (`zellij-nav`, `zellaude`)
+- **Multiplexer**: cmux for pane focus and agent workflows; Zellij config remains for compatibility
 - **Window Manager**: Yabai + skhd
 - **Terminal**: Ghostty with Berkeley Mono Nerd Font
 - **AI**: Claude Code (Perplexity MCP, hooks, skills, rules) + Codex
@@ -25,9 +25,12 @@ cd ~/.dotfiles
 
 ## Navigation
 
-Ctrl+hjkl navigates seamlessly across Neovim splits → Zellij panes → Yabai windows. See `nvim/CLAUDE.md` for the full flow diagram.
+Ctrl+hjkl is owned by the active outer layer:
 
-skhd intercepts keypresses → routes based on Ghostty window title → `zellij-nav` WASM plugin detects Neovim → `smart-splits.nvim` handles edge cascading back through the stack.
+- cmux frontmost: skhd passes through; cmux focuses panes natively.
+- Anything else: skhd focuses Yabai windows.
+
+Nvim no longer participates in global navigation. Use `alt+hjkl` inside Nvim for split focus.
 
 ## Structure
 
@@ -36,8 +39,9 @@ skhd intercepts keypresses → routes based on Ghostty window title → `zellij-
 .gitconfig                      Git config (SSH signing, pushall alias)
 .skhdrc / .yabairc              Window management
 nvim/                           Neovim config (Lua)
-zellij/                         Zellij config + WASM plugins (zellij-nav, zellaude)
+zellij/                         Zellij config + agent plugins
 ghostty/                        Ghostty terminal config
+cmux/                           cmux app config
 hunk/                           Hunk diff viewer config
 lazygit/                        Lazygit config
 claude/                         Claude Code settings, MCP, hooks, skills, rules

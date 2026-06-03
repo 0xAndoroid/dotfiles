@@ -1,81 +1,13 @@
-# Neovim-Zellij-Yabai Navigation Integration
+# Neovim Navigation
 
-## Overview
-Three-layer navigation system that seamlessly switches between neovim splits, zellij panes, and yabai-managed windows using Ctrl+hjkl.
+Nvim does not participate in global Ctrl+hjkl navigation.
 
-## Architecture
+## Current Rules
 
-```
-User presses Ctrl+H
-       ↓
-   [skhd] checks Ghostty title
-       ↓
-  title = "* | *"?  (zellij format: "session | pane_title")
-    ├─ YES → Pass to zellij
-    │           ↓
-    │    [zellij-nav plugin] (custom WASM, src in zellij/plugins/zellij-nav/)
-    │           ↓
-    │      current pane is nvim?  (checks client running_command + pane title)
-    │        ├─ YES → write_chars(Ctrl+h) to pane
-    │        │           ↓
-    │        │    [smart-splits.nvim]
-    │        │        ↓
-    │        │   at nvim split edge?
-    │        │     ├─ NO  → Move nvim split
-    │        │     └─ YES → at_edge handler
-    │        │                ↓
-    │        │         zellij pipe → nvim_at_edge → plugin
-    │        │           ├─ at zellij edge → yabai focus window
-    │        │           └─ not at edge   → zellij MoveFocus
-    │        │
-    │        └─ NO → at zellij edge?
-    │                  ├─ YES → yabai focus window
-    │                  └─ NO  → zellij MoveFocus
-    │
-    └─ NO (title = "*- Nvim"?)
-          ├─ YES → Pass to nvim (direct, no zellij)
-          │           ↓
-          │    [smart-splits.nvim] → at_edge → yabai
-          │
-          └─ NO → yabai -m window --focus directly
-```
+- `ctrl+h/j/k/l`: reserved for cmux pane focus when cmux is frontmost, otherwise Yabai window focus through skhd.
+- `alt+h/j/k/l`: Nvim split focus, configured in `lua/plugins/astrocore.lua`.
+- Zellij is not part of Nvim edge navigation.
 
-## Components
+## Rationale
 
-1. **skhd** (`../.skhdrc`): OS-level hotkey daemon with title filtering
-2. **zellij-nav**: Custom WASM plugin (`../zellij/plugins/zellij-nav/src/main.rs`), compiled to `zellij-nav.wasm`
-3. **zellij** (`../zellij/config.kdl`): `default_mode "normal"`, Ctrl+hjkl bound in both locked and `shared_except "locked"`
-4. **smart-splits.nvim** (`lua/plugins/smart-splits.lua`): `multiplexer_integration = false`, custom `at_edge` handler pipes back to zellij-nav
-
-## Configuration Files
-
-### skhd (`.skhdrc`)
-```
-ctrl - h [
-    "Ghostty" title="* | *" ~       # zellij: passthrough (session | pane_title format)
-    "Ghostty" title="*- Nvim" ~      # nvim direct: passthrough
-    * : yabai -m window --focus west # default: yabai
-]
-```
-
-### zellij-nav plugin
-- Local nvim: detected via `client.running_command`
-- SSH nvim: `running_command` matches ssh/mosh → async `yabai -m query --windows --window` to check Ghostty window title for "nvim" (`PaneInfo.title` is pane name, not terminal title)
-- Edge detection: compares pane position against tab display area
-- Yabai invocation: `run_command` from WASM sandbox
-
-### smart-splits.nvim
-- `multiplexer_integration = false` — zellij-nav handles pane movement
-- Custom `at_edge` handler: if `$ZELLIJ` set → `zellij pipe --name nvim_at_edge`, else → yabai directly
-
-## Shell Integration
-
-`.zshrc` sets terminal title via `add-zsh-hook` + OSC `\e]0;...\a`:
-- precmd: `user@host:path` (e.g., `andoroid@Mac:~/.dotfiles`)
-- preexec: includes command name (e.g., `andoroid@Mac:~/.dotfiles > nvim`)
-
-Zellij composes Ghostty window title as: `<session_name> | <pane_title>`
-
-## Known Limitation
-
-SSH: remote nvim's `at_edge` handler can't pipe back to local zellij (no `$ZELLIJ` / IPC path on remote). Ctrl+hjkl navigates remote nvim splits (detected via yabai window title query), but edge→zellij/yabai navigation doesn't work over SSH.
+Nvim split navigation is intentionally local and simple. There is no split-navigation plugin, Zellij pipe, title detection, or Yabai fallback from inside Nvim.

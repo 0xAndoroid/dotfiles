@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+  "app": {
+    "confirmQuit": "dirty-only",
+    "reorderOnNotification": false,
+    "sendAnonymousTelemetry": false
+  },
+  "sidebar": {
+    "branchLayout": "inline"
+  },
+  "shortcuts": {
+    "bindings": {
+      "focusLeft": "ctrl+h",
+      "focusDown": "ctrl+j",
+      "focusUp": "ctrl+k",
+      "focusRight": "ctrl+l",
+      "selectWorkspaceByNumber": "ctrl+cmd+1"
+    }
+  }
+}
