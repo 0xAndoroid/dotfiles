@@ -9,6 +9,34 @@
   "sidebar": {
     "branchLayout": "inline"
   },
+  "sidebarAppearance": {
+    "matchTerminalBackground": true,
+    "tintColor": "#2B2D3A"
+  },
+  "workspaceColors": {
+    "selectionColor": "#3F445B",
+    "notificationBadgeColor": "#FB617E",
+    "colors": {
+      "Background": "#2B2D3A",
+      "Foreground": "#E1E3E4",
+      "Black": "#181A1C",
+      "Red": "#FB617E",
+      "Green": "#9ED06C",
+      "Yellow": "#EDC763",
+      "Blue": "#6DCAE8",
+      "Magenta": "#BB97EE",
+      "Cyan": "#77D5F0",
+      "White": "#E1E3E4",
+      "Bright Black": "#7E8294",
+      "Bright Red": "#FF6188",
+      "Bright Green": "#A9DC76",
+      "Bright Yellow": "#EDC763",
+      "Bright Blue": "#77D5F0",
+      "Bright Magenta": "#BB97EE",
+      "Bright Cyan": "#6DCAE8",
+      "Bright White": "#5A5E7A"
+    }
+  },
   "shortcuts": {
     "bindings": {
       "focusLeft": "ctrl+h",
