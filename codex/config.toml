@@ -101,6 +101,13 @@ command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 type = "command"
 command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
 
+[[hooks.PreToolUse]]
+matcher = "Bash"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "${HOME}/.dotfiles/claude/hooks/enforce-uv.sh"
+timeout = 5
+
 [[hooks.PostToolUse]]
 [[hooks.PostToolUse.hooks]]
 type = "command"

@@ -23,6 +23,11 @@ On hard/uncertain topics: commit — best answer first; if genuinely complex, gi
 - For bug fixes, reproduce or define the failing behavior before changing code when practical.
 - For non-trivial work, name the verification target early and loop until the targeted check passes or the blocker is clear.
 
+## Python Development
+
+- Use `uv` for all Python execution and package management.
+- Do not run `python`, `python3`, `pip`, or `pip3` directly. Use `uv run python ...`, `uv run <tool> ...`, `uv add/remove/sync`, or `uv pip ...`.
+
 ## Git Handoff
 
 - Default after edits: stage only the intended changes for handoff. Do not commit, push, rebase, or switch branches unless the user explicitly asks.
