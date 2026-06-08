@@ -43,7 +43,8 @@
       "focusDown": "ctrl+j",
       "focusUp": "ctrl+k",
       "focusRight": "ctrl+l",
-      "selectWorkspaceByNumber": "ctrl+cmd+1"
+      "selectWorkspaceByNumber": "ctrl+1",
+      "selectSurfaceByNumber": "ctrl+cmd+1"
     }
   }
 }
