@@ -58,9 +58,6 @@ trust_level = "trusted"
 [projects."/Users/andoroid/dev/jolt"]
 trust_level = "trusted"
 
-[projects."/Users/andoroid/dev/zellaude"]
-trust_level = "trusted"
-
 [projects."/Users/andoroid/dev/pika"]
 trust_level = "trusted"
 
@@ -84,81 +81,9 @@ status_line = [
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
-# BEGIN ZELLAUDE HOOKS
-[[hooks.SessionStart]]
-matcher = "startup|resume"
-[[hooks.SessionStart.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
-[[hooks.UserPromptSubmit]]
-[[hooks.UserPromptSubmit.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
-[[hooks.PreToolUse]]
-[[hooks.PreToolUse.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
 [[hooks.PreToolUse]]
 matcher = "Bash"
 [[hooks.PreToolUse.hooks]]
 type = "command"
 command = "${HOME}/.dotfiles/claude/hooks/enforce-uv.sh"
 timeout = 5
-
-[[hooks.PostToolUse]]
-[[hooks.PostToolUse.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
-[[hooks.PermissionRequest]]
-[[hooks.PermissionRequest.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
-[[hooks.Stop]]
-[[hooks.Stop.hooks]]
-type = "command"
-command = "${HOME}/.config/zellij/plugins/codex-hook.sh"
-
-[hooks.state]
-
-[hooks.state."/Users/andoroid/.codex/config.toml:permission_request:0:0"]
-enabled = true
-trusted_hash = "sha256:3da7d7a47cefd2d52dee677b411919b107b2664304c40a63ca40db92ff25038e"
-
-[hooks.state."/Users/andoroid/.codex/config.toml:post_tool_use:0:0"]
-trusted_hash = "sha256:df340720c8d6202a60254ab898031305bb05354c89abee2c312b35c07af91921"
-
-[hooks.state."/Users/andoroid/.codex/config.toml:pre_tool_use:0:0"]
-enabled = true
-trusted_hash = "sha256:1774adcee83b60dccec5d39bd307a21246ee3bbb80dde2aa80ac1519a70782ea"
-
-[hooks.state."/Users/andoroid/.codex/config.toml:session_start:0:0"]
-trusted_hash = "sha256:dcfc3a0fd1733db4f11e72ef2b695c8fd1e161efec3c96d3f95ddedd9543f374"
-
-[hooks.state."/Users/andoroid/.codex/config.toml:stop:0:0"]
-trusted_hash = "sha256:2f8a650153ff45318f685df8216c4aeb1db09a485815ed50100d0b42b71b404a"
-
-[hooks.state."/Users/andoroid/.codex/config.toml:user_prompt_submit:0:0"]
-trusted_hash = "sha256:2a3ddb77c46e5656cde20151b60183b00e2f3bdfb074860de14ad33ec37573d0"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:permission_request:0:0"]
-trusted_hash = "sha256:3da7d7a47cefd2d52dee677b411919b107b2664304c40a63ca40db92ff25038e"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:post_tool_use:0:0"]
-trusted_hash = "sha256:df340720c8d6202a60254ab898031305bb05354c89abee2c312b35c07af91921"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:pre_tool_use:0:0"]
-trusted_hash = "sha256:1774adcee83b60dccec5d39bd307a21246ee3bbb80dde2aa80ac1519a70782ea"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:session_start:0:0"]
-trusted_hash = "sha256:dcfc3a0fd1733db4f11e72ef2b695c8fd1e161efec3c96d3f95ddedd9543f374"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:stop:0:0"]
-trusted_hash = "sha256:2f8a650153ff45318f685df8216c4aeb1db09a485815ed50100d0b42b71b404a"
-
-[hooks.state."/Users/atretyakov/.codex/config.toml:user_prompt_submit:0:0"]
-trusted_hash = "sha256:2a3ddb77c46e5656cde20151b60183b00e2f3bdfb074860de14ad33ec37573d0"

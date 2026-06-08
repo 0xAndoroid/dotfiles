@@ -37,7 +37,6 @@ Ctrl+hjkl no longer cascades through Neovim or Zellij. cmux owns pane focus when
 
 ### Zellij Plugins
 
-- `zellaude` — Zellij plugin for Claude Code agent team support (with `zellaude-hook.sh`)
 - `zellij-tmux-shim` — sourced in `.zshrc` when inside Zellij, enables tmux-dependent tools
 
 ### Shell
