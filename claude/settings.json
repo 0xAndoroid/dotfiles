@@ -1,6 +1,6 @@
 {
   "env": {
-    "ANTHROPIC_MODEL": "claude-opus-4-8[1m]",
+    "ANTHROPIC_MODEL": "claude-fable-5[1m]",
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_FEEDBACK_COMMAND": "1",
@@ -77,7 +77,7 @@
       "Read(**/credentials/**)"
     ]
   },
-  "model": "claude-opus-4-6[1m]",
+  "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
   "statusLine": {
     "type": "command",
