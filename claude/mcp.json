@@ -6,14 +6,16 @@
       "args": ["-y", "@perplexity-ai/mcp-server"],
       "env": {
         "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
-      }
+      },
+      "alwaysLoad": true
     },
     "pika": {
       "type": "http",
       "url": "http://100.81.62.125:7479/mcp",
       "headers": {
         "Authorization": "Bearer ${PIKA_DELEGATION_TOKEN}"
-      }
+      },
+      "alwaysLoad": true
     }
   }
 }
