@@ -79,6 +79,20 @@
   },
   "model": "claude-fable-5[1m]",
   "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOME}/.dotfiles/claude/hooks/enforce-uv.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/statusline.sh"
@@ -94,19 +108,5 @@
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "preferredNotifChannel": "ghostty",
-  "autoCompactEnabled": false,
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${HOME}/.dotfiles/claude/hooks/enforce-uv.sh",
-            "timeout": 5
-          }
-        ]
-      }
-    ]
-  }
+  "autoCompactEnabled": false
 }
