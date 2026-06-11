@@ -9,12 +9,12 @@ Follow these steps:
 
 1. **Eligibility Check** (Sonnet): Check if the PR (a) is closed, (b) is automated/trivial. If so, stop.
 
-2. **PR Analysis** (Opus): View the PR and return:
+2. **PR Analysis** (Fable): View the PR and return:
    - Summary of the change and its purpose
    - List of new functions, types, enums, or abstractions introduced
    - For each new abstraction: its name, stated purpose (from comments/docs), and intended usage contract
 
-3. **Parallel Deep Review** (4 Opus agents): Pass the PR summary and new abstractions list to each agent. Use `references/review-agents.md` for the exact prompts.
+3. **Parallel Deep Review** (4 Fable agents): Pass the PR summary and new abstractions list to each agent. Use `references/review-agents.md` for the exact prompts.
 
    - **Semantic Consistency Agent**: verify each new abstraction is used according to its contract.
    - **Deep Bug Analysis Agent**: read full modified-file context and trace data/control flow.
