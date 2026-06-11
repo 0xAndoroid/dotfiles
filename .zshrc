@@ -120,7 +120,7 @@ _dotfiles_daily_pull() {
   echo "$today" > "$stamp"
 }
 
-export CLAUDE_CODE_EFFORT_LEVEL=max
+export CLAUDE_CODE_EFFORT_LEVEL=xhigh
 
 if [[ $- == *i* ]] && [[ -z "$CLAUDE_CODE_SESSION" ]]; then
   zsh-defer _dotfiles_daily_pull
