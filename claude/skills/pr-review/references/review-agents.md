@@ -1,4 +1,4 @@
-# Code Review Agent Prompts
+# PR Review Agent Prompts
 
 Pass the PR summary, abstraction list, and relevant diff context to each reviewer. Each agent should return only findings it believes are introduced by the PR.
 

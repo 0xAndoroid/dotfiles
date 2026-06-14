@@ -1,4 +1,4 @@
-# Code Review Comment Style
+# PR Review Comment Style
 
 Write like a senior engineer: concise, direct, and specific.
 

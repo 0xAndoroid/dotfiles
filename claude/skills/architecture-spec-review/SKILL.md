@@ -11,7 +11,7 @@ Turn a code diff into a written **architecture spec**: a faithful, neutral recon
 
 **Division of labor — read this first.** You author the *spec*; the human does the *review*. Your job is to **describe and surface**, theirs is to **judge**. The spec gives the reviewer everything they need to answer "are these the right abstractions?" — but you do NOT answer it for them. Specifically, you do **not** produce: a verdict, an abstraction diagnosis ("this is leaky/rigid/over-engineered"), a ranked risk list, or recommendations. State design decisions and their tradeoffs neutrally (lay out the alternative; don't crown a winner). Map futures to blast radius and cost as facts. Then hand off.
 
-This is a spec-authoring/reporting skill, not a bug hunter and not a verdict-giver. For correctness/security line review, use the `code-review` skill instead.
+This is a spec-authoring/reporting skill, not a bug hunter and not a verdict-giver. For correctness/security line review, use the `pr-review` skill instead.
 
 ## Writing style — write for a reader who will NOT open the code
 
@@ -28,7 +28,7 @@ The reader judges the design from your words alone. Assume they never look at th
 - "Turn this PR into a spec" / "reconstruct the design"
 - Future-proofing or abstraction review; "will this scale / absorb what's next?" — you map the pressure; the reviewer draws the conclusion
 
-Not for: line-by-line bug hunts, style nits, security audits → use `code-review`. Not for: rendering the verdict/recommendations yourself — that's the human reviewer's call.
+Not for: line-by-line bug hunts, style nits, security audits → use `pr-review`. Not for: rendering the verdict/recommendations yourself — that's the human reviewer's call.
 
 ## Workflow
 
@@ -97,7 +97,7 @@ The reviewer (the human), not this skill, produces the verdict, abstraction diag
 - **Wall-of-text density** → even a domain expert tires of long compound sentences full of jargon. Short sentences, one idea each, gist first.
 - **Reviewing hunks, not files** → you miss the abstraction context. Read full changed files.
 - **Two-dot diff** (`base..head`) → pulls in upstream drift. Use three-dot / `--merge-base`.
-- **Drifting into bug-hunting** → that's `code-review`'s job. Stay at abstraction altitude.
+- **Drifting into bug-hunting** → that's `pr-review`'s job. Stay at abstraction altitude.
 - **Vague futures** ("more features") → useless. Name concrete, domain-specific features with realistic requirements.
 - **Listing futures without costing them** → blast radius + Low/Med/High is the material the reviewer needs. Always classify by the mechanical spread criterion + justify with the seams it touches (this is a fact, not a verdict).
 - **Editorializing the cost pattern** → laying out "these 3 futures are High, all touching seam X" is the spec; concluding "therefore X is the wrong abstraction" is the review. Stop at the pattern.

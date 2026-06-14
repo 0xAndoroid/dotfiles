@@ -1,9 +1,9 @@
 ---
-name: code-review
-description: 'Deep code review of a pull request using parallel analysis agents (semantic consistency, bugs, tech debt, security). USE FOR: - Reviewing PRs for bugs, security issues, and code quality - Analyzing new abstractions for consistency and correctness - Identifying tech debt and architectural concerns - Posting review comments to specific lines on GitHub TRIGGERS: - "review PR", "code review", "review changes" - "diff review", "PR feedback", "check PR" - "analyze diff", "critique code", "review code" - "pull request review", "GitHub PR review"'
+name: pr-review
+description: 'Deep pull request review using parallel analysis agents (semantic consistency, bugs, tech debt, security). Posts validated review comments into a live Hunk review session by default; GitHub PR posting is reference-only unless the user explicitly asks for it. USE FOR: - Reviewing PRs for bugs, security issues, and code quality - Analyzing new abstractions for consistency and correctness - Identifying tech debt and architectural concerns - Preparing line comments for Hunk or optional GitHub PR review posting TRIGGERS: - "review PR", "PR review", "code review", "review changes" - "diff review", "PR feedback", "check PR" - "analyze diff", "critique code", "review code" - "pull request review", "GitHub PR review"'
 ---
 
-Provide a code review for the given pull request.
+Provide a pull request review.
 
 Follow these steps:
 
@@ -45,14 +45,58 @@ Follow these steps:
    issues, IMMEDIATELY continue to step 5. Do NOT wait for user input. Do NOT treat
    validation notes as the end of the review.**
 
-5. **List issues to user for double check** (IMMEDIATELY after step 4 -- do not pause):
+5. **Compose review comments** (IMMEDIATELY after step 4 -- do not pause):
 
-   Present ALL issues in a single message, formatted as a numbered list with scores.
+   Read `references/comment-style.md` before composing comments.
+
+   For each validated issue worth surfacing, prepare one inline review comment with:
+   - `filePath`: repo-relative path
+   - `newLine`: the NEW file line number, on a line modified by the PR
+   - `summary`: comment text following `references/comment-style.md`
+   - `rationale`: optional supporting detail when the summary needs context
+
+   Do not ask which issues to post. Do not prompt about GitHub. Continue to step 6.
+
+6. **Post comments to Hunk by default**:
+
+   Apply the prepared comments to the live Hunk review session before any GitHub PR posting.
+   Use `hunk session *` commands only; do not run interactive `hunk diff`, `hunk show`, or TUI commands.
+
+   Inspect the session and visible review first:
+   ```bash
+   hunk session list --json
+   hunk session get --repo . --json
+   hunk session review --repo . --json
+   ```
+
+   Apply comments as one batch:
+   ```bash
+   printf '%s\n' '{"comments":[{"filePath":"relative/path/to/file.rs","newLine":42,"summary":"Comment text","rationale":"Optional detail"}]}' \
+     | hunk session comment apply --repo . --stdin
+   ```
+
+   Key points:
+   - Use `comment apply` for multiple agent-generated comments.
+   - Target `newLine` for added/modified PR lines.
+   - Only apply comments for visible files/lines in the loaded Hunk review.
+   - If no active Hunk session exists, or a target line is not visible, do not block and do not ask the user to post to GitHub instead. Report that Hunk comments were not applied and include the prepared comments in the final response.
+   - If no issues survive validation, do not apply comments.
+
+7. **Report results and stop**:
+
+   Present ALL validated issues in a single final message, formatted as a numbered list with scores.
    Include: file path, line number, one-line description, score, and 1-2 sentence rationale.
-   Then ask the user which issues to post to the PR. Wait for user response before step 6.
 
-6. **Post comments to PR**: For each issue that is approved by user, post a review to the PR
-   with comments on specific lines of code. Or if no issues, do not post comments.
+   Also report:
+   - Whether comments were applied to Hunk
+   - That GitHub/PR comments were not posted, by default
+
+   Do not ask whether to post to GitHub. Stop here unless the user explicitly asked in the current request to post to GitHub/PR.
+
+8. **GitHub posting reference only**:
+
+   Use this section only when the user explicitly asks to post comments to GitHub/PR.
+   If the exact comments have not already been applied to Hunk in this run, apply them to Hunk first via step 6.
 
    Build a JSON file and use the GitHub review API:
    ```bash
@@ -98,5 +142,6 @@ Follow these steps:
 
 - Do NOT run builds/tests - CI handles that
 - Use `gh` for all GitHub interaction
-- When posting comments, post them to the specific lines of code
+- When applying or posting comments, target specific changed lines of code
+- Do not post comments to GitHub unless the user explicitly asks
 - Make a todo list to track progress
