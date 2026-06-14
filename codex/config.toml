@@ -94,5 +94,9 @@ timeout = 5
 trusted_hash = "sha256:efdc141ad810fda0338aa6d3403da9cccf5fb6ee94b05d2b709c8f417ec7b022"
 enabled = true
 
+[hooks.state."/Users/andoroid/.codex/config.toml:pre_tool_use:0:0"]
+trusted_hash = "sha256:efdc141ad810fda0338aa6d3403da9cccf5fb6ee94b05d2b709c8f417ec7b022"
+enabled = true
+
 [plugins."superpowers@openai-curated"]
 enabled = true
